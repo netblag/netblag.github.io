@@ -2583,3 +2583,126 @@ html[data-lang="fa"] .contact-copy {
     margin-top: 35px;
   }
 }
+
+/* =========================================================
+   ADMIN HEADER CONTROLS
+   ========================================================= */
+
+.admin-navbar-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.admin-circle-button {
+  appearance: none;
+  -webkit-appearance: none;
+
+  width: 34px;
+  min-width: 34px;
+
+  height: 34px;
+  min-height: 34px;
+
+  padding: 0;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid var(--line);
+  border-radius: 50%;
+
+  background: transparent;
+  color: var(--text);
+
+  font:
+    9px "DM Mono",
+    monospace;
+
+  line-height: 1;
+
+  cursor: pointer;
+
+  direction: ltr !important;
+
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.15s ease;
+}
+
+.admin-circle-button:hover {
+  background: var(--text);
+  color: var(--bg);
+  border-color: var(--text);
+}
+
+.admin-circle-button:active {
+  transform: scale(0.96);
+}
+
+.admin-circle-button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.admin-signout {
+  appearance: none;
+  -webkit-appearance: none;
+
+  min-width: 72px;
+  height: 34px;
+
+  padding: 0 13px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid var(--line);
+
+  background: transparent;
+  color: var(--muted);
+
+  font:
+    10px "DM Mono",
+    monospace;
+
+  line-height: 1;
+
+  cursor: pointer;
+
+  direction: ltr !important;
+
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.admin-signout:hover {
+  background: var(--text);
+  color: var(--bg);
+  border-color: var(--text);
+}
+
+.admin-signout:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+html[data-lang="fa"] .admin-signout {
+  font-family: "Dubai", sans-serif;
+  direction: rtl !important;
+}
+
+html[data-lang="fa"] .admin-navbar {
+  direction: ltr !important;
+}
+
+html[data-lang="fa"] .admin-navbar-actions {
+  direction: ltr !important;
+}
