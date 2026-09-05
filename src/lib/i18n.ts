@@ -16,40 +16,47 @@ export const copy = {
         'Building & learning',
 
       intro:
-        'Software engineering student exploring data science, machine learning and practical software development.',
+        'I build software, work with data, and try to understand the problem before trying to solve it.',
 
       side:
-        'I like working with data, building software, and understanding why things work — not just making them work.',
+        'My current focus is turning what I learn into practical projects — from data analysis and modeling to real software products.',
 
       link:
         'Explore the work',
     },
 
     about: {
-      label: 'About',
-      secondary: 'A little context',
+      label:
+        'About',
+
+      secondary:
+        'Path & approach',
 
       large:
-        'I am a software engineering student moving steadily toward Data Science and Machine Learning.',
+        'My path sits between software engineering, data analysis, and machine learning.',
 
       a:
-        'Python, data analysis, statistics and machine learning make up the core of what I am currently learning. Real datasets are much more interesting to me than toy examples.',
+        'On the data side, I work mainly with Python, statistics, and data analysis — cleaning datasets, exploring them, finding patterns, and building models that can actually be evaluated.',
 
       b:
-        'I also build Android applications. It keeps the work grounded in actual software instead of staying only inside notebooks and experiments.',
+        'Alongside that, I build software and Android applications. I care about keeping the connection between understanding a problem and building a practical solution.',
     },
 
     work: {
-      label: 'Selected work',
-      secondary: 'Things I built',
+      label:
+        'Selected work',
+
+      secondary:
+        'Things I built',
     },
 
     projects: {
       data: {
-        title: 'Data Science',
+        title:
+          'Data Science',
 
         text:
-          'Working with datasets from cleaning and exploration to visualization and first-pass modeling.',
+          'Working with real datasets through preparation, exploratory analysis, and visualization to build a clearer understanding of the problem.',
 
         tags: [
           'Python',
@@ -60,10 +67,11 @@ export const copy = {
       },
 
       ml: {
-        title: 'Machine Learning',
+        title:
+          'Machine Learning',
 
         text:
-          'Predictive models, feature engineering, evaluation and model interpretation.',
+          'Experimenting with predictive models, feature engineering, and model evaluation while trying to understand why each model behaves the way it does.',
 
         tags: [
           'Scikit-learn',
@@ -78,7 +86,7 @@ export const copy = {
           'Predictive Maintenance',
 
         text:
-          'Exploring sensor data to estimate equipment condition and remaining useful life.',
+          'Using sensor data to understand equipment condition and estimate when maintenance may be needed.',
 
         tags: [
           'Python',
@@ -90,24 +98,31 @@ export const copy = {
     },
 
     software: {
-      label: 'Software',
-      secondary: 'Android',
+      label:
+        'Software',
+
+      secondary:
+        'Android',
     },
 
     apps: {
       darooyar:
-        'A medication management app focused on schedules, reminders and keeping daily routines simple.',
+        'An Android application for managing medication schedules, reminders, and daily routines.',
 
       lexibook:
-        'A flashcard learning app for organizing vocabulary and turning review into a routine.',
+        'A flashcard learning application for organizing vocabulary and making review more consistent.',
     },
 
     stack: {
-      label: 'Stack',
-      secondary: 'Current toolkit',
+      label:
+        'Stack',
+
+      secondary:
+        'Current toolkit',
 
       rows: {
-        data: 'Data',
+        data:
+          'Data',
 
         ml:
           'Machine Learning',
@@ -121,7 +136,8 @@ export const copy = {
     },
 
     education: {
-      label: 'Education',
+      label:
+        'Education',
 
       secondary:
         'Background',
@@ -153,7 +169,7 @@ export const copy = {
         'LET’S<br />TALK.',
 
       text:
-        'Good ideas, technical conversations and interesting projects are always welcome.',
+        'Good ideas, technical conversations, and interesting projects are always welcome.',
     },
 
     footer:
@@ -176,13 +192,13 @@ export const copy = {
         [
           'json',
           'JSON Formatter',
-          'Format, validate and inspect JSON.',
+          'Format, validate, and inspect JSON.',
         ],
 
         [
           'csv',
           'CSV Analyzer',
-          'Inspect rows, columns and basic statistics.',
+          'Inspect rows, columns, and basic statistics.',
         ],
 
         [
@@ -250,10 +266,10 @@ export const copy = {
         'در حال یادگیری و ساختن',
 
       intro:
-        'دانشجوی مهندسی نرم‌افزارم و مسیرم را روی علم داده، یادگیری ماشین و توسعه نرم‌افزارهای کاربردی پیش می‌برم.',
+        'نرم‌افزار می‌سازم، با داده کار می‌کنم و قبل از حل هر مسئله، سعی می‌کنم خود مسئله را درست بفهمم.',
 
       side:
-        'داده، ساخت نرم‌افزار و فهمیدن دلیل درست کار کردن چیزها برایم جذاب‌تر از این است که فقط چیزی را به نتیجه برسانم.',
+        'تمرکز فعلی من تبدیل چیزهایی است که یاد می‌گیرم به پروژه‌های کاربردی؛ از تحلیل و مدل‌سازی داده تا ساخت نرم‌افزار واقعی.',
 
       link:
         'مشاهده پروژه‌ها',
@@ -264,16 +280,16 @@ export const copy = {
         'درباره من',
 
       secondary:
-        'کمی درباره مسیر',
+        'مسیر و رویکرد',
 
       large:
-        'دانشجوی مهندسی نرم‌افزارم و به‌تدریج تمرکزم را به سمت علم داده و یادگیری ماشین می‌برم.',
+        'مسیر حرفه‌ای من در نقطه‌ای میان مهندسی نرم‌افزار، تحلیل داده و یادگیری ماشین شکل می‌گیرد.',
 
       a:
-        'پایتون، تحلیل داده، آمار و یادگیری ماشین بخش اصلی مسیری هستند که در حال یادگیری آن‌ها هستم. کار با داده‌های واقعی برایم جذاب‌تر از مثال‌های مصنوعی و صرفاً آموزشی است.',
+        'در بخش داده بیشتر با پایتون، آمار و تحلیل داده کار می‌کنم؛ از آماده‌سازی و بررسی مجموعه‌داده‌ها تا پیدا کردن الگوها و ساخت مدل‌هایی که بتوان عملکردشان را به‌درستی سنجید.',
 
       b:
-        'در کنار این مسیر، اپلیکیشن‌های اندرویدی هم می‌سازم؛ همین موضوع باعث می‌شود کارم فقط در محیط‌های آزمایشی باقی نماند و به محصول واقعی هم وصل باشد.',
+        'در کنار آن، توسعه نرم‌افزار و ساخت اپلیکیشن‌های اندرویدی را دنبال می‌کنم. برایم مهم است که فهم مسئله در نهایت به یک راه‌حل قابل استفاده تبدیل شود، نه اینکه فقط در محیط آزمایشی باقی بماند.',
     },
 
     work: {
@@ -290,7 +306,7 @@ export const copy = {
           'علم داده',
 
         text:
-          'کار با مجموعه‌داده‌ها از پاک‌سازی و بررسی اولیه تا مصورسازی و ساخت مدل‌های اولیه؛ تمرکز روی استخراج اطلاعات مفید از داده است.',
+          'کار با داده‌های واقعی از آماده‌سازی و پاک‌سازی تا تحلیل اکتشافی و مصورسازی؛ با هدف رسیدن به درک روشن‌تر و دقیق‌تر از مسئله.',
 
         tags: [
           'پایتون',
@@ -305,7 +321,7 @@ export const copy = {
           'یادگیری ماشین',
 
         text:
-          'ساخت و ارزیابی مدل‌های پیش‌بینی، آماده‌سازی ویژگی‌ها و بررسی رفتار و عملکرد مدل‌ها.',
+          'آزمایش مدل‌های پیش‌بینی، مهندسی ویژگی و ارزیابی مدل‌ها؛ با تمرکز روی اینکه هر مدل چرا چنین نتیجه‌ای تولید می‌کند و چطور می‌توان آن را بهتر ارزیابی کرد.',
 
         tags: [
           'سایکیت‌لِرن',
@@ -320,7 +336,7 @@ export const copy = {
           'نگهداری پیش‌بینانه',
 
         text:
-          'بررسی داده‌های حسگرها برای تحلیل وضعیت تجهیزات و برآورد زمان باقی‌مانده تا نیاز به تعمیر یا نگهداری.',
+          'استفاده از داده‌های حسگر برای بررسی وضعیت تجهیزات و برآورد زمان احتمالی نیاز به تعمیر یا نگهداری.',
 
         tags: [
           'پایتون',
@@ -341,10 +357,10 @@ export const copy = {
 
     apps: {
       darooyar:
-        'اپلیکیشنی برای مدیریت برنامه مصرف دارو، یادآوری زمان‌ها و ساده‌تر کردن پیگیری روزانه.',
+        'اپلیکیشن اندرویدی برای مدیریت برنامه مصرف دارو، یادآوری زمان‌ها و ساده‌تر کردن پیگیری روزانه.',
 
       lexibook:
-        'اپلیکیشن فلش‌کارت برای سازمان‌دهی واژگان و تبدیل مرور کردن به یک عادت منظم.',
+        'اپلیکیشن فلش‌کارت برای سازمان‌دهی واژگان و تبدیل مرور کردن به یک روند منظم و قابل پیگیری.',
     },
 
     stack: {
@@ -432,31 +448,31 @@ export const copy = {
         [
           'csv',
           'تحلیل CSV',
-          'بررسی ردیف‌ها، ستون‌ها و آمار اولیه فایل CSV.',
+          'بررسی ردیف‌ها، ستون‌ها و آمار اولیه داده‌های CSV.',
         ],
 
         [
           'regex',
           'آزمایش عبارت منظم',
-          'آزمودن عبارت‌های منظم روی متن و مشاهده تطبیق‌ها.',
+          'آزمودن عبارت‌های منظم روی متن و مشاهده نتیجه.',
         ],
 
         [
           'markdown',
           'پیش‌نمایش Markdown',
-          'نوشتن Markdown و مشاهده نتیجه آن.',
+          'نوشتن Markdown و مشاهده نتیجه آن به‌صورت زنده.',
         ],
 
         [
           'text',
           'ابزارهای متن',
-          'شمارش و تبدیل متن.',
+          'شمارش نویسه و کلمه و تغییر شکل متن.',
         ],
 
         [
           'timestamp',
           'تبدیل زمان یونیکس',
-          'تبدیل زمان یونیکس به تاریخ و ساعت.',
+          'تبدیل زمان یونیکس به تاریخ و ساعت خوانا.',
         ],
 
         [
@@ -475,5 +491,4 @@ export const copy = {
   },
 } as const
 
-export type Copy =
-  (typeof copy)['en']
+export type Copy = (typeof copy)['en']
