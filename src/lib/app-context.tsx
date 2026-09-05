@@ -20,20 +20,23 @@ type AppContextValue = {
 const AppContext = createContext<AppContextValue | null>(null)
 
 export function AppProvider({ children }: { children: ReactNode }) {
-  const [language, setLanguage] = useState<Language>(() =>
-    localStorage.getItem('site-language') === 'fa' ? 'fa' : 'en'
-  )
+  const [language, setLanguage] = useState<Language>(() => {
+    return localStorage.getItem('site-language') === 'fa' ? 'fa' : 'en'
+  })
 
-  const [theme, setTheme] = useState<Theme>(() =>
-    localStorage.getItem('site-theme') === 'dark' ? 'dark' : 'light'
-  )
+  const [theme, setTheme] = useState<Theme>(() => {
+    return localStorage.getItem('site-theme') === 'dark' ? 'dark' : 'light'
+  })
 
   useEffect(() => {
     document.documentElement.dataset.lang = language
-
-    // مهم:
-    // جهت کلی صفحه همیشه LTR می‌ماند تا flex/grid و header جابه‌جا نشوند.
     document.documentElement.lang = language
+
+    /*
+     * مهم:
+     * هیچ‌وقت direction کل document را RTL نمی‌کنیم.
+     * این کار باعث جابه‌جایی flex/grid و layout می‌شد.
+     */
     document.documentElement.dir = 'ltr'
 
     localStorage.setItem('site-language', language)
@@ -48,15 +51,23 @@ export function AppProvider({ children }: { children: ReactNode }) {
     () => ({
       language,
       theme,
-      toggleLanguage: () =>
-        setLanguage((current) => (current === 'en' ? 'fa' : 'en')),
-      toggleTheme: () =>
-        setTheme((current) => (current === 'light' ? 'dark' : 'light')),
+
+      toggleLanguage: () => {
+        setLanguage((current) => (current === 'en' ? 'fa' : 'en'))
+      },
+
+      toggleTheme: () => {
+        setTheme((current) => (current === 'light' ? 'dark' : 'light'))
+      },
     }),
     [language, theme],
   )
 
-  return <AppContext.Provider value={value}>{children}</AppContext.Provider>
+  return (
+    <AppContext.Provider value={value}>
+      {children}
+    </AppContext.Provider>
+  )
 }
 
 export function useApp() {

@@ -1,1462 +1,2555 @@
-:root{--bg:#f4f3ee;--surface:#e9e8e1;--text:#111;--muted:#73736d;--line:#cecec6;--accent:#0b6965;--max:1480px;--space:36px}html.dark{--bg:#111;--surface:#1a1a1a;--text:#f2f1eb;--muted:#979791;--line:#33332f;--accent:#61c7bf}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,sans-serif;line-height:1.5;-webkit-font-smoothing:antialiased;transition:.25s background-color,.25s color}body:has(.tool-page),body:has(.admin-page),body:has(.chat-page){min-height:100vh}body.rtl{font-family:Vazirmatn,sans-serif}a{color:inherit;text-decoration:none}button,input,textarea{font:inherit}button{cursor:pointer}::selection{background:var(--text);color:var(--bg)}.site{width:min(var(--max),calc(100% - var(--space)*2));margin:0 auto}.header{height:82px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between}.brand{font-weight:800;letter-spacing:-.08em}.nav{display:flex;align-items:center;gap:26px}.nav>a{font:10px 'DM Mono',monospace;color:var(--muted)}.nav>a:hover{color:var(--text)}.circle-button{width:34px;height:34px;border:1px solid var(--line);border-radius:50%;background:transparent;color:var(--text);display:grid;place-items:center;font:9px 'DM Mono',monospace}.circle-button:hover{background:var(--text);color:var(--bg)}.mobile-menu{display:none;background:none;border:0;color:var(--text);font-size:20px}.accent-text{color:var(--accent)}.hero{min-height:calc(100vh - 82px);display:flex;flex-direction:column;justify-content:center;padding:90px 0 110px}.hero-meta{display:flex;justify-content:space-between;align-items:center;margin-bottom:75px;font:10px 'DM Mono',monospace;text-transform:uppercase}.status{color:var(--muted)}.status i{width:7px;height:7px;display:inline-block;margin-inline-end:7px;border-radius:50%;background:var(--accent)}.hero-title{margin:0;font-size:clamp(84px,14.7vw,215px);line-height:.76;font-weight:800;letter-spacing:-.105em}.hero-title span{display:block}.hero-title .outline{color:transparent;-webkit-text-stroke:1.5px var(--text)}.hero-bottom{margin-top:105px;display:grid;grid-template-columns:minmax(280px,1fr) minmax(280px,410px);gap:80px}.hero-intro{max-width:760px;font-size:clamp(27px,3.3vw,48px);line-height:1.03;letter-spacing:-.05em}.hero-side{align-self:end}.hero-side p,.contact-copy{max-width:390px;color:var(--muted);font-size:14px;line-height:1.9}.text-link{display:inline-flex;gap:12px;margin-top:30px;padding-bottom:6px;border-bottom:1px solid var(--text);font:10px 'DM Mono',monospace;text-transform:uppercase}.text-link b{font-size:17px;font-weight:400}.section{padding:115px 0;border-top:1px solid var(--line)}.section-grid{display:grid;grid-template-columns:100px minmax(0,1fr);gap:48px}.section-number{font:10px 'DM Mono',monospace;color:var(--muted)}.section-label{display:flex;justify-content:space-between;padding-bottom:62px;font:10px 'DM Mono',monospace;text-transform:uppercase;color:var(--muted)}.secondary{opacity:.5}.about-large{max-width:1040px;font-size:clamp(39px,5.25vw,78px);line-height:.99;letter-spacing:-.065em}.two-columns{max-width:980px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:70px;margin-top:80px}.two-columns p{max-width:450px;color:var(--muted);font-size:14px;line-height:1.95}.projects{border-top:1px solid var(--line)}.project{display:grid;grid-template-columns:80px minmax(0,1fr) 35px;gap:30px;padding:44px 0;border-bottom:1px solid var(--line);transition:.2s background-color,.2s padding}.project:hover{background:var(--surface);padding-inline:22px}.project-number{font:10px 'DM Mono',monospace;color:var(--muted)}.project-content h2{margin:0;font-size:clamp(40px,5vw,75px);line-height:.86;letter-spacing:-.065em;font-weight:600}.project-content p{max-width:650px;margin:25px 0 0;color:var(--muted);font-size:14px;line-height:1.85}.tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:28px}.tags span{padding:5px 9px;border:1px solid var(--line);border-radius:100px;font:9px 'DM Mono',monospace;color:var(--muted)}.project-arrow{font-size:26px}.apps{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:var(--line)}.app{min-height:410px;padding:35px;background:var(--bg);display:flex;flex-direction:column;justify-content:space-between}.app-top{display:flex;justify-content:space-between;font:10px 'DM Mono',monospace;color:var(--muted);text-transform:uppercase}.app-main h2{margin:0;font-size:clamp(52px,6vw,92px);line-height:.82;letter-spacing:-.075em}.app-main p{max-width:530px;margin-top:30px;color:var(--muted);font-size:14px;line-height:1.9}.app-stack{font:10px 'DM Mono',monospace;color:var(--muted)}.stack-list,.education-list{border-top:1px solid var(--line)}.stack-row,.education-row{display:grid;grid-template-columns:220px minmax(0,1fr);gap:30px;padding:27px 0;border-bottom:1px solid var(--line);font-size:17px}.stack-title,.education-date{font:10px 'DM Mono',monospace;color:var(--muted);text-transform:uppercase}.education-row h2{margin:0;font-size:clamp(30px,3.5vw,52px);line-height:1;letter-spacing:-.05em;font-weight:500}.education-row p{margin-top:13px;color:var(--muted);font-size:14px}.contact{min-height:80vh;padding:110px 0 75px;border-top:1px solid var(--line);display:flex;flex-direction:column;justify-content:space-between}.contact-head{display:flex;justify-content:space-between}.contact-title{margin:100px 0 0;font-size:clamp(82px,15vw,220px);line-height:.75;font-weight:800;letter-spacing:-.105em}.message-area{margin-top:90px;display:grid;grid-template-columns:minmax(250px,1fr) minmax(320px,620px);gap:70px;align-items:end}.message-form{border-top:1px solid var(--line)}.message-form label{display:block;padding:18px 0;border-bottom:1px solid var(--line)}.message-form label span{display:block;margin-bottom:9px;color:var(--muted);font:9px 'DM Mono',monospace;text-transform:uppercase}.message-form input,.message-form textarea{width:100%;background:transparent;border:0;outline:0;color:var(--text);resize:vertical}.message-form textarea{min-height:130px}.message-actions{display:flex;align-items:center;gap:20px;padding-top:18px}.message-actions button,.primary-button,.ghost-button,.tool-actions button{border:1px solid var(--line);background:transparent;color:var(--text);padding:10px 15px;font:10px 'DM Mono',monospace}.message-actions button:hover,.primary-button:hover,.tool-actions button:hover{background:var(--text);color:var(--bg)}.form-status{font-size:12px}.success{color:var(--accent)}.error{color:#a33}.footer{padding:22px 0;border-top:1px solid var(--line);display:flex;justify-content:space-between;color:var(--muted);font:9px 'DM Mono',monospace;text-transform:uppercase}.tool-page,.admin-page,.chat-page{width:min(var(--max),calc(100% - var(--space)*2));margin:0 auto}.tool-header{padding:60px 0 70px;display:flex;justify-content:space-between;align-items:flex-start}.tool-header h1{margin:18px 0 10px;font-size:clamp(70px,12vw,170px);line-height:.78;letter-spacing:-.09em}.tool-header p{margin:0;color:var(--muted)}.back-link{font:10px 'DM Mono',monospace;color:var(--muted);text-transform:uppercase}.tool-list{border-top:1px solid var(--line)}.tool-item{width:100%;display:grid;grid-template-columns:80px minmax(0,1fr) 35px;gap:30px;text-align:left;border:0;border-bottom:1px solid var(--line);padding:28px 0;background:transparent;color:var(--text);transition:.2s background-color,.2s padding}.tool-item:hover{background:var(--surface);padding-inline:20px}.tool-item strong{display:block;font-size:clamp(28px,4vw,54px);letter-spacing:-.045em}.tool-item small{display:block;margin-top:9px;color:var(--muted);font-size:13px}.tool-number{font:10px 'DM Mono',monospace;color:var(--muted)}.tool-workspace{border-top:1px solid var(--line);padding-top:25px;padding-bottom:80px}.workspace-top{display:flex;justify-content:space-between;align-items:end;margin:20px 0 30px}.workspace-top h2{margin:0;font-size:clamp(40px,6vw,78px);line-height:.9}.workspace-top span{font:10px 'DM Mono',monospace;color:var(--muted)}.tool-editor{width:100%;min-height:320px;padding:18px;border:1px solid var(--line);background:var(--surface);color:var(--text);outline:0;resize:vertical;font:13px 'DM Mono',monospace}.tool-actions{display:flex;gap:8px;margin:12px 0}.tool-output{min-height:160px;padding:18px;border:1px solid var(--line);white-space:pre-wrap;overflow:auto;font:12px 'DM Mono',monospace}.stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);margin-top:15px}.stats-grid>div{padding:25px;background:var(--bg)}.stats-grid small{display:block;color:var(--muted);font:10px 'DM Mono',monospace;text-transform:uppercase}.stats-grid strong{display:block;margin-top:10px;font-size:25px}.stats-grid .wide{grid-column:span 3}.inline-form{display:grid;grid-template-columns:280px 1fr;gap:20px;align-items:center}.inline-form input{padding:14px;border:1px solid var(--line);background:var(--surface);color:var(--text)}.uuid-box{padding:25px;border:1px solid var(--line);background:var(--surface);font:16px 'DM Mono',monospace;margin-bottom:15px}.admin-top{height:82px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between}.admin-top>div{display:flex;gap:8px;align-items:center}.admin-login{width:min(520px,100%);margin:16vh auto}.admin-login h1{margin:16px 0 8px;font-size:clamp(60px,10vw,110px);line-height:.8;letter-spacing:-.09em}.admin-login p{color:var(--muted);margin-bottom:50px}.admin-login form{border-top:1px solid var(--line)}.admin-login label{display:block;padding:18px 0;border-bottom:1px solid var(--line);font:10px 'DM Mono',monospace;color:var(--muted);text-transform:uppercase}.admin-login input{display:block;width:100%;margin-top:10px;border:0;outline:0;background:transparent;color:var(--text)}.admin-login .primary-button{margin-top:18px}.config-note{display:block;color:var(--muted);margin-top:22px}.admin-dashboard{padding:70px 0}.admin-heading{display:flex;justify-content:space-between;align-items:end;margin-bottom:40px}.admin-heading h1{margin:15px 0 0;font-size:clamp(65px,11vw,150px);line-height:.78;letter-spacing:-.09em}.count{font:13px 'DM Mono',monospace;color:var(--muted)}.message-list{border-top:1px solid var(--line)}.message-card{padding:25px 0;border-bottom:1px solid var(--line)}.message-card.unread{background:var(--surface);padding-inline:18px}.message-card-head{display:flex;justify-content:space-between;gap:20px}.message-card-head span{font:10px 'DM Mono',monospace;color:var(--muted)}.message-card p{max-width:800px;white-space:pre-wrap;line-height:1.8}.message-card-actions{display:flex;gap:8px}.message-card-actions button{border:0;border-bottom:1px solid var(--line);background:transparent;color:var(--muted);font-size:11px;padding:5px 0}.empty-state,.center-state{padding:50px 0;color:var(--muted)}.chat-shell{max-width:950px;margin:0 auto;padding:70px 0}.chat-head{display:flex;justify-content:space-between;align-items:end}.chat-head h1{margin:14px 0 0;font-size:clamp(60px,10vw,120px);line-height:.8;letter-spacing:-.09em}.chat-note{font:10px 'DM Mono',monospace;color:var(--muted)}.chat-messages{min-height:55vh;border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-top:55px;padding:25px 0}.chat-empty{color:var(--muted);padding-top:20vh;text-align:center}.chat-message{padding:16px 0;border-bottom:1px solid var(--line)}.chat-message>span{font:9px 'DM Mono',monospace;color:var(--muted)}.chat-message p{max-width:760px;white-space:pre-wrap;line-height:1.85}.chat-message.user p{font-weight:500}.chat-input-wrap{display:grid;grid-template-columns:1fr 55px;gap:10px;margin-top:18px}.chat-input-wrap textarea{min-height:70px;padding:14px;border:1px solid var(--line);background:var(--surface);color:var(--text);resize:vertical;outline:0}.chat-input-wrap button{border:1px solid var(--line);background:transparent;color:var(--text);font-size:24px}.chat-input-wrap button:hover{background:var(--text);color:var(--bg)}html[data-lang=fa] body{direction:rtl}html[data-lang=fa] .hero-title,html[data-lang=fa] .contact-title{letter-spacing:-.045em}html[data-lang=fa] .hero-intro,html[data-lang=fa] .about-large{letter-spacing:-.03em;line-height:1.15}html[data-lang=fa] .hero-meta,html[data-lang=fa] .section-label,html[data-lang=fa] .stack-title,html[data-lang=fa] .education-date,html[data-lang=fa] .tool-item small{font-family:Vazirmatn,sans-serif}.message-form input::placeholder,.message-form textarea::placeholder{color:var(--muted)}
-@media(max-width:900px){:root{--space:20px}.hero{min-height:auto;padding:85px 0 100px}.hero-bottom{grid-template-columns:1fr;gap:40px;margin-top:75px}.section{padding:85px 0}.section-grid{grid-template-columns:45px minmax(0,1fr);gap:20px}.two-columns{grid-template-columns:1fr;gap:30px;margin-top:60px}.apps{grid-template-columns:1fr}.stack-row,.education-row{grid-template-columns:150px minmax(0,1fr)}.message-area{grid-template-columns:1fr;gap:35px}.contact{min-height:70vh}.tool-header{display:block;padding-top:50px}.tool-controls{margin-top:30px}.inline-form{grid-template-columns:1fr}.stats-grid{grid-template-columns:1fr 1fr}.stats-grid .wide{grid-column:span 2}}
-@media(max-width:600px){.header{height:70px}.mobile-menu{display:block}.nav{display:none;position:absolute;top:70px;left:var(--space);right:var(--space);padding:18px;background:var(--surface);border:1px solid var(--line);z-index:10}.nav.open{display:flex;flex-direction:column;align-items:stretch}.hero{padding:70px 0 90px}.hero-meta{display:block;margin-bottom:55px}.status{display:block;margin-top:14px}.hero-title{font-size:clamp(64px,20vw,115px)}.hero-intro{font-size:29px}.section{padding:65px 0}.section-label{padding-bottom:42px}.about-large{font-size:37px}.project{grid-template-columns:35px minmax(0,1fr) 25px;gap:10px;padding:32px 0}.project:hover{padding-inline:12px}.project-content h2{font-size:41px}.app{min-height:330px;padding:26px}.app-main h2{font-size:60px}.stack-row,.education-row{grid-template-columns:1fr;gap:9px;padding:24px 0}.contact{padding-top:75px}.contact-title{margin-top:65px;font-size:80px}.footer{flex-direction:column;gap:10px}.tool-header h1{font-size:78px}.tool-item{grid-template-columns:35px minmax(0,1fr) 25px;gap:10px}.tool-item strong{font-size:34px}.stats-grid{grid-template-columns:1fr}.stats-grid .wide{grid-column:span 1}.admin-login{margin:12vh auto}.admin-heading h1{font-size:76px}}
+:root {
+  --bg: #f4f3ee;
+  --surface: #e9e8e1;
+  --text: #111;
+  --muted: #73736d;
+  --line: #cecec6;
+  --accent: #0b6965;
 
+  --max: 1480px;
+  --space: 36px;
 
-/* =========================================================
-   ADMIN MESSAGE INBOX
-========================================================= */
-
-.admin-page {
-    min-height: 100vh;
-}
-
-.admin-top-actions {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.admin-exit {
-    border: 1px solid var(--line);
-    background: transparent;
-    color: var(--muted);
-    padding: 9px 13px;
-    font: 10px "DM Mono", monospace;
-    text-transform: uppercase;
-    cursor: pointer;
-
-    transition:
-        background-color .2s ease,
-        color .2s ease,
-        border-color .2s ease;
-}
-
-.admin-exit:hover {
-    background: var(--text);
-    color: var(--bg);
-    border-color: var(--text);
-}
-
-
-/* =========================================================
-   ADMIN DASHBOARD
-========================================================= */
-
-.admin-dashboard {
-    width: min(1180px, 100%);
-    margin: 0 auto;
-
-    padding: 85px 0 110px;
-}
-
-.admin-hero {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-
-    gap: 40px;
-
-    padding-bottom: 52px;
-
-    border-bottom: 1px solid var(--line);
-}
-
-.admin-kicker {
-    display: inline-block;
-
-    font: 10px "DM Mono", monospace;
-
-    letter-spacing: .08em;
-}
-
-.admin-hero h1 {
-    margin: 15px 0 0;
-
-    font-size: clamp(
-        68px,
-        10vw,
-        142px
-    );
-
-    line-height: .78;
-
-    font-weight: 800;
-
-    letter-spacing: -.09em;
-}
-
-.admin-subtitle {
-    margin-top: 22px;
-
-    color: var(--muted);
-
-    max-width: 420px;
-
-    font-size: 13px;
-
-    line-height: 1.8;
-}
-
-.admin-stats {
-    display: flex;
-
-    gap: 38px;
-
-    flex: none;
-}
-
-.admin-stat {
-    min-width: 58px;
-}
-
-.admin-stat strong {
-    display: block;
-
-    font: 26px "DM Mono", monospace;
-
-    line-height: 1;
-}
-
-.admin-stat span {
-    display: block;
-
-    margin-top: 8px;
-
-    color: var(--muted);
-
-    font: 9px "DM Mono", monospace;
-
-    text-transform: uppercase;
-}
-
-
-/* =========================================================
-   TOOLBAR
-========================================================= */
-
-.message-toolbar {
-    display: flex;
-
-    justify-content: space-between;
-    align-items: center;
-
-    gap: 30px;
-
-    padding: 21px 0;
-
-    border-bottom: 1px solid var(--line);
-}
-
-.message-filters {
-    display: flex;
-
-    align-items: center;
-
-    gap: 6px;
-}
-
-.message-filters button {
-    display: inline-flex;
-
-    align-items: center;
-
-    gap: 8px;
-
-    border: 1px solid transparent;
-
-    background: transparent;
-
-    color: var(--muted);
-
-    padding: 8px 10px;
-
-    font: 10px "DM Mono", monospace;
-
-    cursor: pointer;
-
-    transition:
-        color .2s ease,
-        background-color .2s ease,
-        border-color .2s ease;
-}
-
-.message-filters button:hover {
-    color: var(--text);
-}
-
-.message-filters button span {
-    opacity: .55;
-}
-
-.message-filters button.active {
-    color: var(--text);
-
-    background: var(--surface);
-
-    border-color: var(--line);
-}
-
-
-/* Search */
-
-.message-search {
-    display: flex;
-
-    align-items: center;
-
-    gap: 13px;
-
-    min-width: 310px;
-
-    padding: 7px 0;
-
-    border-bottom: 1px solid var(--line);
-}
-
-.message-search span {
-    flex: none;
-
-    color: var(--muted);
-
-    font: 9px "DM Mono", monospace;
-
-    text-transform: uppercase;
-}
-
-.message-search input {
-    width: 100%;
-
-    border: 0;
-
-    outline: 0;
-
-    background: transparent;
-
-    color: var(--text);
-
-    font: 13px "Inter", sans-serif;
-}
-
-.message-search input::placeholder {
-    color: var(--muted);
-}
-
-
-/* =========================================================
-   ERROR
-========================================================= */
-
-.admin-error {
-    margin-top: 18px;
-}
-
-
-/* =========================================================
-   MESSAGE INBOX
-========================================================= */
-
-.message-inbox {
-    margin-top: 34px;
-
-    border-top: 1px solid var(--line);
-}
-
-.inbox-message {
-    position: relative;
-
-    display: grid;
-
-    grid-template-columns:
-        76px
-        minmax(0, 1fr);
-
-    gap: 28px;
-
-    padding: 31px 0;
-
-    border-bottom: 1px solid var(--line);
-
-    transition:
-        background-color .2s ease,
-        padding-inline .2s ease;
-}
-
-.inbox-message:hover {
-    padding-inline: 18px;
-
-    background: var(--surface);
-}
-
-.inbox-message.is-unread::before {
-    content: "";
-
-    position: absolute;
-
-    inset-inline-start: 0;
-
-    top: 0;
-    bottom: 0;
-
-    width: 3px;
-
-    background: var(--accent);
-}
-
-.inbox-index {
-    padding-top: 3px;
-
-    color: var(--muted);
-
-    font: 10px "DM Mono", monospace;
-}
-
-.inbox-main {
-    min-width: 0;
-}
-
-.inbox-topline {
-    display: flex;
-
-    justify-content: space-between;
-    align-items: center;
-
-    gap: 20px;
-}
-
-.sender {
-    display: flex;
-
-    align-items: center;
-
-    flex-wrap: wrap;
-
-    gap: 9px;
-
-    min-width: 0;
-}
-
-.sender-dot {
-    width: 7px;
-    height: 7px;
-
-    flex: none;
-
-    border-radius: 50%;
-
-    background: var(--muted);
-}
-
-.is-unread .sender-dot {
-    background: var(--accent);
-}
-
-.sender strong {
-    color: var(--text);
-
-    font-size: 18px;
-
-    font-weight: 600;
-
-    letter-spacing: -.025em;
-}
-
-.new-badge {
-    padding: 4px 7px;
-
-    border: 1px solid var(--line);
-
-    color: var(--accent);
-
-    font: 8px "DM Mono", monospace;
-
-    letter-spacing: .04em;
-}
-
-.message-date {
-    flex: none;
-
-    color: var(--muted);
-
-    font: 9px "DM Mono", monospace;
-
-    white-space: nowrap;
-}
-
-.inbox-text {
-    max-width: 780px;
-
-    margin: 17px 0 0;
-
-    color: var(--muted);
-
-    font-size: 14px;
-
-    line-height: 1.95;
-
-    white-space: pre-wrap;
-
-    overflow-wrap: anywhere;
-}
-
-.inbox-actions {
-    display: flex;
-
-    align-items: center;
-
-    gap: 19px;
-
-    margin-top: 19px;
-}
-
-.inbox-actions button {
-    border: 0;
-
-    border-bottom: 1px solid var(--line);
-
-    background: transparent;
-
-    color: var(--muted);
-
-    padding: 3px 0 5px;
-
-    font: 9px "DM Mono", monospace;
-
-    text-transform: uppercase;
-
-    cursor: pointer;
-
-    transition:
-        color .2s ease,
-        border-color .2s ease,
-        opacity .2s ease;
-}
-
-.inbox-actions button:hover:not(:disabled) {
-    color: var(--text);
-
-    border-color: var(--text);
-}
-
-.inbox-actions button:disabled {
-    cursor: default;
-
-    opacity: .45;
-}
-
-.inbox-actions .danger-action:hover:not(:disabled) {
-    color: #a33;
-
-    border-color: #a33;
-}
-
-
-/* =========================================================
-   EMPTY
-========================================================= */
-
-.message-empty {
-    display: grid;
-
-    grid-template-columns:
-        76px
-        minmax(0, 1fr);
-
-    gap: 28px;
-
-    margin-top: 34px;
-
-    padding: 45px 0;
-
-    border-top: 1px solid var(--line);
-
-    border-bottom: 1px solid var(--line);
-}
-
-.message-empty-number {
-    color: var(--muted);
-
-    font: 10px "DM Mono", monospace;
-}
-
-.message-empty strong {
-    display: block;
-
-    color: var(--text);
-
-    font-size: 28px;
-
-    font-weight: 500;
-
-    letter-spacing: -.04em;
-}
-
-.message-empty p {
-    max-width: 520px;
-
-    margin: 12px 0 0;
-
-    color: var(--muted);
-
-    font-size: 13px;
-
-    line-height: 1.85;
-}
-
-
-/* =========================================================
-   RTL
-========================================================= */
-
-html[data-lang="fa"] .admin-hero h1 {
-    letter-spacing: -.035em;
-
-    line-height: 1;
-}
-
-html[data-lang="fa"] .admin-subtitle,
-html[data-lang="fa"] .inbox-text,
-html[data-lang="fa"] .message-empty p {
-    line-height: 2;
-}
-
-html[data-lang="fa"] .sender strong {
-    letter-spacing: 0;
-}
-
-html[data-lang="fa"] .admin-kicker,
-html[data-lang="fa"] .admin-stat span,
-html[data-lang="fa"] .message-filters button,
-html[data-lang="fa"] .message-search span,
-html[data-lang="fa"] .inbox-actions button,
-html[data-lang="fa"] .message-date {
-    font-family: "Vazirmatn", sans-serif;
-}
-
-
-/* =========================================================
-   MOBILE
-========================================================= */
-
-@media (max-width: 780px) {
-
-    .admin-dashboard {
-        padding:
-            60px
-            0
-            80px;
-    }
-
-    .admin-hero {
-        align-items: flex-start;
-
-        flex-direction: column;
-
-        gap: 35px;
-    }
-
-    .admin-stats {
-        width: 100%;
-
-        justify-content: space-between;
-
-        gap: 15px;
-    }
-
-    .message-toolbar {
-        align-items: stretch;
-
-        flex-direction: column;
-
-        gap: 18px;
-    }
-
-    .message-filters {
-        overflow-x: auto;
-
-        padding-bottom: 2px;
-    }
-
-    .message-search {
-        width: 100%;
-
-        min-width: 0;
-    }
-
-    .inbox-message {
-        grid-template-columns:
-            35px
-            minmax(0, 1fr);
-
-        gap: 12px;
-
-        padding: 26px 0;
-    }
-
-    .inbox-message:hover {
-        padding-inline: 10px;
-    }
-
-    .inbox-topline {
-        align-items: flex-start;
-
-        flex-direction: column;
-
-        gap: 10px;
-    }
-
-    .message-date {
-        white-space: normal;
-    }
-
-    .message-empty {
-        grid-template-columns:
-            35px
-            minmax(0, 1fr);
-
-        gap: 12px;
-    }
-}
-
-/* =========================================================
-   ADMIN DASHBOARD — NEW INBOX
-========================================================= */
-
-.admin-shell {
-    min-height: 100vh;
-    background: var(--bg);
-    color: var(--text);
-}
-
-.admin-navbar {
-    width: min(1480px, calc(100% - 72px));
-    height: 82px;
-    margin: 0 auto;
-
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    border-bottom: 1px solid var(--line);
-}
-
-.admin-brand {
-    font-family: Inter, sans-serif;
-    font-size: 18px;
-    font-weight: 800;
-    letter-spacing: -.08em;
-}
-
-.admin-navbar-actions {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.admin-circle-button {
-    width: 34px;
-    height: 34px;
-
-    border: 1px solid var(--line);
-    border-radius: 50%;
-
-    background: transparent;
-    color: var(--text);
-
-    display: grid;
-    place-items: center;
-
-    font: 9px "DM Mono", monospace;
-
-    cursor: pointer;
-
-    transition:
-        background .2s ease,
-        color .2s ease;
-}
-
-.admin-circle-button:hover {
-    background: var(--text);
-    color: var(--bg);
-}
-
-.admin-signout {
-    border: 1px solid var(--line);
-    background: transparent;
-    color: var(--muted);
-
-    padding: 9px 14px;
-
-    font: 10px "DM Mono", monospace;
-
-    cursor: pointer;
-
-    transition:
-        background .2s ease,
-        color .2s ease;
-}
-
-.admin-signout:hover {
-    background: var(--text);
-    color: var(--bg);
-}
-
-
-/* =========================================================
-   MAIN
-========================================================= */
-
-.admin-main {
-    width: min(1180px, calc(100% - 72px));
-    margin: 0 auto;
-
-    padding: 85px 0 110px;
-}
-
-.admin-title-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-
-    gap: 50px;
-
-    padding-bottom: 55px;
-
-    border-bottom: 1px solid var(--line);
-}
-
-.admin-eyebrow {
-    color: var(--accent);
-
-    font: 10px "DM Mono", monospace;
-
-    text-transform: uppercase;
-    letter-spacing: .08em;
-}
-
-.admin-title-row h1 {
-    margin: 16px 0 0;
-
-    font-size: clamp(
-        68px,
-        10vw,
-        145px
-    );
-
-    font-weight: 800;
-
-    line-height: .78;
-
-    letter-spacing: -.09em;
-}
-
-.admin-title-row p {
-    margin: 22px 0 0;
-
-    color: var(--muted);
-
-    font-size: 13px;
-
-    line-height: 1.8;
-}
-
-.admin-metrics {
-    display: flex;
-
-    gap: 38px;
-
-    flex-shrink: 0;
-}
-
-.admin-metrics div {
-    min-width: 56px;
-}
-
-.admin-metrics strong {
-    display: block;
-
-    font: 25px "DM Mono", monospace;
-
-    line-height: 1;
-}
-
-.admin-metrics span {
-    display: block;
-
-    margin-top: 8px;
-
-    color: var(--muted);
-
-    font: 9px "DM Mono", monospace;
-
-    text-transform: uppercase;
-}
-
-
-/* =========================================================
-   TOOLBAR
-========================================================= */
-
-.admin-toolbar {
-    display: flex;
-
-    justify-content: space-between;
-    align-items: center;
-
-    gap: 25px;
-
-    padding: 20px 0;
-
-    border-bottom: 1px solid var(--line);
-}
-
-.admin-filters {
-    display: flex;
-    gap: 6px;
-}
-
-.admin-filters button {
-    border: 1px solid transparent;
-
-    background: transparent;
-
-    color: var(--muted);
-
-    padding: 8px 10px;
-
-    font: 10px "DM Mono", monospace;
-
-    cursor: pointer;
-}
-
-.admin-filters button b {
-    margin-inline-start: 7px;
-
-    font-weight: 400;
-
-    opacity: .5;
-}
-
-.admin-filters button:hover {
-    color: var(--text);
-}
-
-.admin-filters button.active {
-    color: var(--text);
-
-    background: var(--surface);
-
-    border-color: var(--line);
-}
-
-.admin-search {
-    width: 300px;
-
-    border: 0;
-
-    border-bottom: 1px solid var(--line);
-
-    outline: 0;
-
-    background: transparent;
-
-    color: var(--text);
-
-    padding: 8px 0;
-
-    font-size: 13px;
-}
-
-.admin-search::placeholder {
-    color: var(--muted);
-}
-
-
-/* =========================================================
-   ERROR
-========================================================= */
-
-.admin-error {
-    margin-top: 20px;
-
-    padding: 14px 16px;
-
-    border: 1px solid var(--line);
-
-    color: #a33;
-
-    font: 11px "DM Mono", monospace;
-}
-
-
-/* =========================================================
-   INBOX
-========================================================= */
-
-.admin-inbox {
-    margin-top: 35px;
-
-    border-top: 1px solid var(--line);
-}
-
-.admin-message {
-    position: relative;
-
-    display: grid;
-
-    grid-template-columns:
-        75px
-        minmax(0, 1fr);
-
-    gap: 28px;
-
-    padding: 32px 0;
-
-    border-bottom: 1px solid var(--line);
-
-    transition:
-        background .2s ease,
-        padding .2s ease;
-}
-
-.admin-message:hover {
-    padding-inline: 20px;
-
-    background: var(--surface);
-}
-
-.admin-message.new::before {
-    content: "";
-
-    position: absolute;
-
-    inset-inline-start: 0;
-
-    top: 0;
-    bottom: 0;
-
-    width: 3px;
-
-    background: var(--accent);
-}
-
-.admin-message-number {
-    padding-top: 4px;
-
-    color: var(--muted);
-
-    font: 10px "DM Mono", monospace;
-}
-
-.admin-message-body {
-    min-width: 0;
-}
-
-.admin-message-meta {
-    display: flex;
-
-    align-items: center;
-    justify-content: space-between;
-
-    gap: 25px;
-}
-
-.admin-sender {
-    display: flex;
-
-    align-items: center;
-
-    flex-wrap: wrap;
-
-    gap: 9px;
-}
-
-.admin-sender > span {
-    width: 7px;
-    height: 7px;
-
-    border-radius: 50%;
-
-    background: var(--muted);
-}
-
-.admin-message.new .admin-sender > span {
-    background: var(--accent);
-}
-
-.admin-sender strong {
-    font-size: 18px;
-
-    font-weight: 600;
-
-    letter-spacing: -.02em;
-}
-
-.admin-sender em {
-    border: 1px solid var(--line);
-
-    padding: 3px 7px;
-
-    color: var(--accent);
-
-    font: normal 8px "DM Mono", monospace;
-}
-
-.admin-message-meta time {
-    color: var(--muted);
-
-    white-space: nowrap;
-
-    font: 9px "DM Mono", monospace;
-}
-
-.admin-message-text {
-    max-width: 780px;
-
-    margin: 17px 0 0;
-
-    color: var(--muted);
-
-    font-size: 14px;
-
-    line-height: 1.95;
-
-    white-space: pre-wrap;
-
-    overflow-wrap: anywhere;
-}
-
-.admin-message-actions {
-    display: flex;
-
-    gap: 18px;
-
-    margin-top: 18px;
-}
-
-.admin-message-actions button {
-    border: 0;
-
-    border-bottom: 1px solid var(--line);
-
-    background: transparent;
-
-    color: var(--muted);
-
-    padding: 4px 0 5px;
-
-    font: 9px "DM Mono", monospace;
-
-    cursor: pointer;
-}
-
-.admin-message-actions button:hover:not(:disabled) {
-    color: var(--text);
-
-    border-color: var(--text);
-}
-
-.admin-message-actions button.delete:hover:not(:disabled) {
-    color: #a33;
-
-    border-color: #a33;
-}
-
-.admin-message-actions button:disabled {
-    opacity: .45;
-
-    cursor: default;
-}
-
-
-/* =========================================================
-   EMPTY
-========================================================= */
-
-.admin-empty {
-    display: grid;
-
-    grid-template-columns:
-        75px
-        minmax(0, 1fr);
-
-    gap: 28px;
-
-    margin-top: 35px;
-
-    padding: 48px 0;
-
-    border-top: 1px solid var(--line);
-
-    border-bottom: 1px solid var(--line);
-}
-
-.admin-empty > span {
-    color: var(--muted);
-
-    font: 10px "DM Mono", monospace;
-}
-
-.admin-empty h2 {
-    margin: 0;
-
-    font-size: 28px;
-
-    font-weight: 500;
-
-    letter-spacing: -.04em;
-}
-
-.admin-empty p {
-    max-width: 520px;
-
-    margin: 12px 0 0;
-
-    color: var(--muted);
-
-    font-size: 13px;
-
-    line-height: 1.9;
-}
-
-
-/* =========================================================
-   RTL
-========================================================= */
-
-html[data-lang="fa"] .admin-title-row h1 {
-    letter-spacing: -.03em;
-    line-height: 1;
-}
-
-html[data-lang="fa"] .admin-title-row p,
-html[data-lang="fa"] .admin-message-text,
-html[data-lang="fa"] .admin-empty p {
-    line-height: 2;
-}
-
-html[data-lang="fa"] .admin-sender strong {
-    letter-spacing: 0;
+  --header-height: 82px;
 }
 
-html[data-lang="fa"] .admin-filters button,
-html[data-lang="fa"] .admin-metrics span,
-html[data-lang="fa"] .admin-message-actions button,
-html[data-lang="fa"] .admin-message-meta time {
-    font-family: "Vazirmatn", sans-serif;
+html.dark {
+  --bg: #111;
+  --surface: #1a1a1a;
+  --text: #f2f1eb;
+  --muted: #979791;
+  --line: #33332f;
+  --accent: #61c7bf;
 }
-
-
-/* =========================================================
-   MOBILE
-========================================================= */
-
-@media (max-width: 760px) {
-
-    .admin-navbar,
-    .admin-main {
-        width: min(
-            100% - 32px,
-            1180px
-        );
-    }
-
-    .admin-main {
-        padding-top: 60px;
-    }
 
-    .admin-title-row {
-        flex-direction: column;
-
-        align-items: flex-start;
-
-        gap: 35px;
-    }
-
-    .admin-metrics {
-        width: 100%;
-
-        justify-content: space-between;
-    }
-
-    .admin-toolbar {
-        flex-direction: column;
-
-        align-items: stretch;
-    }
-
-    .admin-search {
-        width: 100%;
-    }
-
-    .admin-message {
-        grid-template-columns:
-            35px
-            minmax(0, 1fr);
-
-        gap: 12px;
-    }
-
-    .admin-message:hover {
-        padding-inline: 10px;
-    }
-
-    .admin-message-meta {
-        flex-direction: column;
-
-        align-items: flex-start;
-
-        gap: 10px;
-    }
-
-    .admin-message-meta time {
-        white-space: normal;
-    }
-
-    .admin-empty {
-        grid-template-columns:
-            35px
-            minmax(0, 1fr);
-
-        gap: 12px;
-    }
+* {
+  box-sizing: border-box;
 }
-
-/* =========================================================
-   LANGUAGE / LAYOUT FIX
-   Keep the global page layout LTR.
-   Persian text gets RTL treatment locally instead.
-   ========================================================= */
 
-html,
-body {
+html {
+  scroll-behavior: smooth;
   direction: ltr !important;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: Inter, sans-serif;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease;
+
+  direction: ltr !important;
+}
+
+html[data-lang="fa"],
+html[data-lang="fa"] body,
+html[data-lang="fa"] .site {
+  direction: ltr !important;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+::selection {
+  background: var(--text);
+  color: var(--bg);
 }
 
 .site {
-  direction: ltr;
-}
-
-.page-language {
-  direction: ltr;
-  min-width: 0;
-}
-
-/* ---------------------------------------------------------
-   Header
-   --------------------------------------------------------- */
-
-.header-ltr {
+  width: min(var(--max), calc(100% - var(--space) * 2));
+  margin: 0 auto;
   direction: ltr !important;
 }
 
-.header-ltr .brand {
-  direction: ltr;
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.header {
+  height: var(--header-height);
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  direction: ltr !important;
+}
+
+/*
+ * Public header is fixed so it remains visible while scrolling.
+ */
+.site-header {
+  position: fixed;
+
+  top: 0;
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  z-index: 1000;
+
+  width: min(
+    var(--max),
+    calc(100% - var(--space) * 2)
+  );
+
+  background: color-mix(
+    in srgb,
+    var(--bg) 92%,
+    transparent
+  );
+
+  border-bottom: 1px solid var(--line);
+
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+
+  direction: ltr !important;
+}
+
+/*
+ * Prevent the fixed header from covering the first content.
+ */
+.public-content {
+  padding-top: var(--header-height);
+  direction: ltr !important;
+}
+
+/* =========================================================
+   BRAND
+   ========================================================= */
+
+.brand {
+  flex: 0 0 auto;
+
+  width: 42px;
+  min-width: 42px;
+
+  color: var(--text);
+
   font-family: Inter, sans-serif;
   font-size: 17px;
   font-weight: 800;
-  letter-spacing: -0.09em;
+
   line-height: 1;
+
+  letter-spacing: -0.09em;
+
+  direction: ltr !important;
 }
 
-.header-ltr .nav {
-  direction: ltr;
+/* =========================================================
+   NAV
+   ========================================================= */
+
+.nav {
   display: flex;
   align-items: center;
-  gap: 28px;
+
+  gap: 24px;
+
+  direction: ltr !important;
 }
 
-.header-ltr .nav > a,
-.header-ltr .nav > button,
-.header-ltr .nav > a:visited {
-  white-space: nowrap;
+.nav > a,
+.nav > button {
+  flex: 0 0 auto;
 }
 
-.header-ltr .nav > a {
-  font-family: Inter, sans-serif;
+.nav > a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-width: 48px;
+  height: 34px;
+
+  color: var(--muted);
+
+  font-family: Inter, Vazirmatn, sans-serif;
   font-size: 11px;
   font-weight: 500;
-  letter-spacing: -0.01em;
-  text-transform: none;
-  color: var(--muted);
+
+  line-height: 1;
+
+  white-space: nowrap;
+  text-align: center;
+
   transition:
     color 0.2s ease,
     opacity 0.2s ease;
 }
 
-.header-ltr .nav > a:hover,
-.header-ltr .nav > a.active {
+.nav > a:hover,
+.nav > a.active {
   color: var(--text);
 }
 
-.header-ltr .circle-button {
+/* =========================================================
+   LANGUAGE / THEME BUTTONS
+   ========================================================= */
+
+.circle-button {
   flex: 0 0 auto;
-  font-family: 'DM Mono', monospace;
+
+  width: 34px;
+  min-width: 34px;
+
+  height: 34px;
+  min-height: 34px;
+
+  padding: 0;
+
+  border: 1px solid var(--line);
+  border-radius: 50%;
+
+  background: transparent;
+  color: var(--text);
+
+  display: grid;
+  place-items: center;
+
+  font-family: "DM Mono", monospace;
   font-size: 9px;
+  font-weight: 500;
+
+  line-height: 1;
+
+  direction: ltr !important;
+
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.circle-button:hover {
+  background: var(--text);
+  color: var(--bg);
+  border-color: var(--text);
+}
+
+/* =========================================================
+   MOBILE MENU
+   ========================================================= */
+
+.mobile-menu {
+  display: none;
+
+  flex: 0 0 auto;
+
+  border: 0;
+  background: transparent;
+  color: var(--text);
+
+  width: 34px;
+  height: 34px;
+
+  padding: 0;
+
+  font-size: 20px;
+
+  direction: ltr !important;
+}
+
+/* =========================================================
+   GLOBAL HELPERS
+   ========================================================= */
+
+.accent-text {
+  color: var(--accent);
+}
+
+.text-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+
+  margin-top: 30px;
+  padding-bottom: 6px;
+
+  border-bottom: 1px solid var(--text);
+
+  font: 10px "DM Mono", monospace;
+  text-transform: uppercase;
+}
+
+.text-link b {
+  font-size: 17px;
+  font-weight: 400;
+}
+
+/* =========================================================
+   HOME / HERO
+   ========================================================= */
+
+.hero {
+  min-height: calc(100vh - var(--header-height));
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  padding: 90px 0 110px;
+
+  direction: ltr !important;
+}
+
+.hero-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-bottom: 75px;
+
+  font: 10px "DM Mono", monospace;
+  text-transform: uppercase;
+
+  direction: ltr !important;
+}
+
+.status {
+  color: var(--muted);
+}
+
+.status i {
+  width: 7px;
+  height: 7px;
+
+  display: inline-block;
+
+  margin-inline-end: 7px;
+
+  border-radius: 50%;
+
+  background: var(--accent);
+}
+
+.hero-title {
+  margin: 0;
+
+  font-size: clamp(84px, 14.7vw, 215px);
+  line-height: 0.76;
+
+  font-weight: 800;
+  letter-spacing: -0.105em;
+
+  direction: ltr !important;
+}
+
+.hero-title span {
+  display: block;
+}
+
+.hero-title .outline {
+  color: transparent;
+  -webkit-text-stroke: 1.5px var(--text);
+}
+
+.hero-bottom {
+  margin-top: 105px;
+
+  display: grid;
+  grid-template-columns:
+    minmax(280px, 1fr)
+    minmax(280px, 410px);
+
+  gap: 80px;
+
+  direction: ltr !important;
+}
+
+.hero-intro {
+  max-width: 760px;
+
+  font-size: clamp(27px, 3.3vw, 48px);
+  line-height: 1.03;
+
+  letter-spacing: -0.05em;
+}
+
+.hero-side {
+  align-self: end;
+}
+
+.hero-side p,
+.contact-copy {
+  max-width: 390px;
+
+  color: var(--muted);
+
+  font-size: 14px;
+  line-height: 1.9;
+}
+
+/* =========================================================
+   SECTIONS
+   ========================================================= */
+
+.section {
+  padding: 115px 0;
+
+  border-top: 1px solid var(--line);
+
+  direction: ltr !important;
+}
+
+.section-grid {
+  display: grid;
+
+  grid-template-columns:
+    100px
+    minmax(0, 1fr);
+
+  gap: 48px;
+
+  direction: ltr !important;
+}
+
+.section-number {
+  font: 10px "DM Mono", monospace;
+  color: var(--muted);
+
+  direction: ltr !important;
+}
+
+.section-label {
+  display: flex;
+  justify-content: space-between;
+
+  padding-bottom: 62px;
+
+  font: 10px "DM Mono", monospace;
+  text-transform: uppercase;
+
+  color: var(--muted);
+
+  direction: ltr !important;
+}
+
+.secondary {
+  opacity: 0.5;
+}
+
+.about-large {
+  max-width: 1040px;
+
+  font-size: clamp(39px, 5.25vw, 78px);
+  line-height: 0.99;
+
+  letter-spacing: -0.065em;
+}
+
+.two-columns {
+  max-width: 980px;
+
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+
+  gap: 70px;
+
+  margin-top: 80px;
+
+  direction: ltr !important;
+}
+
+.two-columns p {
+  max-width: 450px;
+
+  color: var(--muted);
+
+  font-size: 14px;
+  line-height: 1.95;
+}
+
+/* =========================================================
+   PROJECTS
+   ========================================================= */
+
+.projects {
+  border-top: 1px solid var(--line);
+}
+
+.project {
+  display: grid;
+
+  grid-template-columns:
+    80px
+    minmax(0, 1fr)
+    35px;
+
+  gap: 30px;
+
+  padding: 44px 0;
+
+  border-bottom: 1px solid var(--line);
+
+  transition:
+    background-color 0.2s ease,
+    padding 0.2s ease;
+
+  direction: ltr !important;
+}
+
+.project:hover {
+  background: var(--surface);
+  padding-inline: 22px;
+}
+
+.project-number {
+  font: 10px "DM Mono", monospace;
+  color: var(--muted);
+
+  direction: ltr !important;
+}
+
+.project-content h2 {
+  margin: 0;
+
+  font-size: clamp(40px, 5vw, 75px);
+  line-height: 0.86;
+
+  letter-spacing: -0.065em;
+
+  font-weight: 600;
+}
+
+.project-content p {
+  max-width: 650px;
+
+  margin: 25px 0 0;
+
+  color: var(--muted);
+
+  font-size: 14px;
+  line-height: 1.85;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+
+  gap: 7px;
+
+  margin-top: 28px;
+}
+
+.tags span {
+  padding: 5px 9px;
+
+  border: 1px solid var(--line);
+  border-radius: 100px;
+
+  font: 9px "DM Mono", monospace;
+  color: var(--muted);
+}
+
+.project-arrow {
+  font-size: 26px;
+
+  direction: ltr !important;
+}
+
+/* =========================================================
+   APPS
+   ========================================================= */
+
+.apps {
+  display: grid;
+
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+
+  gap: 1px;
+
+  background: var(--line);
+
+  direction: ltr !important;
+}
+
+.app {
+  min-height: 410px;
+
+  padding: 35px;
+
+  background: var(--bg);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  direction: ltr !important;
+}
+
+.app-top {
+  display: flex;
+  justify-content: space-between;
+
+  font: 10px "DM Mono", monospace;
+  color: var(--muted);
+
+  text-transform: uppercase;
+
+  direction: ltr !important;
+}
+
+.app-main h2 {
+  margin: 0;
+
+  font-size: clamp(52px, 6vw, 92px);
+  line-height: 0.82;
+
+  letter-spacing: -0.075em;
+}
+
+.app-main p {
+  max-width: 530px;
+
+  margin-top: 30px;
+
+  color: var(--muted);
+
+  font-size: 14px;
+  line-height: 1.9;
+}
+
+.app-stack {
+  font: 10px "DM Mono", monospace;
+  color: var(--muted);
+
+  direction: ltr !important;
+}
+
+/* =========================================================
+   STACK / EDUCATION
+   ========================================================= */
+
+.stack-list,
+.education-list {
+  border-top: 1px solid var(--line);
+}
+
+.stack-row,
+.education-row {
+  display: grid;
+
+  grid-template-columns:
+    220px
+    minmax(0, 1fr);
+
+  gap: 30px;
+
+  padding: 27px 0;
+
+  border-bottom: 1px solid var(--line);
+
+  font-size: 17px;
+
+  direction: ltr !important;
+}
+
+.stack-title,
+.education-date {
+  font: 10px "DM Mono", monospace;
+  color: var(--muted);
+  text-transform: uppercase;
+
+  direction: ltr !important;
+}
+
+.education-row h2 {
+  margin: 0;
+
+  font-size: clamp(30px, 3.5vw, 52px);
+  line-height: 1;
+
+  letter-spacing: -0.05em;
+
   font-weight: 500;
 }
 
-.header-ltr .mobile-menu {
-  direction: ltr;
+.education-row p {
+  margin-top: 13px;
+
+  color: var(--muted);
+
+  font-size: 14px;
 }
 
-/* ---------------------------------------------------------
-   Persian typography
-   --------------------------------------------------------- */
+/* =========================================================
+   CONTACT
+   ========================================================= */
 
-.lang-fa .hero-intro,
-.lang-fa .hero-side p,
-.lang-fa .about-large,
-.lang-fa .two-columns p,
-.lang-fa .project-content p,
-.lang-fa .app-main p,
-.lang-fa .stack-title,
-.lang-fa .education-row,
-.lang-fa .education-row p,
-.lang-fa .contact-copy,
-.lang-fa .message-form,
-.lang-fa .tool-header p,
-.lang-fa .tool-item small,
-.lang-fa .workspace-top,
-.lang-fa .admin-login,
-.lang-fa .admin-dashboard,
-.lang-fa .message-card,
-.lang-fa .chat-shell {
-  font-family: Vazirmatn, sans-serif;
+.contact {
+  min-height: 80vh;
+
+  padding: 110px 0 75px;
+
+  border-top: 1px solid var(--line);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  direction: ltr !important;
 }
 
-/*
- * فقط خود متن فارسی RTL می‌شود.
- * wrapperهای flex/grid عمداً LTR می‌مانند.
- */
+.contact-head {
+  display: flex;
+  justify-content: space-between;
 
-.lang-fa .hero-intro,
-.lang-fa .hero-side p,
-.lang-fa .about-large,
-.lang-fa .two-columns p,
-.lang-fa .project-content p,
-.lang-fa .app-main p,
-.lang-fa .education-row h2,
-.lang-fa .education-row p,
-.lang-fa .contact-copy,
-.lang-fa .message-form label,
-.lang-fa .message-form input,
-.lang-fa .message-form textarea,
-.lang-fa .tool-header p,
-.lang-fa .tool-item small,
-.lang-fa .tool-editor,
-.lang-fa .tool-output,
-.lang-fa .inline-form input,
-.lang-fa .uuid-box,
-.lang-fa .admin-login input,
-.lang-fa .message-card p {
-  direction: rtl;
-  text-align: right;
+  direction: ltr !important;
 }
 
-/* Headings containing English technical names should remain LTR-ish */
-.lang-fa .project-content h2,
-.lang-fa .app-main h2,
-.lang-fa .tool-item strong,
-.lang-fa .workspace-top h2 {
+.contact-title {
+  margin: 100px 0 0;
+
+  font-size: clamp(82px, 15vw, 220px);
+  line-height: 0.75;
+
+  font-weight: 800;
+  letter-spacing: -0.105em;
+}
+
+.message-area {
+  margin-top: 90px;
+
+  display: grid;
+
+  grid-template-columns:
+    minmax(250px, 1fr)
+    minmax(320px, 620px);
+
+  gap: 70px;
+
+  align-items: end;
+
+  direction: ltr !important;
+}
+
+.message-form {
+  border-top: 1px solid var(--line);
+}
+
+.message-form label {
+  display: block;
+
+  padding: 18px 0;
+
+  border-bottom: 1px solid var(--line);
+}
+
+.message-form label span {
+  display: block;
+
+  margin-bottom: 9px;
+
+  color: var(--muted);
+
+  font: 9px "DM Mono", monospace;
+  text-transform: uppercase;
+}
+
+.message-form input,
+.message-form textarea {
+  width: 100%;
+
+  background: transparent;
+
+  border: 0;
+  outline: 0;
+
+  color: var(--text);
+
+  resize: vertical;
+}
+
+.message-form textarea {
+  min-height: 130px;
+}
+
+.message-actions {
+  display: flex;
+  align-items: center;
+
+  gap: 20px;
+
+  padding-top: 18px;
+
+  direction: ltr !important;
+}
+
+.message-actions button,
+.primary-button,
+.ghost-button,
+.tool-actions button {
+  min-width: 84px;
+  min-height: 40px;
+
+  padding: 0 16px;
+
+  border: 1px solid var(--line);
+
+  background: transparent;
+  color: var(--text);
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  font: 10px "DM Mono", monospace;
+
+  line-height: 1;
+
+  white-space: nowrap;
+
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.message-actions button:hover,
+.primary-button:hover,
+.tool-actions button:hover {
+  background: var(--text);
+  color: var(--bg);
+
+  border-color: var(--text);
+}
+
+.form-status {
+  font-size: 12px;
+}
+
+.success {
+  color: var(--accent);
+}
+
+.error {
+  color: #a33;
+}
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+.footer {
+  padding: 22px 0;
+
+  border-top: 1px solid var(--line);
+
+  display: flex;
+  justify-content: space-between;
+
+  color: var(--muted);
+
+  font: 9px "DM Mono", monospace;
+  text-transform: uppercase;
+
+  direction: ltr !important;
+}
+
+/* =========================================================
+   TOOLS
+   ========================================================= */
+
+.tool-page {
+  width: min(
+    var(--max),
+    calc(100% - var(--space) * 2)
+  );
+
+  margin: 0 auto;
+
+  padding-bottom: 100px;
+
+  direction: ltr !important;
+}
+
+.tool-header {
+  padding: 60px 0 70px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+
+  direction: ltr !important;
+}
+
+.tool-header h1 {
+  margin: 18px 0 10px;
+
+  font-family: Inter, sans-serif;
+
+  font-size: clamp(70px, 12vw, 170px);
+  line-height: 0.78;
+
+  letter-spacing: -0.09em;
+}
+
+.tool-header p {
+  margin: 0;
+
+  color: var(--muted);
+
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+.back-link {
+  font: 10px "DM Mono", monospace;
+
+  color: var(--muted);
+
+  text-transform: uppercase;
+}
+
+.tool-home {
+  font-family: Inter, sans-serif;
+  font-weight: 800;
+}
+
+/* =========================================================
+   TOOL LIST
+   ========================================================= */
+
+.tool-list {
+  border-top: 1px solid var(--line);
+}
+
+.tool-item {
+  width: 100%;
+
+  min-height: 116px;
+
+  display: grid;
+
+  grid-template-columns:
+    80px
+    minmax(0, 1fr)
+    35px;
+
+  align-items: center;
+
+  gap: 30px;
+
+  padding: 28px 0;
+
+  border: 0;
+  border-bottom: 1px solid var(--line);
+
+  background: transparent;
+  color: var(--text);
+
+  text-align: left;
+
+  direction: ltr !important;
+
+  transition:
+    background-color 0.2s ease,
+    padding 0.2s ease;
+}
+
+.tool-item:hover {
+  background: var(--surface);
+  padding-inline: 20px;
+}
+
+.tool-number {
+  color: var(--muted);
+
+  font: 10px "DM Mono", monospace;
+
+  direction: ltr !important;
+}
+
+.tool-item-main {
+  min-width: 0;
+  display: block;
+}
+
+.tool-item strong {
+  display: block;
+
+  font-family: Inter, sans-serif;
+  font-size: clamp(28px, 4vw, 54px);
+
+  line-height: 1;
+
+  letter-spacing: -0.045em;
+}
+
+.tool-item small {
+  display: block;
+
+  margin-top: 9px;
+
+  color: var(--muted);
+
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.tool-arrow {
+  direction: ltr !important;
+  font-size: 22px;
+}
+
+/* =========================================================
+   TOOL WORKSPACE
+   ========================================================= */
+
+.tool-workspace {
+  border-top: 1px solid var(--line);
+
+  padding-top: 25px;
+  padding-bottom: 80px;
+
+  direction: ltr !important;
+}
+
+.tool-back {
+  display: inline-flex;
+}
+
+.workspace-top {
+  display: flex;
+
+  justify-content: space-between;
+  align-items: flex-end;
+
+  margin: 20px 0 30px;
+
+  direction: ltr !important;
+}
+
+.workspace-top h2 {
+  margin: 0;
+
+  font-size: clamp(40px, 6vw, 78px);
+  line-height: 0.9;
+
+  letter-spacing: -0.07em;
+}
+
+.workspace-top span {
+  color: var(--muted);
+
+  font: 10px "DM Mono", monospace;
+
+  direction: ltr !important;
+}
+
+.tool-editor {
+  width: 100%;
+
+  min-height: 320px;
+
+  padding: 18px;
+
+  border: 1px solid var(--line);
+
+  background: var(--surface);
+  color: var(--text);
+
+  outline: 0;
+
+  resize: vertical;
+
+  font: 13px "DM Mono", monospace;
+
+  line-height: 1.7;
+
   direction: ltr;
   text-align: left;
 }
 
-/* Section metadata stays visually stable */
-.lang-fa .section-grid,
-.lang-fa .hero-bottom,
-.lang-fa .message-area,
-.lang-fa .apps,
-.lang-fa .project,
-.lang-fa .stack-row,
-.lang-fa .education-row,
-.lang-fa .tool-item,
-.lang-fa .tool-header,
-.lang-fa .workspace-top,
-.lang-fa .message-actions,
-.lang-fa .contact-head,
-.lang-fa .footer {
-  direction: ltr;
-}
+.tool-actions {
+  display: flex;
+  flex-wrap: wrap;
 
-/* ---------------------------------------------------------
-   Header mobile
-   --------------------------------------------------------- */
+  gap: 8px;
 
-@media (max-width: 600px) {
-  .header-ltr .nav.open {
-    direction: ltr !important;
-  }
+  margin: 12px 0;
 
-  .header-ltr .nav.open > a {
-    text-align: left;
-  }
-
-  .lang-fa .header-ltr .nav.open > a {
-    text-align: left;
-  }
-}
-
-/* ---------------------------------------------------------
-   Remove old global RTL rule
-   --------------------------------------------------------- */
-
-/*
-   The old project had:
-   html[data-lang=fa] body { direction: rtl }
-   Do NOT restore it.
-*/
-
-html[data-lang='fa'] body {
   direction: ltr !important;
 }
 
-/* ---------------------------------------------------------
-   Better mixed Persian / English rendering
-   --------------------------------------------------------- */
+.tool-output {
+  min-height: 160px;
 
-.lang-fa {
-  unicode-bidi: plaintext;
+  padding: 18px;
+
+  border: 1px solid var(--line);
+
+  white-space: pre-wrap;
+  overflow: auto;
+
+  font: 12px "DM Mono", monospace;
+
+  line-height: 1.7;
+
+  direction: ltr;
+  text-align: left;
 }
 
-.lang-fa .hero-intro,
-.lang-fa .hero-side,
-.lang-fa .about-large,
-.lang-fa .two-columns,
-.lang-fa .contact,
-.lang-fa .message-form,
-.lang-fa .tool-workspace,
-.lang-fa .admin-dashboard {
-  unicode-bidi: plaintext;
+.tool-input {
+  width: 100%;
+
+  min-height: 44px;
+
+  padding: 0 14px;
+
+  border: 1px solid var(--line);
+
+  background: var(--surface);
+  color: var(--text);
+
+  outline: 0;
+
+  font-family: Inter, Vazirmatn, sans-serif;
 }
 
-/* Keep numbers / technical labels stable */
-.lang-fa .section-number,
-.lang-fa .project-number,
-.lang-fa .tool-number,
-.lang-fa .app-top,
-.lang-fa .app-stack,
-.lang-fa .stack-title,
-.lang-fa .education-date,
-.lang-fa .footer {
+.tool-error {
+  margin: 12px 0;
+
+  padding: 12px 14px;
+
+  border: 1px solid #a33;
+
+  color: #a33;
+
+  font: 12px/1.6 "DM Mono", monospace;
+
+  white-space: pre-wrap;
+}
+
+/* =========================================================
+   TOOL STATS
+   ========================================================= */
+
+.stats-grid {
+  display: grid;
+
+  grid-template-columns: repeat(3, 1fr);
+
+  gap: 1px;
+
+  background: var(--line);
+
+  margin-top: 15px;
+}
+
+.stats-grid > div {
+  padding: 25px;
+
+  background: var(--bg);
+}
+
+.stats-grid small {
+  display: block;
+
+  color: var(--muted);
+
+  font: 10px "DM Mono", monospace;
+
+  text-transform: uppercase;
+}
+
+.stats-grid strong {
+  display: block;
+
+  margin-top: 10px;
+
+  font-size: 25px;
+}
+
+.stats-grid .wide {
+  grid-column: span 3;
+}
+
+/* =========================================================
+   CSV
+   ========================================================= */
+
+.csv-table-wrap {
+  margin-top: 20px;
+
+  width: 100%;
+
+  overflow: auto;
+
+  border: 1px solid var(--line);
+}
+
+.csv-table {
+  width: 100%;
+  min-width: 700px;
+
+  border-collapse: collapse;
+
+  font-size: 13px;
+
   direction: ltr;
 }
 
-/* ---------------------------------------------------------
-   Cleaner navigation spacing
-   --------------------------------------------------------- */
+.csv-table th,
+.csv-table td {
+  padding: 12px 14px;
 
-@media (min-width: 601px) {
-  .header-ltr {
+  border-bottom: 1px solid var(--line);
+  border-right: 1px solid var(--line);
+
+  text-align: left;
+
+  white-space: nowrap;
+}
+
+.csv-table th {
+  background: var(--surface);
+
+  font-weight: 600;
+}
+
+/* =========================================================
+   MARKDOWN
+   ========================================================= */
+
+.markdown-grid {
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 14px;
+}
+
+.markdown-preview {
+  min-height: 320px;
+
+  padding: 22px;
+
+  border: 1px solid var(--line);
+
+  background: var(--surface);
+
+  overflow: auto;
+
+  line-height: 1.8;
+}
+
+.markdown-preview h1,
+.markdown-preview h2,
+.markdown-preview h3 {
+  margin-top: 0;
+
+  line-height: 1.1;
+}
+
+.markdown-preview p {
+  margin: 0 0 16px;
+}
+
+.markdown-preview code {
+  padding: 2px 5px;
+
+  background: var(--bg);
+
+  border: 1px solid var(--line);
+
+  font-family: "DM Mono", monospace;
+}
+
+/* =========================================================
+   REGEX / TIMESTAMP / UUID
+   ========================================================= */
+
+.regex-grid {
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 1fr)
+    100px;
+
+  gap: 10px;
+
+  margin-bottom: 12px;
+}
+
+.regex-flags {
+  text-align: center !important;
+  direction: ltr !important;
+}
+
+.inline-form {
+  display: grid;
+
+  grid-template-columns:
+    280px
+    1fr;
+
+  gap: 20px;
+
+  align-items: center;
+
+  direction: ltr !important;
+}
+
+.timestamp-form .primary-button {
+  min-width: 110px;
+}
+
+.uuid-box {
+  min-height: 76px;
+
+  display: flex;
+  align-items: center;
+
+  overflow-x: auto;
+
+  padding: 25px;
+
+  border: 1px solid var(--line);
+
+  background: var(--surface);
+
+  font: 16px "DM Mono", monospace;
+
+  direction: ltr !important;
+}
+
+/* =========================================================
+   ADMIN
+   ========================================================= */
+
+.admin-page,
+.admin-shell {
+  min-height: 100vh;
+
+  direction: ltr !important;
+}
+
+.admin-top,
+.admin-navbar {
+  height: var(--header-height);
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  border-bottom: 1px solid var(--line);
+
+  direction: ltr !important;
+}
+
+.admin-page {
+  width: min(
+    var(--max),
+    calc(100% - var(--space) * 2)
+  );
+
+  margin: 0 auto;
+}
+
+.admin-top > div,
+.admin-top-actions,
+.admin-navbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.admin-brand {
+  font-family: Inter, sans-serif;
+
+  font-size: 18px;
+  font-weight: 800;
+
+  letter-spacing: -0.08em;
+
+  direction: ltr !important;
+}
+
+.admin-exit,
+.admin-signout {
+  border: 1px solid var(--line);
+
+  background: transparent;
+  color: var(--muted);
+
+  padding: 9px 14px;
+
+  font: 10px "DM Mono", monospace;
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.admin-exit:hover,
+.admin-signout:hover {
+  background: var(--text);
+  color: var(--bg);
+
+  border-color: var(--text);
+}
+
+.admin-circle-button {
+  width: 34px;
+  min-width: 34px;
+
+  height: 34px;
+  min-height: 34px;
+
+  border: 1px solid var(--line);
+  border-radius: 50%;
+
+  background: transparent;
+  color: var(--text);
+
+  display: grid;
+  place-items: center;
+
+  font: 9px "DM Mono", monospace;
+
+  cursor: pointer;
+
+  direction: ltr !important;
+}
+
+.admin-circle-button:hover {
+  background: var(--text);
+  color: var(--bg);
+}
+
+/* =========================================================
+   ADMIN LOGIN
+   ========================================================= */
+
+.admin-login {
+  width: min(520px, 100%);
+
+  margin: 16vh auto;
+
+  direction: ltr !important;
+}
+
+.admin-login h1 {
+  margin: 16px 0 8px;
+
+  font-size: clamp(60px, 10vw, 110px);
+
+  line-height: 0.8;
+
+  letter-spacing: -0.09em;
+}
+
+.admin-login p {
+  color: var(--muted);
+
+  margin-bottom: 50px;
+}
+
+.admin-login form {
+  border-top: 1px solid var(--line);
+}
+
+.admin-login label {
+  display: block;
+
+  padding: 18px 0;
+
+  border-bottom: 1px solid var(--line);
+
+  font: 10px "DM Mono", monospace;
+
+  color: var(--muted);
+
+  text-transform: uppercase;
+}
+
+.admin-login input {
+  display: block;
+
+  width: 100%;
+
+  margin-top: 10px;
+
+  border: 0;
+  outline: 0;
+
+  background: transparent;
+
+  color: var(--text);
+}
+
+.admin-login .primary-button {
+  margin-top: 18px;
+}
+
+.config-note {
+  display: block;
+
+  color: var(--muted);
+
+  margin-top: 22px;
+}
+
+/* =========================================================
+   ADMIN DASHBOARD
+   ========================================================= */
+
+.admin-dashboard {
+  width: min(1180px, 100%);
+
+  margin: 0 auto;
+
+  padding: 85px 0 110px;
+
+  direction: ltr !important;
+}
+
+.admin-hero,
+.admin-title-row {
+  display: flex;
+
+  justify-content: space-between;
+  align-items: flex-end;
+
+  gap: 40px;
+
+  padding-bottom: 52px;
+
+  border-bottom: 1px solid var(--line);
+
+  direction: ltr !important;
+}
+
+.admin-kicker,
+.admin-eyebrow {
+  display: inline-block;
+
+  color: var(--accent);
+
+  font: 10px "DM Mono", monospace;
+
+  letter-spacing: 0.08em;
+
+  text-transform: uppercase;
+}
+
+.admin-hero h1,
+.admin-title-row h1 {
+  margin: 15px 0 0;
+
+  font-size: clamp(68px, 10vw, 145px);
+
+  line-height: 0.78;
+
+  font-weight: 800;
+
+  letter-spacing: -0.09em;
+}
+
+.admin-subtitle,
+.admin-title-row p {
+  margin-top: 22px;
+
+  color: var(--muted);
+
+  max-width: 420px;
+
+  font-size: 13px;
+
+  line-height: 1.8;
+}
+
+.admin-stats,
+.admin-metrics {
+  display: flex;
+
+  gap: 38px;
+
+  flex-shrink: 0;
+
+  direction: ltr !important;
+}
+
+.admin-stat,
+.admin-metrics div {
+  min-width: 58px;
+}
+
+.admin-stat strong,
+.admin-metrics strong {
+  display: block;
+
+  font: 26px "DM Mono", monospace;
+
+  line-height: 1;
+}
+
+.admin-stat span,
+.admin-metrics span {
+  display: block;
+
+  margin-top: 8px;
+
+  color: var(--muted);
+
+  font: 9px "DM Mono", monospace;
+
+  text-transform: uppercase;
+}
+
+/* =========================================================
+   ADMIN TOOLBAR
+   ========================================================= */
+
+.message-toolbar,
+.admin-toolbar {
+  display: flex;
+
+  justify-content: space-between;
+  align-items: center;
+
+  gap: 25px;
+
+  padding: 20px 0;
+
+  border-bottom: 1px solid var(--line);
+
+  direction: ltr !important;
+}
+
+.message-filters,
+.admin-filters {
+  display: flex;
+  align-items: center;
+
+  gap: 6px;
+
+  direction: ltr !important;
+}
+
+.message-filters button,
+.admin-filters button {
+  border: 1px solid transparent;
+
+  background: transparent;
+
+  color: var(--muted);
+
+  padding: 8px 10px;
+
+  font: 10px "DM Mono", monospace;
+
+  cursor: pointer;
+}
+
+.message-filters button:hover,
+.admin-filters button:hover {
+  color: var(--text);
+}
+
+.message-filters button.active,
+.admin-filters button.active {
+  color: var(--text);
+
+  background: var(--surface);
+
+  border-color: var(--line);
+}
+
+.message-search {
+  display: flex;
+  align-items: center;
+
+  gap: 13px;
+
+  min-width: 310px;
+
+  padding: 7px 0;
+
+  border-bottom: 1px solid var(--line);
+
+  direction: ltr !important;
+}
+
+.message-search span {
+  flex: none;
+
+  color: var(--muted);
+
+  font: 9px "DM Mono", monospace;
+
+  text-transform: uppercase;
+}
+
+.message-search input,
+.admin-search {
+  width: 100%;
+
+  border: 0;
+  outline: 0;
+
+  background: transparent;
+
+  color: var(--text);
+
+  font: 13px Inter, sans-serif;
+}
+
+.admin-search {
+  width: 300px;
+
+  border-bottom: 1px solid var(--line);
+
+  padding: 8px 0;
+}
+
+.message-search input::placeholder,
+.admin-search::placeholder {
+  color: var(--muted);
+}
+
+/* =========================================================
+   ADMIN INBOX
+   ========================================================= */
+
+.message-inbox,
+.admin-inbox {
+  margin-top: 34px;
+
+  border-top: 1px solid var(--line);
+}
+
+.inbox-message,
+.admin-message {
+  position: relative;
+
+  display: grid;
+
+  grid-template-columns:
+    76px
+    minmax(0, 1fr);
+
+  gap: 28px;
+
+  padding: 31px 0;
+
+  border-bottom: 1px solid var(--line);
+
+  direction: ltr !important;
+
+  transition:
+    background-color 0.2s ease,
+    padding-inline 0.2s ease;
+}
+
+.inbox-message:hover,
+.admin-message:hover {
+  background: var(--surface);
+
+  padding-inline: 18px;
+}
+
+.inbox-message.is-unread::before,
+.admin-message.new::before {
+  content: "";
+
+  position: absolute;
+
+  inset-inline-start: 0;
+
+  top: 0;
+  bottom: 0;
+
+  width: 3px;
+
+  background: var(--accent);
+}
+
+.inbox-index,
+.admin-message-number {
+  padding-top: 3px;
+
+  color: var(--muted);
+
+  font: 10px "DM Mono", monospace;
+}
+
+.inbox-main,
+.admin-message-body {
+  min-width: 0;
+}
+
+.inbox-topline,
+.admin-message-meta {
+  display: flex;
+
+  justify-content: space-between;
+  align-items: center;
+
+  gap: 20px;
+}
+
+.sender,
+.admin-sender {
+  display: flex;
+  align-items: center;
+
+  flex-wrap: wrap;
+
+  gap: 9px;
+}
+
+.sender-dot,
+.admin-sender > span {
+  width: 7px;
+  height: 7px;
+
+  flex: none;
+
+  border-radius: 50%;
+
+  background: var(--muted);
+}
+
+.is-unread .sender-dot,
+.admin-message.new .admin-sender > span {
+  background: var(--accent);
+}
+
+.sender strong,
+.admin-sender strong {
+  color: var(--text);
+
+  font-size: 18px;
+  font-weight: 600;
+
+  letter-spacing: -0.02em;
+}
+
+.new-badge,
+.admin-sender em {
+  padding: 4px 7px;
+
+  border: 1px solid var(--line);
+
+  color: var(--accent);
+
+  font: 8px "DM Mono", monospace;
+
+  letter-spacing: 0.04em;
+}
+
+.message-date,
+.admin-message-meta time {
+  flex: none;
+
+  color: var(--muted);
+
+  font: 9px "DM Mono", monospace;
+
+  white-space: nowrap;
+}
+
+.inbox-text,
+.admin-message-text {
+  max-width: 780px;
+
+  margin: 17px 0 0;
+
+  color: var(--muted);
+
+  font-size: 14px;
+
+  line-height: 1.95;
+
+  white-space: pre-wrap;
+
+  overflow-wrap: anywhere;
+}
+
+.inbox-actions,
+.admin-message-actions {
+  display: flex;
+
+  align-items: center;
+
+  gap: 19px;
+
+  margin-top: 19px;
+
+  direction: ltr !important;
+}
+
+.inbox-actions button,
+.admin-message-actions button {
+  border: 0;
+
+  border-bottom: 1px solid var(--line);
+
+  background: transparent;
+
+  color: var(--muted);
+
+  padding: 3px 0 5px;
+
+  font: 9px "DM Mono", monospace;
+
+  text-transform: uppercase;
+
+  cursor: pointer;
+}
+
+.inbox-actions button:hover:not(:disabled),
+.admin-message-actions button:hover:not(:disabled) {
+  color: var(--text);
+  border-color: var(--text);
+}
+
+.inbox-actions button:disabled,
+.admin-message-actions button:disabled {
+  cursor: default;
+  opacity: 0.45;
+}
+
+.inbox-actions .danger-action:hover:not(:disabled),
+.admin-message-actions button.delete:hover:not(:disabled) {
+  color: #a33;
+  border-color: #a33;
+}
+
+/* =========================================================
+   EMPTY
+   ========================================================= */
+
+.message-empty,
+.admin-empty {
+  display: grid;
+
+  grid-template-columns:
+    76px
+    minmax(0, 1fr);
+
+  gap: 28px;
+
+  margin-top: 34px;
+
+  padding: 45px 0;
+
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+
+  direction: ltr !important;
+}
+
+.message-empty-number,
+.admin-empty > span {
+  color: var(--muted);
+
+  font: 10px "DM Mono", monospace;
+}
+
+.message-empty strong,
+.admin-empty h2 {
+  display: block;
+
+  color: var(--text);
+
+  font-size: 28px;
+
+  font-weight: 500;
+
+  letter-spacing: -0.04em;
+}
+
+.message-empty p,
+.admin-empty p {
+  max-width: 520px;
+
+  margin: 12px 0 0;
+
+  color: var(--muted);
+
+  font-size: 13px;
+
+  line-height: 1.9;
+}
+
+/* =========================================================
+   PERSIAN TYPOGRAPHY
+   ========================================================= */
+
+/*
+ * IMPORTANT:
+ * Persian language changes text rendering,
+ * not page structure.
+ */
+
+html[data-lang="fa"] .public-content,
+html[data-lang="fa"] .admin-page,
+html[data-lang="fa"] .admin-shell {
+  font-family: Vazirmatn, Inter, sans-serif;
+}
+
+/* Persian body text */
+
+html[data-lang="fa"] .hero-intro,
+html[data-lang="fa"] .hero-side p,
+html[data-lang="fa"] .about-large,
+html[data-lang="fa"] .two-columns p,
+html[data-lang="fa"] .project-content p,
+html[data-lang="fa"] .app-main p,
+html[data-lang="fa"] .education-row p,
+html[data-lang="fa"] .contact-copy,
+html[data-lang="fa"] .message-form input,
+html[data-lang="fa"] .message-form textarea,
+html[data-lang="fa"] .message-form label,
+html[data-lang="fa"] .tool-header p,
+html[data-lang="fa"] .tool-item small,
+html[data-lang="fa"] .admin-subtitle,
+html[data-lang="fa"] .admin-title-row p,
+html[data-lang="fa"] .admin-message-text,
+html[data-lang="fa"] .admin-empty p {
+  font-family: Vazirmatn, sans-serif;
+
+  direction: rtl;
+  text-align: right;
+}
+
+/*
+ * Large Persian headings.
+ */
+html[data-lang="fa"] .hero-intro,
+html[data-lang="fa"] .about-large,
+html[data-lang="fa"] .contact-title,
+html[data-lang="fa"] .tool-header h1,
+html[data-lang="fa"] .workspace-top h2,
+html[data-lang="fa"] .admin-hero h1,
+html[data-lang="fa"] .admin-title-row h1 {
+  font-family: Vazirmatn, sans-serif;
+
+  direction: rtl;
+  text-align: right;
+
+  letter-spacing: -0.035em;
+}
+
+/*
+ * These containers NEVER become RTL.
+ * This is critical for stable layout.
+ */
+
+html[data-lang="fa"] .header,
+html[data-lang="fa"] .nav,
+html[data-lang="fa"] .hero,
+html[data-lang="fa"] .hero-meta,
+html[data-lang="fa"] .hero-bottom,
+html[data-lang="fa"] .section,
+html[data-lang="fa"] .section-grid,
+html[data-lang="fa"] .section-label,
+html[data-lang="fa"] .two-columns,
+html[data-lang="fa"] .project,
+html[data-lang="fa"] .apps,
+html[data-lang="fa"] .app,
+html[data-lang="fa"] .app-top,
+html[data-lang="fa"] .stack-row,
+html[data-lang="fa"] .education-row,
+html[data-lang="fa"] .contact,
+html[data-lang="fa"] .contact-head,
+html[data-lang="fa"] .message-area,
+html[data-lang="fa"] .message-actions,
+html[data-lang="fa"] .footer,
+html[data-lang="fa"] .tool-page,
+html[data-lang="fa"] .tool-header,
+html[data-lang="fa"] .tool-list,
+html[data-lang="fa"] .tool-item,
+html[data-lang="fa"] .tool-workspace,
+html[data-lang="fa"] .workspace-top,
+html[data-lang="fa"] .tool-actions,
+html[data-lang="fa"] .admin-top,
+html[data-lang="fa"] .admin-navbar,
+html[data-lang="fa"] .admin-dashboard,
+html[data-lang="fa"] .admin-hero,
+html[data-lang="fa"] .admin-title-row,
+html[data-lang="fa"] .admin-stats,
+html[data-lang="fa"] .admin-metrics,
+html[data-lang="fa"] .admin-toolbar,
+html[data-lang="fa"] .message-toolbar,
+html[data-lang="fa"] .admin-filters,
+html[data-lang="fa"] .message-filters,
+html[data-lang="fa"] .message-inbox,
+html[data-lang="fa"] .admin-inbox,
+html[data-lang="fa"] .inbox-message,
+html[data-lang="fa"] .admin-message {
+  direction: ltr !important;
+}
+
+/*
+ * Navigation keeps its physical position.
+ * Only the glyphs/text use Persian font.
+ */
+html[data-lang="fa"] .nav > a {
+  font-family: Vazirmatn, Inter, sans-serif;
+
+  direction: rtl;
+  text-align: center;
+
+  min-width: 52px;
+}
+
+/*
+ * Technical / English labels remain LTR.
+ */
+.section-number,
+.project-number,
+.tool-number,
+.tool-arrow,
+.app-top,
+.app-stack,
+.stack-title,
+.education-date,
+.workspace-top span,
+.footer,
+.new-badge,
+.message-date,
+.admin-message-meta time,
+.inbox-index,
+.admin-message-number {
+  direction: ltr !important;
+}
+
+/*
+ * Code-like fields should never reverse.
+ */
+html[data-lang="fa"] .tool-editor,
+html[data-lang="fa"] .tool-output,
+html[data-lang="fa"] .csv-table,
+html[data-lang="fa"] .regex-flags,
+html[data-lang="fa"] .uuid-box {
+  direction: ltr !important;
+  text-align: left;
+}
+
+/*
+ * Mixed Persian/English paragraphs:
+ * let Unicode choose the correct run direction
+ * while preserving the surrounding layout.
+ */
+html[data-lang="fa"] .project-content p,
+html[data-lang="fa"] .app-main p,
+html[data-lang="fa"] .inbox-text,
+html[data-lang="fa"] .admin-message-text {
+  unicode-bidi: plaintext;
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 900px) {
+  :root {
+    --space: 20px;
+  }
+
+  .hero {
+    min-height: auto;
+    padding: 85px 0 100px;
+  }
+
+  .hero-bottom {
+    grid-template-columns: 1fr;
+
+    gap: 40px;
+
+    margin-top: 75px;
+  }
+
+  .section {
+    padding: 85px 0;
+  }
+
+  .section-grid {
+    grid-template-columns:
+      45px
+      minmax(0, 1fr);
+
+    gap: 20px;
+  }
+
+  .two-columns {
+    grid-template-columns: 1fr;
+
     gap: 30px;
+
+    margin-top: 60px;
   }
 
-  .header-ltr .brand {
-    min-width: 40px;
+  .apps {
+    grid-template-columns: 1fr;
   }
 
-  .header-ltr .nav {
-    gap: 25px;
+  .stack-row,
+  .education-row {
+    grid-template-columns:
+      150px
+      minmax(0, 1fr);
+  }
+
+  .message-area {
+    grid-template-columns: 1fr;
+
+    gap: 35px;
+  }
+
+  .contact {
+    min-height: 70vh;
+  }
+
+  .tool-header {
+    padding-top: 50px;
+  }
+
+  .inline-form {
+    grid-template-columns: 1fr;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .stats-grid .wide {
+    grid-column: span 2;
+  }
+}
+
+@media (max-width: 780px) {
+  .admin-dashboard {
+    padding: 60px 0 80px;
+  }
+
+  .admin-hero,
+  .admin-title-row {
+    align-items: flex-start;
+
+    flex-direction: column;
+
+    gap: 35px;
+  }
+
+  .admin-stats,
+  .admin-metrics {
+    width: 100%;
+
+    justify-content: space-between;
+
+    gap: 15px;
+  }
+
+  .message-toolbar,
+  .admin-toolbar {
+    align-items: stretch;
+
+    flex-direction: column;
+
+    gap: 18px;
+  }
+
+  .message-search,
+  .admin-search {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .inbox-message,
+  .admin-message {
+    grid-template-columns:
+      35px
+      minmax(0, 1fr);
+
+    gap: 12px;
+
+    padding: 26px 0;
+  }
+
+  .inbox-message:hover,
+  .admin-message:hover {
+    padding-inline: 10px;
+  }
+
+  .inbox-topline,
+  .admin-message-meta {
+    align-items: flex-start;
+
+    flex-direction: column;
+
+    gap: 10px;
+  }
+
+  .message-date,
+  .admin-message-meta time {
+    white-space: normal;
+  }
+
+  .message-empty,
+  .admin-empty {
+    grid-template-columns:
+      35px
+      minmax(0, 1fr);
+
+    gap: 12px;
+  }
+}
+
+@media (max-width: 600px) {
+  :root {
+    --header-height: 70px;
+  }
+
+  .site-header {
+    width: calc(100% - var(--space) * 2);
+    height: var(--header-height);
+  }
+
+  .public-content {
+    padding-top: var(--header-height);
+  }
+
+  .mobile-menu {
+    display: block;
+  }
+
+  .nav {
+    position: fixed;
+
+    top: calc(var(--header-height) + 10px);
+
+    left: var(--space);
+    right: var(--space);
+
+    display: none;
+
+    flex-direction: column;
+    align-items: stretch;
+
+    gap: 4px;
+
+    padding: 14px;
+
+    background: var(--surface);
+
+    border: 1px solid var(--line);
+
+    box-shadow: 0 18px 45px rgb(0 0 0 / 8%);
+
+    direction: ltr !important;
+  }
+
+  .nav.open {
+    display: flex;
+  }
+
+  .nav > a {
+    width: 100%;
+
+    min-width: 0;
+    min-height: 42px;
+
+    justify-content: flex-start;
+
+    padding: 0 12px;
+
+    text-align: left;
+  }
+
+  html[data-lang="fa"] .nav > a {
+    text-align: left;
+
+    font-family: Vazirmatn, sans-serif;
+  }
+
+  .circle-button {
+    align-self: flex-start;
+
+    margin-top: 6px;
+  }
+
+  .hero {
+    padding: 70px 0 90px;
+  }
+
+  .hero-meta {
+    display: block;
+
+    margin-bottom: 55px;
+  }
+
+  .status {
+    display: block;
+
+    margin-top: 14px;
+  }
+
+  .hero-title {
+    font-size: clamp(64px, 20vw, 115px);
+  }
+
+  .hero-intro {
+    font-size: 29px;
+  }
+
+  .section {
+    padding: 65px 0;
+  }
+
+  .section-label {
+    padding-bottom: 42px;
+  }
+
+  .about-large {
+    font-size: 37px;
+  }
+
+  .project {
+    grid-template-columns:
+      35px
+      minmax(0, 1fr)
+      25px;
+
+    gap: 10px;
+
+    padding: 32px 0;
+  }
+
+  .project:hover {
+    padding-inline: 12px;
+  }
+
+  .project-content h2 {
+    font-size: 41px;
+  }
+
+  .app {
+    min-height: 330px;
+    padding: 26px;
+  }
+
+  .app-main h2 {
+    font-size: 60px;
+  }
+
+  .stack-row,
+  .education-row {
+    grid-template-columns: 1fr;
+
+    gap: 9px;
+
+    padding: 24px 0;
+  }
+
+  .contact {
+    padding-top: 75px;
+  }
+
+  .contact-title {
+    margin-top: 65px;
+    font-size: 80px;
+  }
+
+  .footer {
+    flex-direction: column;
+
+    gap: 10px;
+  }
+
+  .tool-header {
+    display: block;
+
+    padding-top: 45px;
+  }
+
+  .tool-header h1 {
+    font-size: 78px;
+  }
+
+  .tool-item {
+    grid-template-columns:
+      35px
+      minmax(0, 1fr)
+      25px;
+
+    gap: 10px;
+  }
+
+  .tool-item strong {
+    font-size: 34px;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .stats-grid .wide {
+    grid-column: span 1;
+  }
+
+  .markdown-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .regex-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .timestamp-form {
+    grid-template-columns: 1fr;
+  }
+
+  .timestamp-form .primary-button {
+    width: 100%;
+  }
+
+  .tool-actions button {
+    min-width: 92px;
+  }
+
+  .admin-login {
+    margin: 12vh auto;
+  }
+
+  .admin-hero h1,
+  .admin-title-row h1 {
+    font-size: 76px;
+  }
+
+  /*
+   * Persian headings on small screens.
+   */
+  html[data-lang="fa"] .hero-intro,
+  html[data-lang="fa"] .about-large,
+  html[data-lang="fa"] .contact-title,
+  html[data-lang="fa"] .tool-header h1 {
+    line-height: 1.08;
   }
 }
