@@ -2502,3 +2502,84 @@ html[data-lang="fa"] .admin-message {
     line-height: 1.08;
   }
 }
+
+.contact-content {
+  margin-top: 80px;
+
+  display: grid;
+
+  grid-template-columns:
+    minmax(240px, 1fr)
+    minmax(320px, 620px);
+
+  gap: 80px;
+
+  align-items: start;
+}
+
+.contact-links {
+  margin-top: 42px;
+
+  border-top: 1px solid var(--line);
+}
+
+.contact-links a {
+  min-height: 58px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  border-bottom: 1px solid var(--line);
+
+  color: var(--text);
+
+  font-family: "DM Mono", monospace;
+  font-size: 11px;
+
+  direction: ltr;
+
+  transition:
+    padding 0.2s ease,
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.contact-links a:hover {
+  padding-inline: 14px;
+
+  background: var(--surface);
+}
+
+.contact-links a b {
+  font-size: 16px;
+  font-weight: 400;
+}
+
+html[data-lang="fa"] .contact-links a {
+  font-family: Inter, sans-serif;
+}
+
+html[data-lang="fa"] .contact-copy {
+  font-family: "Dubai", sans-serif;
+
+  direction: rtl;
+
+  text-align: right;
+}
+
+@media (max-width: 900px) {
+  .contact-content {
+    grid-template-columns: 1fr;
+
+    gap: 45px;
+
+    margin-top: 60px;
+  }
+
+  .contact-links {
+    margin-top: 35px;
+  }
+}

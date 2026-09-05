@@ -9,6 +9,10 @@ export default function Home() {
   return (
     <>
       <main>
+        {/* =====================================================
+            HERO
+           ===================================================== */}
+
         <section className="hero">
           <div className="hero-meta">
             <span className="accent-text">
@@ -23,9 +27,7 @@ export default function Home() {
 
           <h1 className="hero-title">
             <span>ASHKAN</span>
-            <span className="outline">
-              AHMADI
-            </span>
+            <span className="outline">AHMADI</span>
           </h1>
 
           <div className="hero-bottom">
@@ -47,9 +49,18 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="about" className="section">
+        {/* =====================================================
+            ABOUT
+           ===================================================== */}
+
+        <section
+          id="about"
+          className="section"
+        >
           <div className="section-grid">
-            <div className="section-number">01</div>
+            <div className="section-number">
+              01
+            </div>
 
             <div>
               <SectionLabel
@@ -69,9 +80,18 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="work" className="section">
+        {/* =====================================================
+            WORK
+           ===================================================== */}
+
+        <section
+          id="work"
+          className="section"
+        >
           <div className="section-grid">
-            <div className="section-number">02</div>
+            <div className="section-number">
+              02
+            </div>
 
             <div>
               <SectionLabel
@@ -105,9 +125,15 @@ export default function Home() {
           </div>
         </section>
 
+        {/* =====================================================
+            SOFTWARE
+           ===================================================== */}
+
         <section className="section">
           <div className="section-grid">
-            <div className="section-number">03</div>
+            <div className="section-number">
+              03
+            </div>
 
             <div>
               <SectionLabel
@@ -134,9 +160,18 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="stack" className="section">
+        {/* =====================================================
+            STACK
+           ===================================================== */}
+
+        <section
+          id="stack"
+          className="section"
+        >
           <div className="section-grid">
-            <div className="section-number">04</div>
+            <div className="section-number">
+              04
+            </div>
 
             <div>
               <SectionLabel
@@ -145,25 +180,33 @@ export default function Home() {
               />
 
               <div className="stack-list">
-                <StackRow title={t.stack.rows.data}>
+                <StackRow
+                  title={t.stack.rows.data}
+                >
                   {language === 'fa'
                     ? 'پایتون · پانداس · نام‌پای · ژوپیتر'
                     : 'Python · Pandas · NumPy · Jupyter'}
                 </StackRow>
 
-                <StackRow title={t.stack.rows.ml}>
+                <StackRow
+                  title={t.stack.rows.ml}
+                >
                   {language === 'fa'
                     ? 'سایکیت‌لِرن · ایکس‌جی‌بوست · شَپ'
                     : 'Scikit-learn · XGBoost · SHAP'}
                 </StackRow>
 
-                <StackRow title={t.stack.rows.development}>
+                <StackRow
+                  title={t.stack.rows.development}
+                >
                   {language === 'fa'
                     ? 'کاتلین · جاوا · پایتون · اندروید'
                     : 'Kotlin · Java · Python · Android'}
                 </StackRow>
 
-                <StackRow title={t.stack.rows.tools}>
+                <StackRow
+                  title={t.stack.rows.tools}
+                >
                   {language === 'fa'
                     ? 'گیت · گیت‌هاب · داکر · فست‌ای‌پی‌آی · وی‌اس‌کد'
                     : 'Git · GitHub · Docker · FastAPI · VS Code'}
@@ -173,9 +216,15 @@ export default function Home() {
           </div>
         </section>
 
+        {/* =====================================================
+            EDUCATION
+           ===================================================== */}
+
         <section className="section">
           <div className="section-grid">
-            <div className="section-number">05</div>
+            <div className="section-number">
+              05
+            </div>
 
             <div>
               <SectionLabel
@@ -220,9 +269,18 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="contact" className="contact">
+        {/* =====================================================
+            CONTACT
+           ===================================================== */}
+
+        <section
+          id="contact"
+          className="contact"
+        >
           <div className="contact-head">
-            <span className="section-number">06</span>
+            <span className="section-number">
+              06
+            </span>
 
             <span className="accent-text">
               {t.contact.label}
@@ -236,18 +294,66 @@ export default function Home() {
             }}
           />
 
-          <MessageForm
-            text={t.contact.text}
-            language={language}
-          />
+          <div className="contact-content">
+            <div>
+              <p className="contact-copy">
+                {t.contact.text}
+              </p>
+
+              <div className="contact-links">
+                <a
+                  href="https://www.linkedin.com/in/netblag/"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <span>LinkedIn</span>
+                  <b>↗</b>
+                </a>
+
+                <a
+                  href="https://instagram.com/netblag"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <span>Instagram</span>
+                  <b>↗</b>
+                </a>
+
+                <a
+                  href="https://github.com/netblag/"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <span>GitHub</span>
+                  <b>↗</b>
+                </a>
+
+                <a href="mailto:netblag.dev@gmail.com">
+                  <span>Email</span>
+                  <b>↗</b>
+                </a>
+              </div>
+            </div>
+
+            <MessageForm
+              text={t.contact.text}
+              language={language}
+            />
+          </div>
         </section>
       </main>
 
+      {/* =====================================================
+          FOOTER
+         ===================================================== */}
+
       <footer className="footer">
-        <span>{t.footer}</span>
+        <span>
+          {t.footer}
+        </span>
 
         <a
-          href="https://github.com/netblag"
+          href="https://github.com/netblag/"
           target="_blank"
           rel="noreferrer"
         >
@@ -257,6 +363,10 @@ export default function Home() {
     </>
   )
 }
+
+/* =========================================================
+   SECTION LABEL
+   ========================================================= */
 
 function SectionLabel({
   main,
@@ -268,12 +378,17 @@ function SectionLabel({
   return (
     <div className="section-label">
       <span>{main}</span>
+
       <span className="secondary">
         {secondary}
       </span>
     </div>
   )
 }
+
+/* =========================================================
+   PROJECT
+   ========================================================= */
 
 function Project({
   number,
@@ -289,7 +404,7 @@ function Project({
   return (
     <a
       className="project"
-      href="https://github.com/netblag"
+      href="https://github.com/netblag/"
       target="_blank"
       rel="noreferrer"
     >
@@ -311,10 +426,16 @@ function Project({
         </div>
       </div>
 
-      <div className="project-arrow">↗</div>
+      <div className="project-arrow">
+        ↗
+      </div>
     </a>
   )
 }
+
+/* =========================================================
+   APP CARD
+   ========================================================= */
 
 function AppCard({
   title,
@@ -358,6 +479,10 @@ function AppCard({
   )
 }
 
+/* =========================================================
+   STACK ROW
+   ========================================================= */
+
 function StackRow({
   title,
   children,
@@ -371,7 +496,10 @@ function StackRow({
         {title}
       </span>
 
-      <span>{children}</span>
+      <span>
+        {children}
+      </span>
     </div>
   )
 }
+
