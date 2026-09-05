@@ -16,7 +16,7 @@ export const copy = {
         'Building & learning',
 
       intro:
-        'I build software, work with data, and try to understand the problem before trying to solve it.',
+        'II’m a software engineering student building my path around data science, machine learning, and practical software development.',
 
       side:
         'My current focus is turning what I learn into practical projects — from data analysis and modeling to real software products.',
@@ -266,7 +266,7 @@ export const copy = {
         'در حال یادگیری و ساختن',
 
       intro:
-        'نرم‌افزار می‌سازم، با داده کار می‌کنم و قبل از حل هر مسئله، سعی می‌کنم خود مسئله را درست بفهمم.',
+        'دانشجوی مهندسی نرم‌ افزارم و مسیرم را روی علم داده، یادگیری ماشین و توسعه نرم‌افزارهای کاربردی پیش می‌برم.',
 
       side:
         'تمرکز فعلی من تبدیل چیزهایی است که یاد می‌گیرم به پروژه‌های کاربردی؛ از تحلیل و مدل‌سازی داده تا ساخت نرم‌افزار واقعی.',
