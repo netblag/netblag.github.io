@@ -32,22 +32,28 @@ html {
 
 body {
   margin: 0;
+
   background: var(--bg);
   color: var(--text);
+
   font-family: Inter, sans-serif;
+
   line-height: 1.5;
+
   -webkit-font-smoothing: antialiased;
+
   overflow-x: hidden;
+
+  direction: ltr !important;
+
   transition:
     background-color 0.25s ease,
     color 0.25s ease;
-
-  direction: ltr !important;
 }
 
 html[data-lang="fa"],
 html[data-lang="fa"] body,
-html[data-lang="fa"] .site {
+html[data-lang="fa"] #root {
   direction: ltr !important;
 }
 
@@ -72,8 +78,13 @@ button {
 }
 
 .site {
-  width: min(var(--max), calc(100% - var(--space) * 2));
+  width: min(
+    var(--max),
+    calc(100% - var(--space) * 2)
+  );
+
   margin: 0 auto;
+
   direction: ltr !important;
 }
 
@@ -81,19 +92,6 @@ button {
    HEADER
    ========================================================= */
 
-.header {
-  height: var(--header-height);
-
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  direction: ltr !important;
-}
-
-/*
- * Public header is fixed so it remains visible while scrolling.
- */
 .site-header {
   position: fixed;
 
@@ -109,13 +107,19 @@ button {
     calc(100% - var(--space) * 2)
   );
 
+  height: var(--header-height);
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  border-bottom: 1px solid var(--line);
+
   background: color-mix(
     in srgb,
     var(--bg) 92%,
     transparent
   );
-
-  border-bottom: 1px solid var(--line);
 
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
@@ -123,11 +127,9 @@ button {
   direction: ltr !important;
 }
 
-/*
- * Prevent the fixed header from covering the first content.
- */
 .public-content {
   padding-top: var(--header-height);
+
   direction: ltr !important;
 }
 
@@ -141,9 +143,8 @@ button {
   width: 42px;
   min-width: 42px;
 
-  color: var(--text);
-
   font-family: Inter, sans-serif;
+
   font-size: 17px;
   font-weight: 800;
 
@@ -155,7 +156,7 @@ button {
 }
 
 /* =========================================================
-   NAV
+   NAVIGATION
    ========================================================= */
 
 .nav {
@@ -172,23 +173,28 @@ button {
   flex: 0 0 auto;
 }
 
-.nav > a {
+.nav-link {
   display: inline-flex;
+
   align-items: center;
   justify-content: center;
 
   min-width: 48px;
   height: 34px;
 
+  padding: 0 2px;
+
   color: var(--muted);
 
-  font-family: Inter, Vazirmatn, sans-serif;
+  font-family: Inter, sans-serif;
+
   font-size: 11px;
   font-weight: 500;
 
   line-height: 1;
 
   white-space: nowrap;
+
   text-align: center;
 
   transition:
@@ -196,14 +202,10 @@ button {
     opacity 0.2s ease;
 }
 
-.nav > a:hover,
-.nav > a.active {
+.nav-link:hover,
+.nav-link.active {
   color: var(--text);
 }
-
-/* =========================================================
-   LANGUAGE / THEME BUTTONS
-   ========================================================= */
 
 .circle-button {
   flex: 0 0 auto;
@@ -226,6 +228,7 @@ button {
   place-items: center;
 
   font-family: "DM Mono", monospace;
+
   font-size: 9px;
   font-weight: 500;
 
@@ -235,33 +238,26 @@ button {
 
   transition:
     background-color 0.2s ease,
-    color 0.2s ease,
-    border-color 0.2s ease;
+    color 0.2s ease;
 }
 
 .circle-button:hover {
   background: var(--text);
   color: var(--bg);
-  border-color: var(--text);
 }
-
-/* =========================================================
-   MOBILE MENU
-   ========================================================= */
 
 .mobile-menu {
   display: none;
-
-  flex: 0 0 auto;
-
-  border: 0;
-  background: transparent;
-  color: var(--text);
 
   width: 34px;
   height: 34px;
 
   padding: 0;
+
+  border: 0;
+
+  background: transparent;
+  color: var(--text);
 
   font-size: 20px;
 
@@ -269,41 +265,103 @@ button {
 }
 
 /* =========================================================
-   GLOBAL HELPERS
+   PERSIAN FONT
    ========================================================= */
 
-.accent-text {
-  color: var(--accent);
+@font-face {
+  font-family: "Dubai";
+  src:
+    url("https://www.dubaihumanitarian.ae/fonts/Dubai-Medium.woff2")
+    format("woff2");
+
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
 }
 
-.text-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-
-  margin-top: 30px;
-  padding-bottom: 6px;
-
-  border-bottom: 1px solid var(--text);
-
-  font: 10px "DM Mono", monospace;
-  text-transform: uppercase;
+html[data-lang="fa"] .public-content,
+html[data-lang="fa"] .admin-page,
+html[data-lang="fa"] .admin-shell {
+  font-family: "Dubai", sans-serif;
 }
 
-.text-link b {
-  font-size: 17px;
-  font-weight: 400;
+html[data-lang="fa"] p,
+html[data-lang="fa"] label,
+html[data-lang="fa"] input,
+html[data-lang="fa"] textarea,
+html[data-lang="fa"] small {
+  font-family: "Dubai", sans-serif;
 }
 
 /* =========================================================
-   HOME / HERO
+   PERSIAN TEXT
+   ========================================================= */
+
+html[data-lang="fa"] .hero-intro,
+html[data-lang="fa"] .hero-side p,
+html[data-lang="fa"] .about-large,
+html[data-lang="fa"] .two-columns p,
+html[data-lang="fa"] .project-content p,
+html[data-lang="fa"] .app-main p,
+html[data-lang="fa"] .education-row p,
+html[data-lang="fa"] .contact-copy,
+html[data-lang="fa"] .message-form input,
+html[data-lang="fa"] .message-form textarea,
+html[data-lang="fa"] .message-form label,
+html[data-lang="fa"] .tool-header p,
+html[data-lang="fa"] .tool-item small,
+html[data-lang="fa"] .admin-subtitle,
+html[data-lang="fa"] .admin-title-row p,
+html[data-lang="fa"] .admin-message-text,
+html[data-lang="fa"] .admin-empty p {
+  font-family: "Dubai", sans-serif;
+
+  direction: rtl;
+  text-align: right;
+
+  font-weight: 500;
+}
+
+/* Large Persian headings */
+
+html[data-lang="fa"] .hero-intro,
+html[data-lang="fa"] .about-large,
+html[data-lang="fa"] .contact-title,
+html[data-lang="fa"] .tool-header h1,
+html[data-lang="fa"] .workspace-top h2,
+html[data-lang="fa"] .admin-hero h1,
+html[data-lang="fa"] .admin-title-row h1 {
+  font-family: "Dubai", sans-serif;
+
+  font-weight: 500;
+
+  direction: rtl;
+  text-align: right;
+
+  letter-spacing: -0.035em;
+}
+
+/* Persian navigation */
+
+html[data-lang="fa"] .nav-link {
+  font-family: "Dubai", sans-serif;
+
+  direction: rtl;
+  text-align: center;
+}
+
+/* =========================================================
+   HOME
    ========================================================= */
 
 .hero {
-  min-height: calc(100vh - var(--header-height));
+  min-height: calc(
+    100vh - var(--header-height)
+  );
 
   display: flex;
   flex-direction: column;
+
   justify-content: center;
 
   padding: 90px 0 110px;
@@ -313,15 +371,91 @@ button {
 
 .hero-meta {
   display: flex;
+
   justify-content: space-between;
   align-items: center;
 
   margin-bottom: 75px;
 
-  font: 10px "DM Mono", monospace;
+  font:
+    10px "DM Mono",
+    monospace;
+
   text-transform: uppercase;
 
   direction: ltr !important;
+}
+
+.hero-title {
+  margin: 0;
+
+  font-size: clamp(
+    84px,
+    14.7vw,
+    215px
+  );
+
+  line-height: 0.76;
+
+  font-weight: 800;
+
+  letter-spacing: -0.105em;
+
+  direction: ltr !important;
+}
+
+.hero-title span {
+  display: block;
+}
+
+.hero-title .outline {
+  color: transparent;
+
+  -webkit-text-stroke:
+    1.5px var(--text);
+}
+
+.hero-bottom {
+  margin-top: 105px;
+
+  display: grid;
+
+  grid-template-columns:
+    minmax(280px, 1fr)
+    minmax(280px, 410px);
+
+  gap: 80px;
+
+  direction: ltr !important;
+}
+
+.hero-intro {
+  max-width: 760px;
+
+  font-size: clamp(
+    27px,
+    3.3vw,
+    48px
+  );
+
+  line-height: 1.03;
+
+  letter-spacing: -0.05em;
+}
+
+.hero-side {
+  align-self: end;
+}
+
+.hero-side p,
+.contact-copy {
+  max-width: 390px;
+
+  color: var(--muted);
+
+  font-size: 14px;
+
+  line-height: 1.9;
 }
 
 .status {
@@ -341,61 +475,32 @@ button {
   background: var(--accent);
 }
 
-.hero-title {
-  margin: 0;
-
-  font-size: clamp(84px, 14.7vw, 215px);
-  line-height: 0.76;
-
-  font-weight: 800;
-  letter-spacing: -0.105em;
-
-  direction: ltr !important;
+.accent-text {
+  color: var(--accent);
 }
 
-.hero-title span {
-  display: block;
+.text-link {
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 12px;
+
+  margin-top: 30px;
+  padding-bottom: 6px;
+
+  border-bottom: 1px solid var(--text);
+
+  font:
+    10px "DM Mono",
+    monospace;
+
+  text-transform: uppercase;
 }
 
-.hero-title .outline {
-  color: transparent;
-  -webkit-text-stroke: 1.5px var(--text);
-}
-
-.hero-bottom {
-  margin-top: 105px;
-
-  display: grid;
-  grid-template-columns:
-    minmax(280px, 1fr)
-    minmax(280px, 410px);
-
-  gap: 80px;
-
-  direction: ltr !important;
-}
-
-.hero-intro {
-  max-width: 760px;
-
-  font-size: clamp(27px, 3.3vw, 48px);
-  line-height: 1.03;
-
-  letter-spacing: -0.05em;
-}
-
-.hero-side {
-  align-self: end;
-}
-
-.hero-side p,
-.contact-copy {
-  max-width: 390px;
-
-  color: var(--muted);
-
-  font-size: 14px;
-  line-height: 1.9;
+.text-link b {
+  font-size: 17px;
+  font-weight: 400;
 }
 
 /* =========================================================
@@ -423,22 +528,29 @@ button {
 }
 
 .section-number {
-  font: 10px "DM Mono", monospace;
   color: var(--muted);
+
+  font:
+    10px "DM Mono",
+    monospace;
 
   direction: ltr !important;
 }
 
 .section-label {
   display: flex;
+
   justify-content: space-between;
 
   padding-bottom: 62px;
 
-  font: 10px "DM Mono", monospace;
-  text-transform: uppercase;
-
   color: var(--muted);
+
+  font:
+    10px "DM Mono",
+    monospace;
+
+  text-transform: uppercase;
 
   direction: ltr !important;
 }
@@ -450,7 +562,12 @@ button {
 .about-large {
   max-width: 1040px;
 
-  font-size: clamp(39px, 5.25vw, 78px);
+  font-size: clamp(
+    39px,
+    5.25vw,
+    78px
+  );
+
   line-height: 0.99;
 
   letter-spacing: -0.065em;
@@ -460,7 +577,9 @@ button {
   max-width: 980px;
 
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
 
   gap: 70px;
 
@@ -475,6 +594,7 @@ button {
   color: var(--muted);
 
   font-size: 14px;
+
   line-height: 1.95;
 }
 
@@ -500,29 +620,36 @@ button {
 
   border-bottom: 1px solid var(--line);
 
+  direction: ltr !important;
+
   transition:
     background-color 0.2s ease,
     padding 0.2s ease;
-
-  direction: ltr !important;
 }
 
 .project:hover {
   background: var(--surface);
+
   padding-inline: 22px;
 }
 
 .project-number {
-  font: 10px "DM Mono", monospace;
   color: var(--muted);
 
-  direction: ltr !important;
+  font:
+    10px "DM Mono",
+    monospace;
 }
 
 .project-content h2 {
   margin: 0;
 
-  font-size: clamp(40px, 5vw, 75px);
+  font-size: clamp(
+    40px,
+    5vw,
+    75px
+  );
+
   line-height: 0.86;
 
   letter-spacing: -0.065em;
@@ -538,26 +665,36 @@ button {
   color: var(--muted);
 
   font-size: 14px;
+
   line-height: 1.85;
+
+  unicode-bidi: plaintext;
 }
 
 .tags {
   display: flex;
+
   flex-wrap: wrap;
 
   gap: 7px;
 
   margin-top: 28px;
+
+  direction: ltr !important;
 }
 
 .tags span {
   padding: 5px 9px;
 
   border: 1px solid var(--line);
+
   border-radius: 100px;
 
-  font: 9px "DM Mono", monospace;
   color: var(--muted);
+
+  font:
+    9px "DM Mono",
+    monospace;
 }
 
 .project-arrow {
@@ -573,7 +710,8 @@ button {
 .apps {
   display: grid;
 
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
 
   gap: 1px;
 
@@ -591,6 +729,7 @@ button {
 
   display: flex;
   flex-direction: column;
+
   justify-content: space-between;
 
   direction: ltr !important;
@@ -598,10 +737,14 @@ button {
 
 .app-top {
   display: flex;
+
   justify-content: space-between;
 
-  font: 10px "DM Mono", monospace;
   color: var(--muted);
+
+  font:
+    10px "DM Mono",
+    monospace;
 
   text-transform: uppercase;
 
@@ -611,7 +754,12 @@ button {
 .app-main h2 {
   margin: 0;
 
-  font-size: clamp(52px, 6vw, 92px);
+  font-size: clamp(
+    52px,
+    6vw,
+    92px
+  );
+
   line-height: 0.82;
 
   letter-spacing: -0.075em;
@@ -625,12 +773,16 @@ button {
   color: var(--muted);
 
   font-size: 14px;
+
   line-height: 1.9;
 }
 
 .app-stack {
-  font: 10px "DM Mono", monospace;
   color: var(--muted);
+
+  font:
+    10px "DM Mono",
+    monospace;
 
   direction: ltr !important;
 }
@@ -665,8 +817,12 @@ button {
 
 .stack-title,
 .education-date {
-  font: 10px "DM Mono", monospace;
   color: var(--muted);
+
+  font:
+    10px "DM Mono",
+    monospace;
+
   text-transform: uppercase;
 
   direction: ltr !important;
@@ -675,7 +831,12 @@ button {
 .education-row h2 {
   margin: 0;
 
-  font-size: clamp(30px, 3.5vw, 52px);
+  font-size: clamp(
+    30px,
+    3.5vw,
+    52px
+  );
+
   line-height: 1;
 
   letter-spacing: -0.05em;
@@ -704,6 +865,7 @@ button {
 
   display: flex;
   flex-direction: column;
+
   justify-content: space-between;
 
   direction: ltr !important;
@@ -711,6 +873,7 @@ button {
 
 .contact-head {
   display: flex;
+
   justify-content: space-between;
 
   direction: ltr !important;
@@ -719,11 +882,19 @@ button {
 .contact-title {
   margin: 100px 0 0;
 
-  font-size: clamp(82px, 15vw, 220px);
+  font-size: clamp(
+    82px,
+    15vw,
+    220px
+  );
+
   line-height: 0.75;
 
   font-weight: 800;
+
   letter-spacing: -0.105em;
+
+  direction: ltr;
 }
 
 .message-area {
@@ -761,7 +932,10 @@ button {
 
   color: var(--muted);
 
-  font: 9px "DM Mono", monospace;
+  font:
+    9px "DM Mono",
+    monospace;
+
   text-transform: uppercase;
 }
 
@@ -769,10 +943,10 @@ button {
 .message-form textarea {
   width: 100%;
 
-  background: transparent;
-
   border: 0;
   outline: 0;
+
+  background: transparent;
 
   color: var(--text);
 
@@ -785,6 +959,7 @@ button {
 
 .message-actions {
   display: flex;
+
   align-items: center;
 
   gap: 20px;
@@ -809,19 +984,17 @@ button {
   color: var(--text);
 
   display: inline-flex;
+
   align-items: center;
   justify-content: center;
 
-  font: 10px "DM Mono", monospace;
+  font:
+    10px "DM Mono",
+    monospace;
 
   line-height: 1;
 
   white-space: nowrap;
-
-  transition:
-    background-color 0.2s ease,
-    color 0.2s ease,
-    border-color 0.2s ease;
 }
 
 .message-actions button:hover,
@@ -855,11 +1028,15 @@ button {
   border-top: 1px solid var(--line);
 
   display: flex;
+
   justify-content: space-between;
 
   color: var(--muted);
 
-  font: 9px "DM Mono", monospace;
+  font:
+    9px "DM Mono",
+    monospace;
+
   text-transform: uppercase;
 
   direction: ltr !important;
@@ -886,6 +1063,7 @@ button {
   padding: 60px 0 70px;
 
   display: flex;
+
   justify-content: space-between;
   align-items: flex-start;
 
@@ -897,10 +1075,27 @@ button {
 
   font-family: Inter, sans-serif;
 
-  font-size: clamp(70px, 12vw, 170px);
+  font-size: clamp(
+    70px,
+    12vw,
+    170px
+  );
+
   line-height: 0.78;
 
   letter-spacing: -0.09em;
+}
+
+html[data-lang="fa"] .tool-header h1 {
+  font-family: "Dubai", sans-serif;
+
+  font-weight: 500;
+
+  letter-spacing: -0.045em;
+
+  direction: rtl;
+
+  text-align: right;
 }
 
 .tool-header p {
@@ -909,25 +1104,19 @@ button {
   color: var(--muted);
 
   font-size: 14px;
+
   line-height: 1.8;
 }
 
 .back-link {
-  font: 10px "DM Mono", monospace;
-
   color: var(--muted);
+
+  font:
+    10px "DM Mono",
+    monospace;
 
   text-transform: uppercase;
 }
-
-.tool-home {
-  font-family: Inter, sans-serif;
-  font-weight: 800;
-}
-
-/* =========================================================
-   TOOL LIST
-   ========================================================= */
 
 .tool-list {
   border-top: 1px solid var(--line);
@@ -955,40 +1144,44 @@ button {
   border-bottom: 1px solid var(--line);
 
   background: transparent;
+
   color: var(--text);
 
   text-align: left;
 
   direction: ltr !important;
-
-  transition:
-    background-color 0.2s ease,
-    padding 0.2s ease;
 }
 
 .tool-item:hover {
   background: var(--surface);
+
   padding-inline: 20px;
 }
 
 .tool-number {
   color: var(--muted);
 
-  font: 10px "DM Mono", monospace;
+  font:
+    10px "DM Mono",
+    monospace;
 
   direction: ltr !important;
 }
 
 .tool-item-main {
   min-width: 0;
-  display: block;
 }
 
 .tool-item strong {
   display: block;
 
   font-family: Inter, sans-serif;
-  font-size: clamp(28px, 4vw, 54px);
+
+  font-size: clamp(
+    28px,
+    4vw,
+    54px
+  );
 
   line-height: 1;
 
@@ -1003,17 +1196,26 @@ button {
   color: var(--muted);
 
   font-size: 13px;
+
   line-height: 1.6;
+
+  unicode-bidi: plaintext;
+}
+
+html[data-lang="fa"] .tool-item strong,
+html[data-lang="fa"] .tool-item small {
+  font-family: "Dubai", sans-serif;
+
+  direction: rtl;
+
+  text-align: right;
 }
 
 .tool-arrow {
-  direction: ltr !important;
   font-size: 22px;
-}
 
-/* =========================================================
-   TOOL WORKSPACE
-   ========================================================= */
+  direction: ltr !important;
+}
 
 .tool-workspace {
   border-top: 1px solid var(--line);
@@ -1024,14 +1226,11 @@ button {
   direction: ltr !important;
 }
 
-.tool-back {
-  display: inline-flex;
-}
-
 .workspace-top {
   display: flex;
 
   justify-content: space-between;
+
   align-items: flex-end;
 
   margin: 20px 0 30px;
@@ -1042,16 +1241,35 @@ button {
 .workspace-top h2 {
   margin: 0;
 
-  font-size: clamp(40px, 6vw, 78px);
+  font-size: clamp(
+    40px,
+    6vw,
+    78px
+  );
+
   line-height: 0.9;
 
   letter-spacing: -0.07em;
 }
 
+html[data-lang="fa"] .workspace-top h2 {
+  font-family: "Dubai", sans-serif;
+
+  font-weight: 500;
+
+  direction: rtl;
+
+  text-align: right;
+
+  letter-spacing: -0.035em;
+}
+
 .workspace-top span {
   color: var(--muted);
 
-  font: 10px "DM Mono", monospace;
+  font:
+    10px "DM Mono",
+    monospace;
 
   direction: ltr !important;
 }
@@ -1072,41 +1290,15 @@ button {
 
   resize: vertical;
 
-  font: 13px "DM Mono", monospace;
+  font:
+    13px "DM Mono",
+    monospace;
 
   line-height: 1.7;
-
-  direction: ltr;
-  text-align: left;
-}
-
-.tool-actions {
-  display: flex;
-  flex-wrap: wrap;
-
-  gap: 8px;
-
-  margin: 12px 0;
 
   direction: ltr !important;
-}
 
-.tool-output {
-  min-height: 160px;
-
-  padding: 18px;
-
-  border: 1px solid var(--line);
-
-  white-space: pre-wrap;
-  overflow: auto;
-
-  font: 12px "DM Mono", monospace;
-
-  line-height: 1.7;
-
-  direction: ltr;
-  text-align: left;
+  text-align: left !important;
 }
 
 .tool-input {
@@ -1119,11 +1311,56 @@ button {
   border: 1px solid var(--line);
 
   background: var(--surface);
+
   color: var(--text);
 
   outline: 0;
 
-  font-family: Inter, Vazirmatn, sans-serif;
+  font-family: Inter, sans-serif;
+}
+
+html[data-lang="fa"] .tool-input {
+  font-family: "Dubai", sans-serif;
+
+  direction: rtl;
+
+  text-align: right;
+}
+
+.tool-output {
+  min-height: 160px;
+
+  padding: 18px;
+
+  border: 1px solid var(--line);
+
+  white-space: pre-wrap;
+
+  overflow: auto;
+
+  font:
+    12px "DM Mono",
+    monospace;
+
+  line-height: 1.7;
+
+  direction: ltr !important;
+
+  text-align: left !important;
+}
+
+.tool-actions {
+  display: flex;
+
+  flex-wrap: wrap;
+
+  align-items: center;
+
+  gap: 8px;
+
+  margin: 12px 0;
+
+  direction: ltr !important;
 }
 
 .tool-error {
@@ -1135,7 +1372,9 @@ button {
 
   color: #a33;
 
-  font: 12px/1.6 "DM Mono", monospace;
+  font:
+    12px/1.6 "DM Mono",
+    monospace;
 
   white-space: pre-wrap;
 }
@@ -1147,13 +1386,14 @@ button {
 .stats-grid {
   display: grid;
 
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns:
+    repeat(3, 1fr);
 
   gap: 1px;
 
-  background: var(--line);
-
   margin-top: 15px;
+
+  background: var(--line);
 }
 
 .stats-grid > div {
@@ -1167,7 +1407,9 @@ button {
 
   color: var(--muted);
 
-  font: 10px "DM Mono", monospace;
+  font:
+    10px "DM Mono",
+    monospace;
 
   text-transform: uppercase;
 }
@@ -1234,7 +1476,8 @@ button {
 .markdown-grid {
   display: grid;
 
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns:
+    1fr 1fr;
 
   gap: 14px;
 }
@@ -1253,16 +1496,19 @@ button {
   line-height: 1.8;
 }
 
+html[data-lang="fa"] .markdown-preview {
+  font-family: "Dubai", sans-serif;
+
+  direction: rtl;
+  text-align: right;
+}
+
 .markdown-preview h1,
 .markdown-preview h2,
 .markdown-preview h3 {
   margin-top: 0;
 
   line-height: 1.1;
-}
-
-.markdown-preview p {
-  margin: 0 0 16px;
 }
 
 .markdown-preview code {
@@ -1293,6 +1539,7 @@ button {
 
 .regex-flags {
   text-align: center !important;
+
   direction: ltr !important;
 }
 
@@ -1300,27 +1547,24 @@ button {
   display: grid;
 
   grid-template-columns:
-    280px
-    1fr;
+    minmax(0, 1fr)
+    auto;
 
-  gap: 20px;
+  gap: 10px;
 
   align-items: center;
 
   direction: ltr !important;
 }
 
-.timestamp-form .primary-button {
-  min-width: 110px;
-}
-
 .uuid-box {
   min-height: 76px;
 
   display: flex;
+
   align-items: center;
 
-  overflow-x: auto;
+  margin-bottom: 15px;
 
   padding: 25px;
 
@@ -1328,7 +1572,11 @@ button {
 
   background: var(--surface);
 
-  font: 16px "DM Mono", monospace;
+  overflow-x: auto;
+
+  font:
+    16px "DM Mono",
+    monospace;
 
   direction: ltr !important;
 }
@@ -1344,19 +1592,6 @@ button {
   direction: ltr !important;
 }
 
-.admin-top,
-.admin-navbar {
-  height: var(--header-height);
-
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  border-bottom: 1px solid var(--line);
-
-  direction: ltr !important;
-}
-
 .admin-page {
   width: min(
     var(--max),
@@ -1366,86 +1601,33 @@ button {
   margin: 0 auto;
 }
 
-.admin-top > div,
-.admin-top-actions,
-.admin-navbar-actions {
+.admin-top {
+  height: var(--header-height);
+
   display: flex;
+
   align-items: center;
+
+  justify-content: space-between;
+
+  border-bottom: 1px solid var(--line);
+
+  direction: ltr !important;
+}
+
+.admin-top-actions {
+  display: flex;
+
+  align-items: center;
+
   gap: 8px;
 }
 
-.admin-brand {
-  font-family: Inter, sans-serif;
-
-  font-size: 18px;
-  font-weight: 800;
-
-  letter-spacing: -0.08em;
-
-  direction: ltr !important;
-}
-
-.admin-exit,
-.admin-signout {
-  border: 1px solid var(--line);
-
-  background: transparent;
-  color: var(--muted);
-
-  padding: 9px 14px;
-
-  font: 10px "DM Mono", monospace;
-
-  cursor: pointer;
-
-  transition:
-    background-color 0.2s ease,
-    color 0.2s ease,
-    border-color 0.2s ease;
-}
-
-.admin-exit:hover,
-.admin-signout:hover {
-  background: var(--text);
-  color: var(--bg);
-
-  border-color: var(--text);
-}
-
-.admin-circle-button {
-  width: 34px;
-  min-width: 34px;
-
-  height: 34px;
-  min-height: 34px;
-
-  border: 1px solid var(--line);
-  border-radius: 50%;
-
-  background: transparent;
-  color: var(--text);
-
-  display: grid;
-  place-items: center;
-
-  font: 9px "DM Mono", monospace;
-
-  cursor: pointer;
-
-  direction: ltr !important;
-}
-
-.admin-circle-button:hover {
-  background: var(--text);
-  color: var(--bg);
-}
-
-/* =========================================================
-   ADMIN LOGIN
-   ========================================================= */
-
 .admin-login {
-  width: min(520px, 100%);
+  width: min(
+    520px,
+    100%
+  );
 
   margin: 16vh auto;
 
@@ -1455,7 +1637,11 @@ button {
 .admin-login h1 {
   margin: 16px 0 8px;
 
-  font-size: clamp(60px, 10vw, 110px);
+  font-size: clamp(
+    60px,
+    10vw,
+    110px
+  );
 
   line-height: 0.8;
 
@@ -1479,11 +1665,21 @@ button {
 
   border-bottom: 1px solid var(--line);
 
-  font: 10px "DM Mono", monospace;
-
   color: var(--muted);
 
+  font:
+    10px "DM Mono",
+    monospace;
+
   text-transform: uppercase;
+}
+
+html[data-lang="fa"] .admin-login label {
+  font-family: "Dubai", sans-serif;
+
+  direction: rtl;
+
+  text-align: right;
 }
 
 .admin-login input {
@@ -1501,6 +1697,14 @@ button {
   color: var(--text);
 }
 
+html[data-lang="fa"] .admin-login input {
+  font-family: "Dubai", sans-serif;
+
+  direction: ltr;
+
+  text-align: left;
+}
+
 .admin-login .primary-button {
   margin-top: 18px;
 }
@@ -1513,12 +1717,23 @@ button {
   margin-top: 22px;
 }
 
+.center-state {
+  padding: 100px 0;
+
+  text-align: center;
+
+  color: var(--muted);
+}
+
 /* =========================================================
    ADMIN DASHBOARD
    ========================================================= */
 
 .admin-dashboard {
-  width: min(1180px, 100%);
+  width: min(
+    1180px,
+    100%
+  );
 
   margin: 0 auto;
 
@@ -1532,6 +1747,7 @@ button {
   display: flex;
 
   justify-content: space-between;
+
   align-items: flex-end;
 
   gap: 40px;
@@ -1545,11 +1761,11 @@ button {
 
 .admin-kicker,
 .admin-eyebrow {
-  display: inline-block;
-
   color: var(--accent);
 
-  font: 10px "DM Mono", monospace;
+  font:
+    10px "DM Mono",
+    monospace;
 
   letter-spacing: 0.08em;
 
@@ -1560,7 +1776,11 @@ button {
 .admin-title-row h1 {
   margin: 15px 0 0;
 
-  font-size: clamp(68px, 10vw, 145px);
+  font-size: clamp(
+    68px,
+    10vw,
+    145px
+  );
 
   line-height: 0.78;
 
@@ -1573,9 +1793,9 @@ button {
 .admin-title-row p {
   margin-top: 22px;
 
-  color: var(--muted);
-
   max-width: 420px;
+
+  color: var(--muted);
 
   font-size: 13px;
 
@@ -1602,7 +1822,9 @@ button {
 .admin-metrics strong {
   display: block;
 
-  font: 26px "DM Mono", monospace;
+  font:
+    26px "DM Mono",
+    monospace;
 
   line-height: 1;
 }
@@ -1615,20 +1837,19 @@ button {
 
   color: var(--muted);
 
-  font: 9px "DM Mono", monospace;
+  font:
+    9px "DM Mono",
+    monospace;
 
   text-transform: uppercase;
 }
-
-/* =========================================================
-   ADMIN TOOLBAR
-   ========================================================= */
 
 .message-toolbar,
 .admin-toolbar {
   display: flex;
 
   justify-content: space-between;
+
   align-items: center;
 
   gap: 25px;
@@ -1643,6 +1864,7 @@ button {
 .message-filters,
 .admin-filters {
   display: flex;
+
   align-items: center;
 
   gap: 6px;
@@ -1660,14 +1882,14 @@ button {
 
   padding: 8px 10px;
 
-  font: 10px "DM Mono", monospace;
-
-  cursor: pointer;
+  font:
+    10px "DM Mono",
+    monospace;
 }
 
-.message-filters button:hover,
-.admin-filters button:hover {
-  color: var(--text);
+html[data-lang="fa"] .message-filters button,
+html[data-lang="fa"] .admin-filters button {
+  font-family: "Dubai", sans-serif;
 }
 
 .message-filters button.active,
@@ -1681,6 +1903,7 @@ button {
 
 .message-search {
   display: flex;
+
   align-items: center;
 
   gap: 13px;
@@ -1695,13 +1918,11 @@ button {
 }
 
 .message-search span {
-  flex: none;
-
   color: var(--muted);
 
-  font: 9px "DM Mono", monospace;
-
-  text-transform: uppercase;
+  font:
+    9px "DM Mono",
+    monospace;
 }
 
 .message-search input,
@@ -1709,31 +1930,25 @@ button {
   width: 100%;
 
   border: 0;
+
   outline: 0;
 
   background: transparent;
 
   color: var(--text);
-
-  font: 13px Inter, sans-serif;
 }
 
 .admin-search {
   width: 300px;
 
+  padding: 8px 0;
+
   border-bottom: 1px solid var(--line);
 
-  padding: 8px 0;
+  font:
+    13px Inter,
+    sans-serif;
 }
-
-.message-search input::placeholder,
-.admin-search::placeholder {
-  color: var(--muted);
-}
-
-/* =========================================================
-   ADMIN INBOX
-   ========================================================= */
 
 .message-inbox,
 .admin-inbox {
@@ -1759,10 +1974,6 @@ button {
   border-bottom: 1px solid var(--line);
 
   direction: ltr !important;
-
-  transition:
-    background-color 0.2s ease,
-    padding-inline 0.2s ease;
 }
 
 .inbox-message:hover,
@@ -1770,31 +1981,6 @@ button {
   background: var(--surface);
 
   padding-inline: 18px;
-}
-
-.inbox-message.is-unread::before,
-.admin-message.new::before {
-  content: "";
-
-  position: absolute;
-
-  inset-inline-start: 0;
-
-  top: 0;
-  bottom: 0;
-
-  width: 3px;
-
-  background: var(--accent);
-}
-
-.inbox-index,
-.admin-message-number {
-  padding-top: 3px;
-
-  color: var(--muted);
-
-  font: 10px "DM Mono", monospace;
 }
 
 .inbox-main,
@@ -1807,6 +1993,7 @@ button {
   display: flex;
 
   justify-content: space-between;
+
   align-items: center;
 
   gap: 20px;
@@ -1815,6 +2002,7 @@ button {
 .sender,
 .admin-sender {
   display: flex;
+
   align-items: center;
 
   flex-wrap: wrap;
@@ -1822,55 +2010,11 @@ button {
   gap: 9px;
 }
 
-.sender-dot,
-.admin-sender > span {
-  width: 7px;
-  height: 7px;
-
-  flex: none;
-
-  border-radius: 50%;
-
-  background: var(--muted);
-}
-
-.is-unread .sender-dot,
-.admin-message.new .admin-sender > span {
-  background: var(--accent);
-}
-
 .sender strong,
 .admin-sender strong {
-  color: var(--text);
-
   font-size: 18px;
+
   font-weight: 600;
-
-  letter-spacing: -0.02em;
-}
-
-.new-badge,
-.admin-sender em {
-  padding: 4px 7px;
-
-  border: 1px solid var(--line);
-
-  color: var(--accent);
-
-  font: 8px "DM Mono", monospace;
-
-  letter-spacing: 0.04em;
-}
-
-.message-date,
-.admin-message-meta time {
-  flex: none;
-
-  color: var(--muted);
-
-  font: 9px "DM Mono", monospace;
-
-  white-space: nowrap;
 }
 
 .inbox-text,
@@ -1888,6 +2032,17 @@ button {
   white-space: pre-wrap;
 
   overflow-wrap: anywhere;
+
+  unicode-bidi: plaintext;
+}
+
+html[data-lang="fa"] .inbox-text,
+html[data-lang="fa"] .admin-message-text {
+  font-family: "Dubai", sans-serif;
+
+  direction: rtl;
+
+  text-align: right;
 }
 
 .inbox-actions,
@@ -1915,37 +2070,18 @@ button {
 
   padding: 3px 0 5px;
 
-  font: 9px "DM Mono", monospace;
-
-  text-transform: uppercase;
-
-  cursor: pointer;
+  font:
+    9px "DM Mono",
+    monospace;
 }
 
-.inbox-actions button:hover:not(:disabled),
-.admin-message-actions button:hover:not(:disabled) {
-  color: var(--text);
-  border-color: var(--text);
+html[data-lang="fa"] .inbox-actions button,
+html[data-lang="fa"] .admin-message-actions button {
+  font-family: "Dubai", sans-serif;
 }
 
-.inbox-actions button:disabled,
-.admin-message-actions button:disabled {
-  cursor: default;
-  opacity: 0.45;
-}
-
-.inbox-actions .danger-action:hover:not(:disabled),
-.admin-message-actions button.delete:hover:not(:disabled) {
-  color: #a33;
-  border-color: #a33;
-}
-
-/* =========================================================
-   EMPTY
-   ========================================================= */
-
-.message-empty,
-.admin-empty {
+.admin-empty,
+.message-empty {
   display: grid;
 
   grid-template-columns:
@@ -1959,109 +2095,26 @@ button {
   padding: 45px 0;
 
   border-top: 1px solid var(--line);
+
   border-bottom: 1px solid var(--line);
 
   direction: ltr !important;
 }
 
-.message-empty-number,
-.admin-empty > span {
-  color: var(--muted);
+html[data-lang="fa"] .admin-empty p,
+html[data-lang="fa"] .message-empty p {
+  font-family: "Dubai", sans-serif;
 
-  font: 10px "DM Mono", monospace;
-}
+  direction: rtl;
 
-.message-empty strong,
-.admin-empty h2 {
-  display: block;
-
-  color: var(--text);
-
-  font-size: 28px;
-
-  font-weight: 500;
-
-  letter-spacing: -0.04em;
-}
-
-.message-empty p,
-.admin-empty p {
-  max-width: 520px;
-
-  margin: 12px 0 0;
-
-  color: var(--muted);
-
-  font-size: 13px;
-
-  line-height: 1.9;
+  text-align: right;
 }
 
 /* =========================================================
-   PERSIAN TYPOGRAPHY
+   IMPORTANT: NEVER FLIP GLOBAL LAYOUT
    ========================================================= */
 
-/*
- * IMPORTANT:
- * Persian language changes text rendering,
- * not page structure.
- */
-
-html[data-lang="fa"] .public-content,
-html[data-lang="fa"] .admin-page,
-html[data-lang="fa"] .admin-shell {
-  font-family: Vazirmatn, Inter, sans-serif;
-}
-
-/* Persian body text */
-
-html[data-lang="fa"] .hero-intro,
-html[data-lang="fa"] .hero-side p,
-html[data-lang="fa"] .about-large,
-html[data-lang="fa"] .two-columns p,
-html[data-lang="fa"] .project-content p,
-html[data-lang="fa"] .app-main p,
-html[data-lang="fa"] .education-row p,
-html[data-lang="fa"] .contact-copy,
-html[data-lang="fa"] .message-form input,
-html[data-lang="fa"] .message-form textarea,
-html[data-lang="fa"] .message-form label,
-html[data-lang="fa"] .tool-header p,
-html[data-lang="fa"] .tool-item small,
-html[data-lang="fa"] .admin-subtitle,
-html[data-lang="fa"] .admin-title-row p,
-html[data-lang="fa"] .admin-message-text,
-html[data-lang="fa"] .admin-empty p {
-  font-family: Vazirmatn, sans-serif;
-
-  direction: rtl;
-  text-align: right;
-}
-
-/*
- * Large Persian headings.
- */
-html[data-lang="fa"] .hero-intro,
-html[data-lang="fa"] .about-large,
-html[data-lang="fa"] .contact-title,
-html[data-lang="fa"] .tool-header h1,
-html[data-lang="fa"] .workspace-top h2,
-html[data-lang="fa"] .admin-hero h1,
-html[data-lang="fa"] .admin-title-row h1 {
-  font-family: Vazirmatn, sans-serif;
-
-  direction: rtl;
-  text-align: right;
-
-  letter-spacing: -0.035em;
-}
-
-/*
- * These containers NEVER become RTL.
- * This is critical for stable layout.
- */
-
-html[data-lang="fa"] .header,
+html[data-lang="fa"] .site-header,
 html[data-lang="fa"] .nav,
 html[data-lang="fa"] .hero,
 html[data-lang="fa"] .hero-meta,
@@ -2073,99 +2126,30 @@ html[data-lang="fa"] .two-columns,
 html[data-lang="fa"] .project,
 html[data-lang="fa"] .apps,
 html[data-lang="fa"] .app,
-html[data-lang="fa"] .app-top,
 html[data-lang="fa"] .stack-row,
 html[data-lang="fa"] .education-row,
 html[data-lang="fa"] .contact,
-html[data-lang="fa"] .contact-head,
 html[data-lang="fa"] .message-area,
 html[data-lang="fa"] .message-actions,
 html[data-lang="fa"] .footer,
 html[data-lang="fa"] .tool-page,
 html[data-lang="fa"] .tool-header,
-html[data-lang="fa"] .tool-list,
 html[data-lang="fa"] .tool-item,
 html[data-lang="fa"] .tool-workspace,
 html[data-lang="fa"] .workspace-top,
 html[data-lang="fa"] .tool-actions,
+html[data-lang="fa"] .admin-page,
 html[data-lang="fa"] .admin-top,
-html[data-lang="fa"] .admin-navbar,
 html[data-lang="fa"] .admin-dashboard,
 html[data-lang="fa"] .admin-hero,
-html[data-lang="fa"] .admin-title-row,
-html[data-lang="fa"] .admin-stats,
-html[data-lang="fa"] .admin-metrics,
 html[data-lang="fa"] .admin-toolbar,
-html[data-lang="fa"] .message-toolbar,
-html[data-lang="fa"] .admin-filters,
-html[data-lang="fa"] .message-filters,
-html[data-lang="fa"] .message-inbox,
 html[data-lang="fa"] .admin-inbox,
-html[data-lang="fa"] .inbox-message,
 html[data-lang="fa"] .admin-message {
   direction: ltr !important;
 }
 
-/*
- * Navigation keeps its physical position.
- * Only the glyphs/text use Persian font.
- */
-html[data-lang="fa"] .nav > a {
-  font-family: Vazirmatn, Inter, sans-serif;
-
-  direction: rtl;
-  text-align: center;
-
-  min-width: 52px;
-}
-
-/*
- * Technical / English labels remain LTR.
- */
-.section-number,
-.project-number,
-.tool-number,
-.tool-arrow,
-.app-top,
-.app-stack,
-.stack-title,
-.education-date,
-.workspace-top span,
-.footer,
-.new-badge,
-.message-date,
-.admin-message-meta time,
-.inbox-index,
-.admin-message-number {
-  direction: ltr !important;
-}
-
-/*
- * Code-like fields should never reverse.
- */
-html[data-lang="fa"] .tool-editor,
-html[data-lang="fa"] .tool-output,
-html[data-lang="fa"] .csv-table,
-html[data-lang="fa"] .regex-flags,
-html[data-lang="fa"] .uuid-box {
-  direction: ltr !important;
-  text-align: left;
-}
-
-/*
- * Mixed Persian/English paragraphs:
- * let Unicode choose the correct run direction
- * while preserving the surrounding layout.
- */
-html[data-lang="fa"] .project-content p,
-html[data-lang="fa"] .app-main p,
-html[data-lang="fa"] .inbox-text,
-html[data-lang="fa"] .admin-message-text {
-  unicode-bidi: plaintext;
-}
-
 /* =========================================================
-   RESPONSIVE
+   MOBILE
    ========================================================= */
 
 @media (max-width: 900px) {
@@ -2175,6 +2159,7 @@ html[data-lang="fa"] .admin-message-text {
 
   .hero {
     min-height: auto;
+
     padding: 85px 0 100px;
   }
 
@@ -2223,10 +2208,6 @@ html[data-lang="fa"] .admin-message-text {
     gap: 35px;
   }
 
-  .contact {
-    min-height: 70vh;
-  }
-
   .tool-header {
     padding-top: 50px;
   }
@@ -2236,11 +2217,16 @@ html[data-lang="fa"] .admin-message-text {
   }
 
   .stats-grid {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns:
+      1fr 1fr;
   }
 
   .stats-grid .wide {
     grid-column: span 2;
+  }
+
+  .markdown-grid {
+    grid-template-columns: 1fr;
   }
 }
 
@@ -2263,8 +2249,6 @@ html[data-lang="fa"] .admin-message-text {
     width: 100%;
 
     justify-content: space-between;
-
-    gap: 15px;
   }
 
   .message-toolbar,
@@ -2272,13 +2256,12 @@ html[data-lang="fa"] .admin-message-text {
     align-items: stretch;
 
     flex-direction: column;
-
-    gap: 18px;
   }
 
   .message-search,
   .admin-search {
     width: 100%;
+
     min-width: 0;
   }
 
@@ -2289,13 +2272,6 @@ html[data-lang="fa"] .admin-message-text {
       minmax(0, 1fr);
 
     gap: 12px;
-
-    padding: 26px 0;
-  }
-
-  .inbox-message:hover,
-  .admin-message:hover {
-    padding-inline: 10px;
   }
 
   .inbox-topline,
@@ -2306,20 +2282,6 @@ html[data-lang="fa"] .admin-message-text {
 
     gap: 10px;
   }
-
-  .message-date,
-  .admin-message-meta time {
-    white-space: normal;
-  }
-
-  .message-empty,
-  .admin-empty {
-    grid-template-columns:
-      35px
-      minmax(0, 1fr);
-
-    gap: 12px;
-  }
 }
 
 @media (max-width: 600px) {
@@ -2328,7 +2290,10 @@ html[data-lang="fa"] .admin-message-text {
   }
 
   .site-header {
-    width: calc(100% - var(--space) * 2);
+    width: calc(
+      100% - var(--space) * 2
+    );
+
     height: var(--header-height);
   }
 
@@ -2343,7 +2308,10 @@ html[data-lang="fa"] .admin-message-text {
   .nav {
     position: fixed;
 
-    top: calc(var(--header-height) + 10px);
+    top: calc(
+      var(--header-height) +
+      10px
+    );
 
     left: var(--space);
     right: var(--space);
@@ -2351,6 +2319,7 @@ html[data-lang="fa"] .admin-message-text {
     display: none;
 
     flex-direction: column;
+
     align-items: stretch;
 
     gap: 4px;
@@ -2361,7 +2330,9 @@ html[data-lang="fa"] .admin-message-text {
 
     border: 1px solid var(--line);
 
-    box-shadow: 0 18px 45px rgb(0 0 0 / 8%);
+    box-shadow:
+      0 18px 45px
+      rgb(0 0 0 / 8%);
 
     direction: ltr !important;
   }
@@ -2370,7 +2341,7 @@ html[data-lang="fa"] .admin-message-text {
     display: flex;
   }
 
-  .nav > a {
+  .nav-link {
     width: 100%;
 
     min-width: 0;
@@ -2383,16 +2354,8 @@ html[data-lang="fa"] .admin-message-text {
     text-align: left;
   }
 
-  html[data-lang="fa"] .nav > a {
+  html[data-lang="fa"] .nav-link {
     text-align: left;
-
-    font-family: Vazirmatn, sans-serif;
-  }
-
-  .circle-button {
-    align-self: flex-start;
-
-    margin-top: 6px;
   }
 
   .hero {
@@ -2412,7 +2375,11 @@ html[data-lang="fa"] .admin-message-text {
   }
 
   .hero-title {
-    font-size: clamp(64px, 20vw, 115px);
+    font-size: clamp(
+      64px,
+      20vw,
+      115px
+    );
   }
 
   .hero-intro {
@@ -2452,6 +2419,7 @@ html[data-lang="fa"] .admin-message-text {
 
   .app {
     min-height: 330px;
+
     padding: 26px;
   }
 
@@ -2474,6 +2442,7 @@ html[data-lang="fa"] .admin-message-text {
 
   .contact-title {
     margin-top: 65px;
+
     font-size: 80px;
   }
 
@@ -2514,24 +2483,8 @@ html[data-lang="fa"] .admin-message-text {
     grid-column: span 1;
   }
 
-  .markdown-grid {
-    grid-template-columns: 1fr;
-  }
-
   .regex-grid {
     grid-template-columns: 1fr;
-  }
-
-  .timestamp-form {
-    grid-template-columns: 1fr;
-  }
-
-  .timestamp-form .primary-button {
-    width: 100%;
-  }
-
-  .tool-actions button {
-    min-width: 92px;
   }
 
   .admin-login {
@@ -2543,13 +2496,9 @@ html[data-lang="fa"] .admin-message-text {
     font-size: 76px;
   }
 
-  /*
-   * Persian headings on small screens.
-   */
   html[data-lang="fa"] .hero-intro,
   html[data-lang="fa"] .about-large,
-  html[data-lang="fa"] .contact-title,
-  html[data-lang="fa"] .tool-header h1 {
+  html[data-lang="fa"] .contact-title {
     line-height: 1.08;
   }
 }

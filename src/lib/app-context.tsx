@@ -17,34 +17,60 @@ type AppContextValue = {
   toggleTheme: () => void
 }
 
-const AppContext = createContext<AppContextValue | null>(null)
+const AppContext =
+  createContext<AppContextValue | null>(null)
 
-export function AppProvider({ children }: { children: ReactNode }) {
-  const [language, setLanguage] = useState<Language>(() => {
-    return localStorage.getItem('site-language') === 'fa' ? 'fa' : 'en'
-  })
+export function AppProvider({
+  children,
+}: {
+  children: ReactNode
+}) {
+  const [language, setLanguage] =
+    useState<Language>(() => {
+      return localStorage.getItem('site-language') === 'fa'
+        ? 'fa'
+        : 'en'
+    })
 
-  const [theme, setTheme] = useState<Theme>(() => {
-    return localStorage.getItem('site-theme') === 'dark' ? 'dark' : 'light'
-  })
+  const [theme, setTheme] =
+    useState<Theme>(() => {
+      return localStorage.getItem('site-theme') === 'dark'
+        ? 'dark'
+        : 'light'
+    })
 
+  /*
+   * زبان فقط محتوای متنی را تغییر می‌دهد.
+   *
+   * جهت کل layout عمداً همیشه LTR است.
+   * این کار جلوی برعکس شدن flex/grid را می‌گیرد.
+   */
   useEffect(() => {
-    document.documentElement.dataset.lang = language
-    document.documentElement.lang = language
+    document.documentElement.dataset.lang =
+      language
 
-    /*
-     * مهم:
-     * هیچ‌وقت direction کل document را RTL نمی‌کنیم.
-     * این کار باعث جابه‌جایی flex/grid و layout می‌شد.
-     */
-    document.documentElement.dir = 'ltr'
+    document.documentElement.lang =
+      language
 
-    localStorage.setItem('site-language', language)
+    document.documentElement.dir =
+      'ltr'
+
+    localStorage.setItem(
+      'site-language',
+      language,
+    )
   }, [language])
 
   useEffect(() => {
-    document.documentElement.classList.toggle('dark', theme === 'dark')
-    localStorage.setItem('site-theme', theme)
+    document.documentElement.classList.toggle(
+      'dark',
+      theme === 'dark',
+    )
+
+    localStorage.setItem(
+      'site-theme',
+      theme,
+    )
   }, [theme])
 
   const value = useMemo<AppContextValue>(
@@ -52,12 +78,20 @@ export function AppProvider({ children }: { children: ReactNode }) {
       language,
       theme,
 
-      toggleLanguage: () => {
-        setLanguage((current) => (current === 'en' ? 'fa' : 'en'))
+      toggleLanguage() {
+        setLanguage((current) =>
+          current === 'en'
+            ? 'fa'
+            : 'en',
+        )
       },
 
-      toggleTheme: () => {
-        setTheme((current) => (current === 'light' ? 'dark' : 'light'))
+      toggleTheme() {
+        setTheme((current) =>
+          current === 'light'
+            ? 'dark'
+            : 'light',
+        )
       },
     }),
     [language, theme],
@@ -71,10 +105,13 @@ export function AppProvider({ children }: { children: ReactNode }) {
 }
 
 export function useApp() {
-  const context = useContext(AppContext)
+  const context =
+    useContext(AppContext)
 
   if (!context) {
-    throw new Error('useApp must be used within AppProvider')
+    throw new Error(
+      'useApp must be used within AppProvider',
+    )
   }
 
   return context

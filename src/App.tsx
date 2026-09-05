@@ -1,5 +1,16 @@
-import { useEffect, useState } from 'react'
-import { NavLink, Navigate, Route, Routes, useLocation } from 'react-router-dom'
+import {
+  useEffect,
+  useState,
+} from 'react'
+
+import {
+  NavLink,
+  Navigate,
+  Route,
+  Routes,
+  useLocation,
+} from 'react-router-dom'
+
 import { useApp } from './lib/app-context'
 import { copy } from './lib/i18n'
 
@@ -8,72 +19,107 @@ import Tools from './pages/Tools'
 import AdminLogin from './pages/AdminLogin'
 import AdminDashboard from './pages/AdminDashboard'
 
-function PublicHeader() {
-  const { language, toggleLanguage, theme, toggleTheme } = useApp()
+function Header() {
+  const {
+    language,
+    toggleLanguage,
+    theme,
+    toggleTheme,
+  } = useApp()
+
   const t = copy[language]
+
   const location = useLocation()
-  const [open, setOpen] = useState(false)
+
+  const [open, setOpen] =
+    useState(false)
 
   useEffect(() => {
     setOpen(false)
   }, [location.pathname])
 
-  const homeLabel = language === 'fa' ? 'خانه' : 'Home'
-
   return (
-    <header className="header site-header">
-      <a className="brand" href="#/" aria-label="Home">
+    <header className="site-header">
+      <a
+        className="brand"
+        href="#/"
+        aria-label="Home"
+      >
         AA
       </a>
 
       <button
         className="mobile-menu"
-        onClick={() => setOpen((value) => !value)}
+        type="button"
+        onClick={() =>
+          setOpen((value) => !value)
+        }
         aria-label="Menu"
         aria-expanded={open}
       >
         ☰
       </button>
 
-      <nav className={`nav ${open ? 'open' : ''}`}>
-        <a href="#/" className="nav-link">
-          {homeLabel}
-        </a>
-
-        <a href="#about" className="nav-link">
+      <nav
+        className={`nav ${
+          open ? 'open' : ''
+        }`}
+      >
+        <a
+          className="nav-link"
+          href="#about"
+        >
           {t.nav.about}
         </a>
 
-        <a href="#work" className="nav-link">
+        <a
+          className="nav-link"
+          href="#work"
+        >
           {t.nav.work}
         </a>
 
-        <a href="#stack" className="nav-link">
+        <a
+          className="nav-link"
+          href="#stack"
+        >
           {t.nav.stack}
         </a>
 
-        <NavLink to="/tools" className="nav-link">
+        <NavLink
+          className="nav-link"
+          to="/tools"
+        >
           {t.nav.tools}
         </NavLink>
 
-        <a href="#contact" className="nav-link">
+        <a
+          className="nav-link"
+          href="#contact"
+        >
           {t.nav.contact}
         </a>
 
         <button
-          className="circle-button language-button"
+          className="circle-button"
+          type="button"
           onClick={toggleLanguage}
           aria-label="Change language"
         >
-          {language === 'en' ? 'FA' : 'EN'}
+          {language === 'en'
+            ? 'FA'
+            : 'EN'}
         </button>
 
         <button
-          className="circle-button theme-button"
+          className="circle-button"
+          type="button"
           onClick={toggleTheme}
           aria-label="Toggle theme"
         >
-          {theme === 'dark' ? '☼' : '◐'}
+          {theme === 'dark'
+            ? '☼'
+            : '◐'}
         </button>
       </nav>
     </header>
@@ -83,26 +129,78 @@ function PublicHeader() {
 function Shell() {
   const location = useLocation()
 
-  if (location.pathname.startsWith('/admin')) {
+  /*
+   * Admin layout intentionally does not use
+   * the public fixed header.
+   */
+  if (
+    location.pathname.startsWith(
+      '/admin',
+    )
+  ) {
     return (
       <Routes>
-        <Route path="/admin" element={<AdminLogin />} />
-        <Route path="/admin/dashboard" element={<AdminDashboard />} />
-        <Route path="*" element={<Navigate to="/" replace />} />
+        <Route
+          path="/admin"
+          element={<AdminLogin />}
+        />
+
+        <Route
+          path="/admin/dashboard"
+          element={<AdminDashboard />}
+        />
+
+        <Route
+          path="*"
+          element={
+            <Navigate
+              to="/"
+              replace
+            />
+          }
+        />
       </Routes>
     )
   }
 
   return (
     <>
-      <PublicHeader />
+      <Header />
 
       <div className="public-content">
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/tools" element={<Tools />} />
-          <Route path="/chat" element={<Navigate to="/tools" replace />} />
-          <Route path="*" element={<Navigate to="/" replace />} />
+          <Route
+            path="/"
+            element={<Home />}
+          />
+
+          <Route
+            path="/tools"
+            element={<Tools />}
+          />
+
+          {/*
+           * Chat is intentionally removed.
+           */}
+          <Route
+            path="/chat"
+            element={
+              <Navigate
+                to="/tools"
+                replace
+              />
+            }
+          />
+
+          <Route
+            path="*"
+            element={
+              <Navigate
+                to="/"
+                replace
+              />
+            }
+          />
         </Routes>
       </div>
     </>
@@ -110,5 +208,9 @@ function Shell() {
 }
 
 export default function App() {
-  return <div className="site app-shell">{<Shell />}</div>
+  return (
+    <div className="site app-shell">
+      <Shell />
+    </div>
+  )
 }

@@ -1,22 +1,48 @@
-import { useEffect, useState } from 'react'
-import type { FormEvent } from 'react'
+import {
+  useEffect,
+  useState,
+} from 'react'
 
-import { Navigate, useNavigate } from 'react-router-dom'
+import type {
+  FormEvent,
+} from 'react'
+
+import {
+  Navigate,
+  useNavigate,
+} from 'react-router-dom'
 
 import { hasSupabase } from '../lib/config'
 import { supabase } from '../lib/supabase'
 import { useApp } from '../lib/app-context'
 
 export default function AdminLogin() {
-  const { language, toggleLanguage, theme, toggleTheme } = useApp()
+  const {
+    language,
+    toggleLanguage,
+    theme,
+    toggleTheme,
+  } = useApp()
 
-  const [session, setSession] = useState<boolean | undefined>(undefined)
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [error, setError] = useState('')
-  const [loading, setLoading] = useState(false)
+  const [session, setSession] =
+    useState<boolean | undefined>(
+      undefined,
+    )
 
-  const navigate = useNavigate()
+  const [email, setEmail] =
+    useState('')
+
+  const [password, setPassword] =
+    useState('')
+
+  const [error, setError] =
+    useState('')
+
+  const [loading, setLoading] =
+    useState(false)
+
+  const navigate =
+    useNavigate()
 
   useEffect(() => {
     if (!supabase) {
@@ -26,19 +52,30 @@ export default function AdminLogin() {
 
     let mounted = true
 
-    supabase.auth.getSession().then(({ data }) => {
-      if (mounted) {
-        setSession(Boolean(data.session))
-      }
-    })
+    supabase.auth
+      .getSession()
+      .then(({ data }) => {
+        if (mounted) {
+          setSession(
+            Boolean(data.session),
+          )
+        }
+      })
 
     const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, currentSession) => {
-      if (mounted) {
-        setSession(Boolean(currentSession))
-      }
-    })
+      data: {
+        subscription,
+      },
+    } =
+      supabase.auth.onAuthStateChange(
+        (_event, currentSession) => {
+          if (mounted) {
+            setSession(
+              Boolean(currentSession),
+            )
+          }
+        },
+      )
 
     return () => {
       mounted = false
@@ -47,14 +84,30 @@ export default function AdminLogin() {
   }, [])
 
   if (session === undefined) {
-    return <div className="center-state">Loading…</div>
+    return (
+      <div className="center-state">
+        {language === 'fa'
+          ? 'در حال بارگذاری...'
+          : 'Loading...'}
+      </div>
+    )
   }
 
-  if (session && hasSupabase) {
-    return <Navigate to="/admin/dashboard" replace />
+  if (
+    session &&
+    hasSupabase
+  ) {
+    return (
+      <Navigate
+        to="/admin/dashboard"
+        replace
+      />
+    )
   }
 
-  async function login(event: FormEvent<HTMLFormElement>) {
+  async function login(
+    event: FormEvent<HTMLFormElement>,
+  ) {
     event.preventDefault()
 
     setError('')
@@ -66,16 +119,21 @@ export default function AdminLogin() {
           ? 'اتصال Supabase تنظیم نشده است.'
           : 'Supabase is not configured.',
       )
+
       setLoading(false)
       return
     }
 
     try {
-      const { error: loginError } =
-        await supabase.auth.signInWithPassword({
-          email,
-          password,
-        })
+      const {
+        error: loginError,
+      } =
+        await supabase.auth.signInWithPassword(
+          {
+            email,
+            password,
+          },
+        )
 
       if (loginError) {
         setError(
@@ -83,10 +141,13 @@ export default function AdminLogin() {
             ? 'ایمیل یا رمز عبور صحیح نیست.'
             : 'Invalid email or password.',
         )
+
         return
       }
 
-      navigate('/admin/dashboard')
+      navigate(
+        '/admin/dashboard',
+      )
     } catch {
       setError(
         language === 'fa'
@@ -101,34 +162,47 @@ export default function AdminLogin() {
   return (
     <div className="admin-page">
       <div className="admin-top">
-        <a href="/" className="brand">
+        <a
+          href="/"
+          className="brand"
+        >
           AA
         </a>
 
-        <div>
+        <div className="admin-top-actions">
           <button
             className="circle-button"
-            onClick={toggleLanguage}
             type="button"
+            onClick={toggleLanguage}
           >
-            {language === 'en' ? 'FA' : 'EN'}
+            {language === 'en'
+              ? 'FA'
+              : 'EN'}
           </button>
 
           <button
             className="circle-button"
-            onClick={toggleTheme}
             type="button"
+            onClick={toggleTheme}
           >
-            {theme === 'dark' ? '☼' : '◐'}
+            {theme === 'dark'
+              ? '☼'
+              : '◐'}
           </button>
         </div>
       </div>
 
       <div className="admin-login">
-        <span className="accent-text">ADMIN</span>
+        <span className="accent-text">
+          {language === 'fa'
+            ? 'مدیریت'
+            : 'ADMIN'}
+        </span>
 
         <h1>
-          {language === 'fa' ? 'ورود' : 'Sign in'}
+          {language === 'fa'
+            ? 'ورود'
+            : 'Sign in'}
         </h1>
 
         <p>
@@ -139,13 +213,20 @@ export default function AdminLogin() {
 
         <form onSubmit={login}>
           <label>
-            Email
+            {language === 'fa'
+              ? 'ایمیل'
+              : 'Email'}
 
             <input
               type="email"
               value={email}
-              onChange={(event) =>
-                setEmail(event.target.value)
+              onChange={(
+                event,
+              ) =>
+                setEmail(
+                  event.target
+                    .value,
+                )
               }
               autoComplete="username"
               required
@@ -160,8 +241,13 @@ export default function AdminLogin() {
             <input
               type="password"
               value={password}
-              onChange={(event) =>
-                setPassword(event.target.value)
+              onChange={(
+                event,
+              ) =>
+                setPassword(
+                  event.target
+                    .value,
+                )
               }
               autoComplete="current-password"
               required
@@ -170,7 +256,10 @@ export default function AdminLogin() {
 
           <button
             className="primary-button"
-            disabled={loading || !hasSupabase}
+            disabled={
+              loading ||
+              !hasSupabase
+            }
             type="submit"
           >
             {loading
