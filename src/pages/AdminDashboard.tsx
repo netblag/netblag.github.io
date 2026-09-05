@@ -24,55 +24,57 @@ export default function AdminDashboard() {
 
   const navigate = useNavigate()
 
-  const [session, setSession] = useState<unknown>(undefined)
+  const [session, setSession] = useState<boolean | undefined>(undefined)
   const [messages, setMessages] = useState<Message[]>([])
   const [error, setError] = useState('')
   const [filter, setFilter] = useState<Filter>('all')
   const [search, setSearch] = useState('')
 
   useEffect(() => {
-    if (!supabase) {
-      setSession(null)
+    const client = supabase
+
+    if (!client) {
+      setSession(false)
       return
     }
 
     let active = true
 
-    supabase.auth.getSession().then(async ({ data }) => {
+    client.auth.getSession().then(async ({ data }) => {
       if (!active) return
 
       if (!data.session) {
-        setSession(null)
+        setSession(false)
         return
       }
 
-      const { data: admin, error: adminError } = await supabase
+      const { data: admin, error: adminError } = await client
         .from('admin_users')
         .select('user_id')
         .eq('user_id', data.session.user.id)
         .maybeSingle()
 
+      if (!active) return
+
       if (adminError || !admin) {
-        await supabase.auth.signOut()
+        await client.auth.signOut()
 
         if (active) {
-          setSession(null)
+          setSession(false)
         }
 
         return
       }
 
-      if (active) {
-        setSession(data.session)
-      }
+      setSession(true)
     })
 
     const {
       data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, nextSession) => {
-      if (active) {
-        setSession(nextSession)
-      }
+    } = client.auth.onAuthStateChange((_event, nextSession) => {
+      if (!active) return
+
+      setSession(Boolean(nextSession))
     })
 
     return () => {
@@ -82,7 +84,11 @@ export default function AdminDashboard() {
   }, [])
 
   useEffect(() => {
-    if (!supabase || !session) return
+    const client = supabase
+
+    if (!client || !session) {
+      return
+    }
 
     let active = true
 
@@ -92,9 +98,11 @@ export default function AdminDashboard() {
       const {
         data,
         error: queryError,
-      } = await supabase
+      } = await client
         .from('messages')
-        .select('id, name, message, created_at, read')
+        .select(
+          'id, name, message, created_at, read',
+        )
         .order('created_at', {
           ascending: false,
         })
@@ -149,8 +157,12 @@ export default function AdminDashboard() {
 
     const matchesSearch =
       normalizedSearch.length === 0 ||
-      message.name.toLowerCase().includes(normalizedSearch) ||
-      message.message.toLowerCase().includes(normalizedSearch)
+      message.name
+        .toLowerCase()
+        .includes(normalizedSearch) ||
+      message.message
+        .toLowerCase()
+        .includes(normalizedSearch)
 
     return matchesFilter && matchesSearch
   })
@@ -171,19 +183,30 @@ export default function AdminDashboard() {
   }
 
   async function logout() {
-    await supabase?.auth.signOut()
-    navigate('/admin', { replace: true })
+    const client = supabase
+
+    if (client) {
+      await client.auth.signOut()
+    }
+
+    navigate('/admin', {
+      replace: true,
+    })
   }
 
   async function markRead(
     id: number,
     nextRead: boolean,
   ) {
-    if (!supabase) return
+    const client = supabase
+
+    if (!client) {
+      return
+    }
 
     const {
       error: updateError,
-    } = await supabase
+    } = await client
       .from('messages')
       .update({
         read: nextRead,
@@ -208,7 +231,11 @@ export default function AdminDashboard() {
   }
 
   async function remove(id: number) {
-    if (!supabase) return
+    const client = supabase
+
+    if (!client) {
+      return
+    }
 
     const confirmed = window.confirm(
       language === 'fa'
@@ -216,11 +243,13 @@ export default function AdminDashboard() {
         : 'Delete this message?',
     )
 
-    if (!confirmed) return
+    if (!confirmed) {
+      return
+    }
 
     const {
       error: deleteError,
-    } = await supabase
+    } = await client
       .from('messages')
       .delete()
       .eq('id', id)
@@ -231,7 +260,9 @@ export default function AdminDashboard() {
     }
 
     setMessages((current) =>
-      current.filter((message) => message.id !== id),
+      current.filter(
+        (message) => message.id !== id,
+      ),
     )
   }
 
@@ -286,6 +317,7 @@ export default function AdminDashboard() {
         <div className="admin-hero">
 
           <div>
+
             <span className="accent-text admin-kicker">
               ADMIN
             </span>
@@ -295,13 +327,16 @@ export default function AdminDashboard() {
                 ? 'پیام‌ها'
                 : 'Messages'}
             </h1>
+
           </div>
 
 
           <div className="admin-summary">
 
             <div>
-              <strong>{messages.length}</strong>
+              <strong>
+                {messages.length}
+              </strong>
 
               <span>
                 {language === 'fa'
@@ -310,8 +345,11 @@ export default function AdminDashboard() {
               </span>
             </div>
 
+
             <div>
-              <strong>{unreadCount}</strong>
+              <strong>
+                {unreadCount}
+              </strong>
 
               <span>
                 {language === 'fa'
@@ -345,6 +383,7 @@ export default function AdminDashboard() {
               <span>
                 {messages.length}
               </span>
+
             </button>
 
 
@@ -354,7 +393,9 @@ export default function AdminDashboard() {
                   ? 'active'
                   : ''
               }
-              onClick={() => setFilter('unread')}
+              onClick={() =>
+                setFilter('unread')
+              }
               type="button"
             >
               {language === 'fa'
@@ -364,6 +405,7 @@ export default function AdminDashboard() {
               <span>
                 {unreadCount}
               </span>
+
             </button>
 
 
@@ -373,7 +415,9 @@ export default function AdminDashboard() {
                   ? 'active'
                   : ''
               }
-              onClick={() => setFilter('read')}
+              onClick={() =>
+                setFilter('read')
+              }
               type="button"
             >
               {language === 'fa'
@@ -383,6 +427,7 @@ export default function AdminDashboard() {
               <span>
                 {readCount}
               </span>
+
             </button>
 
           </div>
@@ -430,6 +475,7 @@ export default function AdminDashboard() {
             </div>
 
             <div>
+
               <strong>
                 {messages.length === 0
                   ? language === 'fa'
@@ -449,6 +495,7 @@ export default function AdminDashboard() {
                     ? 'فیلتر یا عبارت جستجو را تغییر بده.'
                     : 'Try changing the filter or search term.'}
               </p>
+
             </div>
 
           </div>
@@ -457,121 +504,112 @@ export default function AdminDashboard() {
 
           <div className="message-inbox">
 
-            {filteredMessages.map((message, index) => (
+            {filteredMessages.map(
+              (message, index) => (
 
-              <article
-                className={`inbox-message ${
-                  message.read
-                    ? 'is-read'
-                    : 'is-unread'
-                }`}
-                key={message.id}
-              >
+                <article
+                  className={`inbox-message ${
+                    message.read
+                      ? 'is-read'
+                      : 'is-unread'
+                  }`}
+                  key={message.id}
+                >
 
-                <div className="inbox-index">
-                  {String(index + 1).padStart(2, '0')}
-                </div>
+                  <div className="inbox-index">
+                    {String(index + 1).padStart(
+                      2,
+                      '0',
+                    )}
+                  </div>
 
 
-                <div className="inbox-main">
+                  <div className="inbox-main">
 
-                  <div className="inbox-topline">
+                    <div className="inbox-topline">
 
-                    <div className="sender">
+                      <div className="sender">
 
-                      <span
-                        className="sender-dot"
-                        aria-hidden="true"
-                      />
+                        <span
+                          className="sender-dot"
+                          aria-hidden="true"
+                        />
 
-                      <strong>
-                        {message.name}
-                      </strong>
+                        <strong>
+                          {message.name}
+                        </strong>
 
-                      {!message.read && (
-                        <span className="new-badge">
-                          {language === 'fa'
-                            ? 'جدید'
-                            : 'NEW'}
-                        </span>
-                      )}
+                        {!message.read && (
+                          <span className="new-badge">
+                            {language === 'fa'
+                              ? 'جدید'
+                              : 'NEW'}
+                          </span>
+                        )}
+
+                      </div>
+
+
+                      <time
+                        dateTime={
+                          message.created_at
+                        }
+                        className="message-date"
+                      >
+                        {formatDate(
+                          message.created_at,
+                        )}
+                      </time>
 
                     </div>
 
 
-                    <time
-                      dateTime={message.created_at}
-                      className="message-date"
-                    >
-                      {formatDate(
-                        message.created_at,
-                      )}
-                    </time>
-
-                  </div>
+                    <p className="inbox-text">
+                      {message.message}
+                    </p>
 
 
-                  <p className="inbox-text">
-                    {message.message}
-                  </p>
-
-
-                  <div className="inbox-actions">
-
-                    {!message.read ? (
+                    <div className="inbox-actions">
 
                       <button
                         type="button"
                         onClick={() =>
                           markRead(
                             message.id,
-                            true,
+                            !message.read,
                           )
                         }
                       >
-                        {language === 'fa'
-                          ? 'خوانده شد'
-                          : 'Mark as read'}
+                        {message.read
+                          ? language === 'fa'
+                            ? 'خوانده‌نشده'
+                            : 'Mark unread'
+                          : language === 'fa'
+                            ? 'خوانده شد'
+                            : 'Mark as read'}
                       </button>
 
-                    ) : (
 
                       <button
                         type="button"
+                        className="danger-action"
                         onClick={() =>
-                          markRead(
-                            message.id,
-                            false,
-                          )
+                          remove(message.id)
                         }
                       >
                         {language === 'fa'
-                          ? 'خوانده‌نشده'
-                          : 'Mark unread'}
+                          ? 'حذف'
+                          : 'Delete'}
                       </button>
 
-                    )}
-
-
-                    <button
-                      type="button"
-                      className="danger-action"
-                      onClick={() =>
-                        remove(message.id)
-                      }
-                    >
-                      {language === 'fa'
-                        ? 'حذف'
-                        : 'Delete'}
-                    </button>
+                    </div>
 
                   </div>
 
-                </div>
+                </article>
 
-              </article>
-
-            ))}
+              ),
+            )}
 
           </div>
 
