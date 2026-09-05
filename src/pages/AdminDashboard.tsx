@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Navigate, useNavigate } from 'react-router-dom'
+import type { SupabaseClient } from '@supabase/supabase-js'
 
 import { supabase } from '../lib/supabase'
 import { useApp } from '../lib/app-context'
@@ -13,6 +14,14 @@ type Message = {
 }
 
 type Filter = 'all' | 'unread' | 'read'
+
+function getClient(): SupabaseClient {
+  if (!supabase) {
+    throw new Error('Supabase is not configured.')
+  }
+
+  return supabase
+}
 
 export default function AdminDashboard() {
   const {
@@ -35,53 +44,68 @@ export default function AdminDashboard() {
   const [busyId, setBusyId] = useState<number | null>(null)
 
   useEffect(() => {
-    const client = supabase
-
-    if (!client) {
+    if (!supabase) {
       setSession(false)
       return
     }
 
+    const client = getClient()
+
     let active = true
 
-    async function checkAdminSession() {
-      const {
-        data,
-        error: sessionError,
-      } = await client.auth.getSession()
+    async function checkAdmin() {
+      try {
+        const {
+          data: sessionData,
+          error: sessionError,
+        } = await client.auth.getSession()
 
-      if (!active) return
+        if (!active) return
 
-      if (sessionError || !data.session) {
-        setSession(false)
-        return
-      }
-
-      const {
-        data: admin,
-        error: adminError,
-      } = await client
-        .from('admin_users')
-        .select('user_id')
-        .eq('user_id', data.session.user.id)
-        .maybeSingle()
-
-      if (!active) return
-
-      if (adminError || !admin) {
-        await client.auth.signOut()
-
-        if (active) {
+        if (sessionError || !sessionData.session) {
           setSession(false)
+          return
         }
 
-        return
-      }
+        const {
+          data: admin,
+          error: adminError,
+        } = await client
+          .from('admin_users')
+          .select('user_id')
+          .eq(
+            'user_id',
+            sessionData.session.user.id,
+          )
+          .maybeSingle()
 
-      setSession(true)
+        if (!active) return
+
+        if (adminError || !admin) {
+          await client.auth.signOut()
+
+          if (active) {
+            setSession(false)
+          }
+
+          return
+        }
+
+        setSession(true)
+      } catch (caught) {
+        if (!active) return
+
+        setSession(false)
+
+        setError(
+          caught instanceof Error
+            ? caught.message
+            : 'Authentication error.',
+        )
+      }
     }
 
-    void checkAdminSession()
+    void checkAdmin()
 
     const {
       data: { subscription },
@@ -100,11 +124,11 @@ export default function AdminDashboard() {
   }, [])
 
   useEffect(() => {
-    const client = supabase
-
-    if (!client || !session) {
+    if (!supabase || !session) {
       return
     }
+
+    const client = getClient()
 
     let active = true
 
@@ -142,11 +166,13 @@ export default function AdminDashboard() {
     }
   }, [session])
 
-  const unreadCount = useMemo(() => {
-    return messages.filter(
-      (message) => !message.read,
-    ).length
-  }, [messages])
+  const unreadCount = useMemo(
+    () =>
+      messages.filter(
+        (message) => !message.read,
+      ).length,
+    [messages],
+  )
 
   const readCount =
     messages.length - unreadCount
@@ -156,12 +182,12 @@ export default function AdminDashboard() {
       search.trim().toLocaleLowerCase()
 
     return messages.filter((message) => {
-      const matchesFilter =
+      const filterMatch =
         filter === 'all' ||
         (filter === 'unread' && !message.read) ||
         (filter === 'read' && message.read)
 
-      if (!matchesFilter) {
+      if (!filterMatch) {
         return false
       }
 
@@ -180,7 +206,9 @@ export default function AdminDashboard() {
     })
   }, [filter, messages, search])
 
-  function formatDate(value: string) {
+  function formatDate(
+    value: string,
+  ) {
     return new Intl.DateTimeFormat(
       language === 'fa'
         ? 'fa-IR'
@@ -196,9 +224,8 @@ export default function AdminDashboard() {
   }
 
   async function logout() {
-    const client = supabase
-
-    if (client) {
+    if (supabase) {
+      const client = getClient()
       await client.auth.signOut()
     }
 
@@ -211,11 +238,11 @@ export default function AdminDashboard() {
     id: number,
     nextRead: boolean,
   ) {
-    const client = supabase
-
-    if (!client) {
+    if (!supabase) {
       return
     }
+
+    const client = getClient()
 
     setBusyId(id)
     setError('')
@@ -252,9 +279,7 @@ export default function AdminDashboard() {
   async function removeMessage(
     id: number,
   ) {
-    const client = supabase
-
-    if (!client) {
+    if (!supabase) {
       return
     }
 
@@ -267,6 +292,8 @@ export default function AdminDashboard() {
     if (!confirmed) {
       return
     }
+
+    const client = getClient()
 
     setBusyId(id)
     setError('')
@@ -286,7 +313,8 @@ export default function AdminDashboard() {
 
     setMessages((current) =>
       current.filter(
-        (message) => message.id !== id,
+        (message) =>
+          message.id !== id,
       ),
     )
 
@@ -379,11 +407,9 @@ export default function AdminDashboard() {
             </h1>
 
             <p className="admin-subtitle">
-
               {language === 'fa'
                 ? 'پیام‌های دریافتی سایت، یک‌جا و مرتب.'
                 : 'Everything people send you, in one place.'}
-
             </p>
 
           </div>
@@ -403,7 +429,6 @@ export default function AdminDashboard() {
               </span>
             </div>
 
-
             <div className="admin-stat">
               <strong>
                 {unreadCount}
@@ -415,7 +440,6 @@ export default function AdminDashboard() {
                   : 'Unread'}
               </span>
             </div>
-
 
             <div className="admin-stat">
               <strong>
@@ -438,49 +462,67 @@ export default function AdminDashboard() {
 
           <div className="message-filters">
 
-            {(
-              [
-                [
-                  'all',
-                  language === 'fa'
-                    ? 'همه'
-                    : 'All',
-                  messages.length,
-                ],
-                [
-                  'unread',
-                  language === 'fa'
-                    ? 'جدید'
-                    : 'Unread',
-                  unreadCount,
-                ],
-                [
-                  'read',
-                  language === 'fa'
-                    ? 'خوانده‌شده'
-                    : 'Read',
-                  readCount,
-                ],
-              ] as const
-            ).map(
-              ([value, label, count]) => (
-                <button
-                  key={value}
-                  className={
-                    filter === value
-                      ? 'active'
-                      : ''
-                  }
-                  onClick={() =>
-                    setFilter(value)
-                  }
-                  type="button"
-                >
-                  {label}
-                  <span>{count}</span>
-                </button>
-              ),
-            )}
+            <button
+              className={
+                filter === 'all'
+                  ? 'active'
+                  : ''
+              }
+              onClick={() =>
+                setFilter('all')
+              }
+              type="button"
+            >
+              {language === 'fa'
+                ? 'همه'
+                : 'All'}
+
+              <span>
+                {messages.length}
+              </span>
+            </button>
+
+
+            <button
+              className={
+                filter === 'unread'
+                  ? 'active'
+                  : ''
+              }
+              onClick={() =>
+                setFilter('unread')
+              }
+              type="button"
+            >
+              {language === 'fa'
+                ? 'جدید'
+                : 'Unread'}
+
+              <span>
+                {unreadCount}
+              </span>
+            </button>
+
+
+            <button
+              className={
+                filter === 'read'
+                  ? 'active'
+                  : ''
+              }
+              onClick={() =>
+                setFilter('read')
+              }
+              type="button"
+            >
+              {language === 'fa'
+                ? 'خوانده‌شده'
+                : 'Read'}
+
+              <span>
+                {readCount}
+              </span>
+            </button>
 
           </div>
 
