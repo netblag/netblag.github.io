@@ -1,6 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Navigate, useNavigate } from 'react-router-dom'
-import type { SupabaseClient } from '@supabase/supabase-js'
 
 import { supabase } from '../lib/supabase'
 import { useApp } from '../lib/app-context'
@@ -14,14 +13,6 @@ type Message = {
 }
 
 type Filter = 'all' | 'unread' | 'read'
-
-function getClient(): SupabaseClient {
-  if (!supabase) {
-    throw new Error('Supabase is not configured.')
-  }
-
-  return supabase
-}
 
 export default function AdminDashboard() {
   const {
@@ -38,9 +29,9 @@ export default function AdminDashboard() {
   )
 
   const [messages, setMessages] = useState<Message[]>([])
-  const [error, setError] = useState('')
   const [filter, setFilter] = useState<Filter>('all')
   const [search, setSearch] = useState('')
+  const [error, setError] = useState('')
   const [busyId, setBusyId] = useState<number | null>(null)
 
   useEffect(() => {
@@ -49,59 +40,44 @@ export default function AdminDashboard() {
       return
     }
 
-    const client = getClient()
-
-    let active = true
+    const client = supabase
+    let mounted = true
 
     async function checkAdmin() {
       try {
-        const {
-          data: sessionData,
-          error: sessionError,
-        } = await client.auth.getSession()
+        const { data, error: sessionError } =
+          await client.auth.getSession()
 
-        if (!active) return
+        if (!mounted) return
 
-        if (sessionError || !sessionData.session) {
+        if (sessionError || !data.session) {
           setSession(false)
           return
         }
 
-        const {
-          data: admin,
-          error: adminError,
-        } = await client
-          .from('admin_users')
-          .select('user_id')
-          .eq(
-            'user_id',
-            sessionData.session.user.id,
-          )
-          .maybeSingle()
+        const { data: admin, error: adminError } =
+          await client
+            .from('admin_users')
+            .select('user_id')
+            .eq(
+              'user_id',
+              data.session.user.id,
+            )
+            .maybeSingle()
 
-        if (!active) return
+        if (!mounted) return
 
         if (adminError || !admin) {
           await client.auth.signOut()
-
-          if (active) {
-            setSession(false)
-          }
-
+          setSession(false)
           return
         }
 
         setSession(true)
-      } catch (caught) {
-        if (!active) return
-
-        setSession(false)
-
-        setError(
-          caught instanceof Error
-            ? caught.message
-            : 'Authentication error.',
-        )
+      } catch {
+        if (mounted) {
+          setSession(false)
+        }
       }
     }
 
@@ -111,14 +87,14 @@ export default function AdminDashboard() {
       data: { subscription },
     } = client.auth.onAuthStateChange(
       (_event, nextSession) => {
-        if (!active) return
+        if (!mounted) return
 
         setSession(Boolean(nextSession))
       },
     )
 
     return () => {
-      active = false
+      mounted = false
       subscription.unsubscribe()
     }
   }, [])
@@ -128,26 +104,23 @@ export default function AdminDashboard() {
       return
     }
 
-    const client = getClient()
-
-    let active = true
+    const client = supabase
+    let mounted = true
 
     async function loadMessages() {
       setError('')
 
-      const {
-        data,
-        error: queryError,
-      } = await client
-        .from('messages')
-        .select(
-          'id, name, message, created_at, read',
-        )
-        .order('created_at', {
-          ascending: false,
-        })
+      const { data, error: queryError } =
+        await client
+          .from('messages')
+          .select(
+            'id, name, message, created_at, read',
+          )
+          .order('created_at', {
+            ascending: false,
+          })
 
-      if (!active) return
+      if (!mounted) return
 
       if (queryError) {
         setError(queryError.message)
@@ -162,14 +135,14 @@ export default function AdminDashboard() {
     void loadMessages()
 
     return () => {
-      active = false
+      mounted = false
     }
   }, [session])
 
   const unreadCount = useMemo(
     () =>
       messages.filter(
-        (message) => !message.read,
+        (item) => !item.read,
       ).length,
     [messages],
   )
@@ -181,13 +154,13 @@ export default function AdminDashboard() {
     const term =
       search.trim().toLocaleLowerCase()
 
-    return messages.filter((message) => {
-      const filterMatch =
+    return messages.filter((item) => {
+      const filterMatches =
         filter === 'all' ||
-        (filter === 'unread' && !message.read) ||
-        (filter === 'read' && message.read)
+        (filter === 'unread' && !item.read) ||
+        (filter === 'read' && item.read)
 
-      if (!filterMatch) {
+      if (!filterMatches) {
         return false
       }
 
@@ -196,19 +169,17 @@ export default function AdminDashboard() {
       }
 
       return (
-        message.name
+        item.name
           .toLocaleLowerCase()
           .includes(term) ||
-        message.message
+        item.message
           .toLocaleLowerCase()
           .includes(term)
       )
     })
   }, [filter, messages, search])
 
-  function formatDate(
-    value: string,
-  ) {
+  function formatDate(value: string) {
     return new Intl.DateTimeFormat(
       language === 'fa'
         ? 'fa-IR'
@@ -225,8 +196,7 @@ export default function AdminDashboard() {
 
   async function logout() {
     if (supabase) {
-      const client = getClient()
-      await client.auth.signOut()
+      await supabase.auth.signOut()
     }
 
     navigate('/admin', {
@@ -236,25 +206,19 @@ export default function AdminDashboard() {
 
   async function toggleRead(
     id: number,
-    nextRead: boolean,
+    value: boolean,
   ) {
-    if (!supabase) {
-      return
-    }
-
-    const client = getClient()
+    if (!supabase) return
 
     setBusyId(id)
-    setError('')
 
-    const {
-      error: updateError,
-    } = await client
-      .from('messages')
-      .update({
-        read: nextRead,
-      })
-      .eq('id', id)
+    const { error: updateError } =
+      await supabase
+        .from('messages')
+        .update({
+          read: value,
+        })
+        .eq('id', id)
 
     if (updateError) {
       setError(updateError.message)
@@ -263,25 +227,21 @@ export default function AdminDashboard() {
     }
 
     setMessages((current) =>
-      current.map((message) =>
-        message.id === id
+      current.map((item) =>
+        item.id === id
           ? {
-              ...message,
-              read: nextRead,
+              ...item,
+              read: value,
             }
-          : message,
+          : item,
       ),
     )
 
     setBusyId(null)
   }
 
-  async function removeMessage(
-    id: number,
-  ) {
-    if (!supabase) {
-      return
-    }
+  async function removeMessage(id: number) {
+    if (!supabase) return
 
     const confirmed = window.confirm(
       language === 'fa'
@@ -289,21 +249,15 @@ export default function AdminDashboard() {
         : 'Delete this message?',
     )
 
-    if (!confirmed) {
-      return
-    }
-
-    const client = getClient()
+    if (!confirmed) return
 
     setBusyId(id)
-    setError('')
 
-    const {
-      error: deleteError,
-    } = await client
-      .from('messages')
-      .delete()
-      .eq('id', id)
+    const { error: deleteError } =
+      await supabase
+        .from('messages')
+        .delete()
+        .eq('id', id)
 
     if (deleteError) {
       setError(deleteError.message)
@@ -313,8 +267,7 @@ export default function AdminDashboard() {
 
     setMessages((current) =>
       current.filter(
-        (message) =>
-          message.id !== id,
+        (item) => item.id !== id,
       ),
     )
 
@@ -341,22 +294,21 @@ export default function AdminDashboard() {
   }
 
   return (
-    <div className="admin-page">
+    <div className="admin-shell">
 
-      <header className="admin-top">
+      <header className="admin-navbar">
 
         <a
           href="/"
-          className="brand"
-          aria-label="Home"
+          className="admin-brand"
         >
           AA
         </a>
 
-        <div className="admin-top-actions">
+        <div className="admin-navbar-actions">
 
           <button
-            className="circle-button"
+            className="admin-circle-button"
             onClick={toggleLanguage}
             type="button"
           >
@@ -366,7 +318,7 @@ export default function AdminDashboard() {
           </button>
 
           <button
-            className="circle-button"
+            className="admin-circle-button"
             onClick={toggleTheme}
             type="button"
           >
@@ -376,7 +328,7 @@ export default function AdminDashboard() {
           </button>
 
           <button
-            className="admin-exit"
+            className="admin-signout"
             onClick={logout}
             type="button"
           >
@@ -390,13 +342,13 @@ export default function AdminDashboard() {
       </header>
 
 
-      <main className="admin-dashboard">
+      <main className="admin-main">
 
-        <section className="admin-hero">
+        <div className="admin-title-row">
 
           <div>
 
-            <span className="accent-text admin-kicker">
+            <span className="admin-eyebrow">
               ADMIN
             </span>
 
@@ -406,30 +358,30 @@ export default function AdminDashboard() {
                 : 'Messages'}
             </h1>
 
-            <p className="admin-subtitle">
+            <p>
               {language === 'fa'
-                ? 'پیام‌های دریافتی سایت، یک‌جا و مرتب.'
-                : 'Everything people send you, in one place.'}
+                ? 'پیام‌های دریافتی سایت، در یک نگاه.'
+                : 'Messages from your website, in one place.'}
             </p>
 
           </div>
 
 
-          <div className="admin-stats">
+          <div className="admin-metrics">
 
-            <div className="admin-stat">
+            <div>
               <strong>
                 {messages.length}
               </strong>
 
               <span>
                 {language === 'fa'
-                  ? 'همه'
+                  ? 'کل'
                   : 'Total'}
               </span>
             </div>
 
-            <div className="admin-stat">
+            <div>
               <strong>
                 {unreadCount}
               </strong>
@@ -441,26 +393,26 @@ export default function AdminDashboard() {
               </span>
             </div>
 
-            <div className="admin-stat">
+            <div>
               <strong>
                 {readCount}
               </strong>
 
               <span>
                 {language === 'fa'
-                  ? 'خوانده‌شده'
+                  ? 'خوانده'
                   : 'Read'}
               </span>
             </div>
 
           </div>
 
-        </section>
+        </div>
 
 
-        <section className="message-toolbar">
+        <div className="admin-toolbar">
 
-          <div className="message-filters">
+          <div className="admin-filters">
 
             <button
               className={
@@ -468,20 +420,15 @@ export default function AdminDashboard() {
                   ? 'active'
                   : ''
               }
-              onClick={() =>
-                setFilter('all')
-              }
+              onClick={() => setFilter('all')}
               type="button"
             >
               {language === 'fa'
                 ? 'همه'
                 : 'All'}
 
-              <span>
-                {messages.length}
-              </span>
+              <b>{messages.length}</b>
             </button>
-
 
             <button
               className={
@@ -498,11 +445,8 @@ export default function AdminDashboard() {
                 ? 'جدید'
                 : 'Unread'}
 
-              <span>
-                {unreadCount}
-              </span>
+              <b>{unreadCount}</b>
             </button>
-
 
             <button
               className={
@@ -519,44 +463,31 @@ export default function AdminDashboard() {
                 ? 'خوانده‌شده'
                 : 'Read'}
 
-              <span>
-                {readCount}
-              </span>
+              <b>{readCount}</b>
             </button>
 
           </div>
 
 
-          <label className="message-search">
+          <input
+            className="admin-search"
+            type="search"
+            value={search}
+            onChange={(event) =>
+              setSearch(event.target.value)
+            }
+            placeholder={
+              language === 'fa'
+                ? 'جستجوی نام یا پیام…'
+                : 'Search name or message…'
+            }
+          />
 
-            <span>
-              {language === 'fa'
-                ? 'جستجو'
-                : 'Search'}
-            </span>
-
-            <input
-              type="search"
-              value={search}
-              onChange={(event) =>
-                setSearch(
-                  event.target.value,
-                )
-              }
-              placeholder={
-                language === 'fa'
-                  ? 'نام یا متن پیام…'
-                  : 'Name or message…'
-              }
-            />
-
-          </label>
-
-        </section>
+        </div>
 
 
         {error && (
-          <div className="form-status error admin-error">
+          <div className="admin-error">
             {error}
           </div>
         )}
@@ -564,15 +495,13 @@ export default function AdminDashboard() {
 
         {visibleMessages.length === 0 ? (
 
-          <section className="message-empty">
+          <div className="admin-empty">
 
-            <span className="message-empty-number">
-              00
-            </span>
+            <span>00</span>
 
             <div>
 
-              <strong>
+              <h2>
                 {messages.length === 0
                   ? language === 'fa'
                     ? 'هنوز پیامی نیست'
@@ -580,108 +509,99 @@ export default function AdminDashboard() {
                   : language === 'fa'
                     ? 'نتیجه‌ای پیدا نشد'
                     : 'Nothing found'}
-              </strong>
+              </h2>
 
               <p>
                 {messages.length === 0
                   ? language === 'fa'
-                    ? 'وقتی کسی از سایت برایت پیامی بفرستد، اینجا نمایش داده می‌شود.'
-                    : 'Messages sent from the public site will appear here.'
+                    ? 'هر پیامی که از فرم سایت دریافت کنی، اینجا نمایش داده می‌شود.'
+                    : 'Messages sent from your website will appear here.'
                   : language === 'fa'
-                    ? 'فیلتر یا عبارت جستجو را تغییر بده.'
-                    : 'Try a different filter or search term.'}
+                    ? 'عبارت جستجو یا فیلتر را تغییر بده.'
+                    : 'Try another search or filter.'}
               </p>
 
             </div>
 
-          </section>
+          </div>
 
         ) : (
 
-          <section className="message-inbox">
+          <div className="admin-inbox">
 
             {visibleMessages.map(
-              (message, index) => {
+              (item, index) => {
 
-                const isBusy =
-                  busyId === message.id
+                const busy =
+                  busyId === item.id
 
                 return (
                   <article
-                    key={message.id}
-                    className={[
-                      'inbox-message',
-                      message.read
-                        ? 'is-read'
-                        : 'is-unread',
-                    ].join(' ')}
+                    key={item.id}
+                    className={
+                      item.read
+                        ? 'admin-message'
+                        : 'admin-message new'
+                    }
                   >
 
-                    <div className="inbox-index">
+                    <div className="admin-message-number">
                       {String(
                         index + 1,
                       ).padStart(2, '0')}
                     </div>
 
 
-                    <div className="inbox-main">
+                    <div className="admin-message-body">
 
-                      <div className="inbox-topline">
+                      <div className="admin-message-meta">
 
-                        <div className="sender">
+                        <div className="admin-sender">
 
-                          <span
-                            className="sender-dot"
-                            aria-hidden="true"
-                          />
+                          <span />
 
                           <strong>
-                            {message.name}
+                            {item.name}
                           </strong>
 
-                          {!message.read && (
-                            <span className="new-badge">
+                          {!item.read && (
+                            <em>
                               {language === 'fa'
                                 ? 'جدید'
                                 : 'NEW'}
-                            </span>
+                            </em>
                           )}
 
                         </div>
 
 
-                        <time
-                          className="message-date"
-                          dateTime={
-                            message.created_at
-                          }
-                        >
+                        <time>
                           {formatDate(
-                            message.created_at,
+                            item.created_at,
                           )}
                         </time>
 
                       </div>
 
 
-                      <p className="inbox-text">
-                        {message.message}
+                      <p className="admin-message-text">
+                        {item.message}
                       </p>
 
 
-                      <div className="inbox-actions">
+                      <div className="admin-message-actions">
 
                         <button
-                          disabled={isBusy}
+                          disabled={busy}
                           onClick={() =>
                             toggleRead(
-                              message.id,
-                              !message.read,
+                              item.id,
+                              !item.read,
                             )
                           }
                           type="button"
                         >
-                          {message.read
+                          {item.read
                             ? language === 'fa'
                               ? 'خوانده‌نشده'
                               : 'Mark unread'
@@ -692,11 +612,11 @@ export default function AdminDashboard() {
 
 
                         <button
-                          disabled={isBusy}
-                          className="danger-action"
+                          className="delete"
+                          disabled={busy}
                           onClick={() =>
                             removeMessage(
-                              message.id,
+                              item.id,
                             )
                           }
                           type="button"
@@ -715,7 +635,7 @@ export default function AdminDashboard() {
               },
             )}
 
-          </section>
+          </div>
 
         )}
 
