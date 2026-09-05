@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { Navigate, useNavigate } from 'react-router-dom'
 
 import { supabase } from '../lib/supabase'
@@ -24,11 +24,15 @@ export default function AdminDashboard() {
 
   const navigate = useNavigate()
 
-  const [session, setSession] = useState<boolean | undefined>(undefined)
+  const [session, setSession] = useState<boolean | undefined>(
+    undefined,
+  )
+
   const [messages, setMessages] = useState<Message[]>([])
   const [error, setError] = useState('')
   const [filter, setFilter] = useState<Filter>('all')
   const [search, setSearch] = useState('')
+  const [busyId, setBusyId] = useState<number | null>(null)
 
   useEffect(() => {
     const client = supabase
@@ -40,15 +44,23 @@ export default function AdminDashboard() {
 
     let active = true
 
-    client.auth.getSession().then(async ({ data }) => {
+    async function checkAdminSession() {
+      const {
+        data,
+        error: sessionError,
+      } = await client.auth.getSession()
+
       if (!active) return
 
-      if (!data.session) {
+      if (sessionError || !data.session) {
         setSession(false)
         return
       }
 
-      const { data: admin, error: adminError } = await client
+      const {
+        data: admin,
+        error: adminError,
+      } = await client
         .from('admin_users')
         .select('user_id')
         .eq('user_id', data.session.user.id)
@@ -67,15 +79,19 @@ export default function AdminDashboard() {
       }
 
       setSession(true)
-    })
+    }
+
+    void checkAdminSession()
 
     const {
       data: { subscription },
-    } = client.auth.onAuthStateChange((_event, nextSession) => {
-      if (!active) return
+    } = client.auth.onAuthStateChange(
+      (_event, nextSession) => {
+        if (!active) return
 
-      setSession(Boolean(nextSession))
-    })
+        setSession(Boolean(nextSession))
+      },
+    )
 
     return () => {
       active = false
@@ -114,7 +130,9 @@ export default function AdminDashboard() {
         return
       }
 
-      setMessages((data ?? []) as Message[])
+      setMessages(
+        (data ?? []) as Message[],
+      )
     }
 
     void loadMessages()
@@ -124,54 +142,49 @@ export default function AdminDashboard() {
     }
   }, [session])
 
-  if (session === undefined) {
-    return (
-      <div className="center-state">
-        {language === 'fa'
-          ? 'در حال بارگذاری…'
-          : 'Loading…'}
-      </div>
-    )
-  }
-
-  if (!session) {
-    return <Navigate to="/admin" replace />
-  }
-
-  const unreadCount =
-    messages.filter((message) => !message.read).length
+  const unreadCount = useMemo(() => {
+    return messages.filter(
+      (message) => !message.read,
+    ).length
+  }, [messages])
 
   const readCount =
-    messages.filter((message) => message.read).length
+    messages.length - unreadCount
 
-  const normalizedSearch =
-    search.trim().toLowerCase()
+  const visibleMessages = useMemo(() => {
+    const term =
+      search.trim().toLocaleLowerCase()
 
-  const filteredMessages = messages.filter((message) => {
-    const matchesFilter =
-      filter === 'all'
-        ? true
-        : filter === 'unread'
-          ? !message.read
-          : message.read
+    return messages.filter((message) => {
+      const matchesFilter =
+        filter === 'all' ||
+        (filter === 'unread' && !message.read) ||
+        (filter === 'read' && message.read)
 
-    const matchesSearch =
-      normalizedSearch.length === 0 ||
-      message.name
-        .toLowerCase()
-        .includes(normalizedSearch) ||
-      message.message
-        .toLowerCase()
-        .includes(normalizedSearch)
+      if (!matchesFilter) {
+        return false
+      }
 
-    return matchesFilter && matchesSearch
-  })
+      if (!term) {
+        return true
+      }
+
+      return (
+        message.name
+          .toLocaleLowerCase()
+          .includes(term) ||
+        message.message
+          .toLocaleLowerCase()
+          .includes(term)
+      )
+    })
+  }, [filter, messages, search])
 
   function formatDate(value: string) {
-    const date = new Date(value)
-
     return new Intl.DateTimeFormat(
-      language === 'fa' ? 'fa-IR' : 'en-US',
+      language === 'fa'
+        ? 'fa-IR'
+        : 'en-US',
       {
         year: 'numeric',
         month: 'short',
@@ -179,7 +192,7 @@ export default function AdminDashboard() {
         hour: '2-digit',
         minute: '2-digit',
       },
-    ).format(date)
+    ).format(new Date(value))
   }
 
   async function logout() {
@@ -194,7 +207,7 @@ export default function AdminDashboard() {
     })
   }
 
-  async function markRead(
+  async function toggleRead(
     id: number,
     nextRead: boolean,
   ) {
@@ -203,6 +216,9 @@ export default function AdminDashboard() {
     if (!client) {
       return
     }
+
+    setBusyId(id)
+    setError('')
 
     const {
       error: updateError,
@@ -215,6 +231,7 @@ export default function AdminDashboard() {
 
     if (updateError) {
       setError(updateError.message)
+      setBusyId(null)
       return
     }
 
@@ -228,9 +245,13 @@ export default function AdminDashboard() {
           : message,
       ),
     )
+
+    setBusyId(null)
   }
 
-  async function remove(id: number) {
+  async function removeMessage(
+    id: number,
+  ) {
     const client = supabase
 
     if (!client) {
@@ -247,6 +268,9 @@ export default function AdminDashboard() {
       return
     }
 
+    setBusyId(id)
+    setError('')
+
     const {
       error: deleteError,
     } = await client
@@ -256,6 +280,7 @@ export default function AdminDashboard() {
 
     if (deleteError) {
       setError(deleteError.message)
+      setBusyId(null)
       return
     }
 
@@ -263,6 +288,27 @@ export default function AdminDashboard() {
       current.filter(
         (message) => message.id !== id,
       ),
+    )
+
+    setBusyId(null)
+  }
+
+  if (session === undefined) {
+    return (
+      <div className="center-state">
+        {language === 'fa'
+          ? 'در حال بارگذاری…'
+          : 'Loading…'}
+      </div>
+    )
+  }
+
+  if (!session) {
+    return (
+      <Navigate
+        to="/admin"
+        replace
+      />
     )
   }
 
@@ -286,7 +332,9 @@ export default function AdminDashboard() {
             onClick={toggleLanguage}
             type="button"
           >
-            {language === 'en' ? 'FA' : 'EN'}
+            {language === 'en'
+              ? 'FA'
+              : 'EN'}
           </button>
 
           <button
@@ -294,7 +342,9 @@ export default function AdminDashboard() {
             onClick={toggleTheme}
             type="button"
           >
-            {theme === 'dark' ? '☼' : '◐'}
+            {theme === 'dark'
+              ? '☼'
+              : '◐'}
           </button>
 
           <button
@@ -314,7 +364,7 @@ export default function AdminDashboard() {
 
       <main className="admin-dashboard">
 
-        <div className="admin-hero">
+        <section className="admin-hero">
 
           <div>
 
@@ -328,12 +378,20 @@ export default function AdminDashboard() {
                 : 'Messages'}
             </h1>
 
+            <p className="admin-subtitle">
+
+              {language === 'fa'
+                ? 'پیام‌های دریافتی سایت، یک‌جا و مرتب.'
+                : 'Everything people send you, in one place.'}
+
+            </p>
+
           </div>
 
 
-          <div className="admin-summary">
+          <div className="admin-stats">
 
-            <div>
+            <div className="admin-stat">
               <strong>
                 {messages.length}
               </strong>
@@ -346,7 +404,7 @@ export default function AdminDashboard() {
             </div>
 
 
-            <div>
+            <div className="admin-stat">
               <strong>
                 {unreadCount}
               </strong>
@@ -358,77 +416,71 @@ export default function AdminDashboard() {
               </span>
             </div>
 
+
+            <div className="admin-stat">
+              <strong>
+                {readCount}
+              </strong>
+
+              <span>
+                {language === 'fa'
+                  ? 'خوانده‌شده'
+                  : 'Read'}
+              </span>
+            </div>
+
           </div>
 
-        </div>
+        </section>
 
 
-        <div className="message-toolbar">
+        <section className="message-toolbar">
 
           <div className="message-filters">
 
-            <button
-              className={
-                filter === 'all'
-                  ? 'active'
-                  : ''
-              }
-              onClick={() => setFilter('all')}
-              type="button"
-            >
-              {language === 'fa'
-                ? 'همه'
-                : 'All'}
-
-              <span>
-                {messages.length}
-              </span>
-
-            </button>
-
-
-            <button
-              className={
-                filter === 'unread'
-                  ? 'active'
-                  : ''
-              }
-              onClick={() =>
-                setFilter('unread')
-              }
-              type="button"
-            >
-              {language === 'fa'
-                ? 'جدید'
-                : 'Unread'}
-
-              <span>
-                {unreadCount}
-              </span>
-
-            </button>
-
-
-            <button
-              className={
-                filter === 'read'
-                  ? 'active'
-                  : ''
-              }
-              onClick={() =>
-                setFilter('read')
-              }
-              type="button"
-            >
-              {language === 'fa'
-                ? 'خوانده‌شده'
-                : 'Read'}
-
-              <span>
-                {readCount}
-              </span>
-
-            </button>
+            {(
+              [
+                [
+                  'all',
+                  language === 'fa'
+                    ? 'همه'
+                    : 'All',
+                  messages.length,
+                ],
+                [
+                  'unread',
+                  language === 'fa'
+                    ? 'جدید'
+                    : 'Unread',
+                  unreadCount,
+                ],
+                [
+                  'read',
+                  language === 'fa'
+                    ? 'خوانده‌شده'
+                    : 'Read',
+                  readCount,
+                ],
+              ] as const
+            ).map(
+              ([value, label, count]) => (
+                <button
+                  key={value}
+                  className={
+                    filter === value
+                      ? 'active'
+                      : ''
+                  }
+                  onClick={() =>
+                    setFilter(value)
+                  }
+                  type="button"
+                >
+                  {label}
+                  <span>{count}</span>
+                </button>
+              ),
+            )}
 
           </div>
 
@@ -445,7 +497,9 @@ export default function AdminDashboard() {
               type="search"
               value={search}
               onChange={(event) =>
-                setSearch(event.target.value)
+                setSearch(
+                  event.target.value,
+                )
               }
               placeholder={
                 language === 'fa'
@@ -456,23 +510,23 @@ export default function AdminDashboard() {
 
           </label>
 
-        </div>
+        </section>
 
 
         {error && (
-          <div className="form-status error">
+          <div className="form-status error admin-error">
             {error}
           </div>
         )}
 
 
-        {filteredMessages.length === 0 ? (
+        {visibleMessages.length === 0 ? (
 
-          <div className="message-empty">
+          <section className="message-empty">
 
-            <div className="message-empty-number">
+            <span className="message-empty-number">
               00
-            </div>
+            </span>
 
             <div>
 
@@ -490,128 +544,136 @@ export default function AdminDashboard() {
                 {messages.length === 0
                   ? language === 'fa'
                     ? 'وقتی کسی از سایت برایت پیامی بفرستد، اینجا نمایش داده می‌شود.'
-                    : 'Messages sent from your website will appear here.'
+                    : 'Messages sent from the public site will appear here.'
                   : language === 'fa'
                     ? 'فیلتر یا عبارت جستجو را تغییر بده.'
-                    : 'Try changing the filter or search term.'}
+                    : 'Try a different filter or search term.'}
               </p>
 
             </div>
 
-          </div>
+          </section>
 
         ) : (
 
-          <div className="message-inbox">
+          <section className="message-inbox">
 
-            {filteredMessages.map(
-              (message, index) => (
+            {visibleMessages.map(
+              (message, index) => {
 
-                <article
-                  className={`inbox-message ${
-                    message.read
-                      ? 'is-read'
-                      : 'is-unread'
-                  }`}
-                  key={message.id}
-                >
+                const isBusy =
+                  busyId === message.id
 
-                  <div className="inbox-index">
-                    {String(index + 1).padStart(
-                      2,
-                      '0',
-                    )}
-                  </div>
+                return (
+                  <article
+                    key={message.id}
+                    className={[
+                      'inbox-message',
+                      message.read
+                        ? 'is-read'
+                        : 'is-unread',
+                    ].join(' ')}
+                  >
+
+                    <div className="inbox-index">
+                      {String(
+                        index + 1,
+                      ).padStart(2, '0')}
+                    </div>
 
 
-                  <div className="inbox-main">
+                    <div className="inbox-main">
 
-                    <div className="inbox-topline">
+                      <div className="inbox-topline">
 
-                      <div className="sender">
+                        <div className="sender">
 
-                        <span
-                          className="sender-dot"
-                          aria-hidden="true"
-                        />
+                          <span
+                            className="sender-dot"
+                            aria-hidden="true"
+                          />
 
-                        <strong>
-                          {message.name}
-                        </strong>
+                          <strong>
+                            {message.name}
+                          </strong>
 
-                        {!message.read && (
-                          <span className="new-badge">
-                            {language === 'fa'
-                              ? 'جدید'
-                              : 'NEW'}
-                          </span>
-                        )}
+                          {!message.read && (
+                            <span className="new-badge">
+                              {language === 'fa'
+                                ? 'جدید'
+                                : 'NEW'}
+                            </span>
+                          )}
+
+                        </div>
+
+
+                        <time
+                          className="message-date"
+                          dateTime={
+                            message.created_at
+                          }
+                        >
+                          {formatDate(
+                            message.created_at,
+                          )}
+                        </time>
 
                       </div>
 
 
-                      <time
-                        dateTime={
-                          message.created_at
-                        }
-                        className="message-date"
-                      >
-                        {formatDate(
-                          message.created_at,
-                        )}
-                      </time>
+                      <p className="inbox-text">
+                        {message.message}
+                      </p>
+
+
+                      <div className="inbox-actions">
+
+                        <button
+                          disabled={isBusy}
+                          onClick={() =>
+                            toggleRead(
+                              message.id,
+                              !message.read,
+                            )
+                          }
+                          type="button"
+                        >
+                          {message.read
+                            ? language === 'fa'
+                              ? 'خوانده‌نشده'
+                              : 'Mark unread'
+                            : language === 'fa'
+                              ? 'خوانده شد'
+                              : 'Mark as read'}
+                        </button>
+
+
+                        <button
+                          disabled={isBusy}
+                          className="danger-action"
+                          onClick={() =>
+                            removeMessage(
+                              message.id,
+                            )
+                          }
+                          type="button"
+                        >
+                          {language === 'fa'
+                            ? 'حذف'
+                            : 'Delete'}
+                        </button>
+
+                      </div>
 
                     </div>
 
-
-                    <p className="inbox-text">
-                      {message.message}
-                    </p>
-
-
-                    <div className="inbox-actions">
-
-                      <button
-                        type="button"
-                        onClick={() =>
-                          markRead(
-                            message.id,
-                            !message.read,
-                          )
-                        }
-                      >
-                        {message.read
-                          ? language === 'fa'
-                            ? 'خوانده‌نشده'
-                            : 'Mark unread'
-                          : language === 'fa'
-                            ? 'خوانده شد'
-                            : 'Mark as read'}
-                      </button>
-
-
-                      <button
-                        type="button"
-                        className="danger-action"
-                        onClick={() =>
-                          remove(message.id)
-                        }
-                      >
-                        {language === 'fa'
-                          ? 'حذف'
-                          : 'Delete'}
-                      </button>
-
-                    </div>
-
-                  </div>
-
-                </article>
-
-              ),
+                  </article>
+                )
+              },
             )}
 
-          </div>
+          </section>
 
         )}
 
