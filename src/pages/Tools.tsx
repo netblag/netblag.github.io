@@ -10,54 +10,47 @@ import Papa from 'papaparse'
 import { useApp } from '../lib/app-context'
 import { copy } from '../lib/i18n'
 
-type Language =
-  | 'en'
-  | 'fa'
+type Language = 'en' | 'fa'
 
-type ToolDefinition = {
+type Tool = {
   id: string
   title: string
   description: string
 }
 
-function localized(
+function text(
   language: Language,
   en: string,
   fa: string,
 ) {
-  return language === 'fa'
-    ? fa
-    : en
+  return language === 'fa' ? fa : en
 }
 
-function Frame({
+function ToolFrame({
   title,
-  close,
   language,
+  onBack,
   children,
 }: {
   title: string
-  close: () => void
   language: Language
+  onBack: () => void
   children: ReactNode
 }) {
-  const t = copy[language]
-
   return (
     <section className="tool-workspace">
       <button
-        className="back-link tool-back"
         type="button"
-        onClick={close}
+        className="back-link tool-back"
+        onClick={onBack}
       >
-        {t.tools.back}
+        {text(language, '← Tools', '← ابزارها')}
       </button>
 
       <div className="workspace-top">
         <h2>{title}</h2>
-
         <span>
-          {t.tools.local}
+          {text(language, 'LOCAL', 'محلی')}
         </span>
       </div>
 
@@ -67,31 +60,37 @@ function Frame({
 }
 
 export default function Tools() {
-  const {
-    language,
-  } = useApp()
-
+  const { language } = useApp()
   const t = copy[language]
 
-  const [
-    active,
-    setActive,
-  ] = useState<
-    string | null
-  >(null)
+  const [activeTool, setActiveTool] =
+    useState<string | null>(null)
 
-  const tools: ToolDefinition[] =
-    t.tools.items.map(
-      ([
-        id,
-        title,
-        description,
-      ]) => ({
-        id,
-        title,
-        description,
-      }),
+  const tools: Tool[] = t.tools.items.map(
+    ([id, title, description]) => ({
+      id,
+      title,
+      description,
+    }),
+  )
+
+  if (activeTool) {
+    const selected = tools.find(
+      (tool) => tool.id === activeTool,
     )
+
+    if (selected) {
+      return (
+        <div className="tool-page">
+          <ToolWorkspace
+            tool={selected}
+            language={language}
+            onBack={() => setActiveTool(null)}
+          />
+        </div>
+      )
+    }
+  }
 
   return (
     <div className="tool-page">
@@ -104,13 +103,9 @@ export default function Tools() {
             {t.tools.back}
           </Link>
 
-          <h1>
-            {t.tools.title}
-          </h1>
+          <h1>{t.tools.title}</h1>
 
-          <p>
-            {t.tools.subtitle}
-          </p>
+          <p>{t.tools.subtitle}</p>
         </div>
 
         <div className="tool-controls">
@@ -123,152 +118,120 @@ export default function Tools() {
         </div>
       </div>
 
-      {active ? (
-        <ToolWorkspace
-          id={active}
-          language={language}
-          close={() =>
-            setActive(null)
-          }
-          tools={tools}
-        />
-      ) : (
-        <div className="tool-list">
-          {tools.map(
-            (
-              tool,
-              index,
-            ) => (
-              <button
-                className="tool-item"
-                type="button"
-                key={tool.id}
-                onClick={() =>
-                  setActive(
-                    tool.id,
-                  )
-                }
-              >
-                <span className="tool-number">
-                  {String(
-                    index + 1,
-                  ).padStart(
-                    2,
-                    '0',
-                  )}
-                </span>
+      <div className="tool-list">
+        {tools.map((tool, index) => (
+          <button
+            type="button"
+            className="tool-item"
+            key={tool.id}
+            onClick={() =>
+              setActiveTool(tool.id)
+            }
+          >
+            <span className="tool-number">
+              {String(index + 1).padStart(
+                2,
+                '0',
+              )}
+            </span>
 
-                <span className="tool-item-main">
-                  <strong>
-                    {tool.title}
-                  </strong>
+            <span className="tool-item-main">
+              <strong>{tool.title}</strong>
 
-                  <small>
-                    {
-                      tool.description
-                    }
-                  </small>
-                </span>
+              <small>
+                {tool.description}
+              </small>
+            </span>
 
-                <b className="tool-arrow">
-                  ↗
-                </b>
-              </button>
-            ),
-          )}
-        </div>
-      )}
+            <b className="tool-arrow">
+              ↗
+            </b>
+          </button>
+        ))}
+      </div>
     </div>
   )
 }
 
 function ToolWorkspace({
-  id,
+  tool,
   language,
-  close,
-  tools,
+  onBack,
 }: {
-  id: string
+  tool: Tool
   language: Language
-  close: () => void
-  tools: ToolDefinition[]
+  onBack: () => void
 }) {
-  const title =
-    tools.find(
-      (tool) =>
-        tool.id === id,
-    )?.title ?? id
-
-  switch (id) {
+  switch (tool.id) {
     case 'json':
       return (
         <JsonTool
-          title={title}
+          title={tool.title}
           language={language}
-          close={close}
+          onBack={onBack}
         />
       )
 
     case 'csv':
       return (
         <CsvTool
-          title={title}
+          title={tool.title}
           language={language}
-          close={close}
+          onBack={onBack}
         />
       )
 
     case 'regex':
       return (
         <RegexTool
-          title={title}
+          title={tool.title}
           language={language}
-          close={close}
+          onBack={onBack}
         />
       )
 
     case 'markdown':
       return (
         <MarkdownTool
-          title={title}
+          title={tool.title}
           language={language}
-          close={close}
+          onBack={onBack}
         />
       )
 
     case 'text':
       return (
         <TextTool
-          title={title}
+          title={tool.title}
           language={language}
-          close={close}
+          onBack={onBack}
         />
       )
 
     case 'timestamp':
       return (
         <TimestampTool
-          title={title}
+          title={tool.title}
           language={language}
-          close={close}
+          onBack={onBack}
         />
       )
 
     case 'base64':
       return (
         <Base64Tool
-          title={title}
+          title={tool.title}
           language={language}
-          close={close}
+          onBack={onBack}
         />
       )
 
     case 'uuid':
       return (
         <UuidTool
-          title={title}
+          title={tool.title}
           language={language}
-          close={close}
+          onBack={onBack}
         />
       )
 
@@ -277,34 +240,31 @@ function ToolWorkspace({
   }
 }
 
+/* =========================================================
+   JSON
+   ========================================================= */
+
 function JsonTool({
   title,
   language,
-  close,
+  onBack,
 }: {
   title: string
   language: Language
-  close: () => void
+  onBack: () => void
 }) {
-  const [
-    value,
-    setValue,
-  ] = useState('')
+  const [input, setInput] =
+    useState('')
 
-  const [
-    output,
-    setOutput,
-  ] = useState('')
+  const [output, setOutput] =
+    useState('')
 
-  const [
-    error,
-    setError,
-  ] = useState('')
+  const [error, setError] =
+    useState('')
 
-  function format() {
+  function formatJson() {
     try {
-      const parsed =
-        JSON.parse(value)
+      const parsed = JSON.parse(input)
 
       setOutput(
         JSON.stringify(
@@ -315,15 +275,13 @@ function JsonTool({
       )
 
       setError('')
-    } catch (
-      error,
-    ) {
+    } catch (err) {
       setOutput('')
 
       setError(
-        error instanceof Error
-          ? error.message
-          : localized(
+        err instanceof Error
+          ? err.message
+          : text(
               language,
               'Invalid JSON.',
               'JSON نامعتبر است.',
@@ -332,27 +290,22 @@ function JsonTool({
     }
   }
 
-  function minify() {
+  function minifyJson() {
     try {
-      const parsed =
-        JSON.parse(value)
+      const parsed = JSON.parse(input)
 
       setOutput(
-        JSON.stringify(
-          parsed,
-        ),
+        JSON.stringify(parsed),
       )
 
       setError('')
-    } catch (
-      error,
-    ) {
+    } catch (err) {
       setOutput('')
 
       setError(
-        error instanceof Error
-          ? error.message
-          : localized(
+        err instanceof Error
+          ? err.message
+          : text(
               language,
               'Invalid JSON.',
               'JSON نامعتبر است.',
@@ -361,33 +314,34 @@ function JsonTool({
     }
   }
 
+  function clear() {
+    setInput('')
+    setOutput('')
+    setError('')
+  }
+
   return (
-    <Frame
+    <ToolFrame
       title={title}
       language={language}
-      close={close}
+      onBack={onBack}
     >
       <textarea
         className="tool-editor"
-        value={value}
-        onChange={(
-          event,
-        ) =>
-          setValue(
-            event.target
-              .value,
-          )
+        value={input}
+        onChange={(event) =>
+          setInput(event.target.value)
         }
-        placeholder='{"name":"Ashkan"}'
+        placeholder='{"name":"Ashkan","role":"Developer"}'
         spellCheck={false}
       />
 
       <div className="tool-actions">
         <button
           type="button"
-          onClick={format}
+          onClick={formatJson}
         >
-          {localized(
+          {text(
             language,
             'Format',
             'مرتب‌سازی',
@@ -396,9 +350,9 @@ function JsonTool({
 
         <button
           type="button"
-          onClick={minify}
+          onClick={minifyJson}
         >
-          {localized(
+          {text(
             language,
             'Minify',
             'فشرده‌سازی',
@@ -407,13 +361,9 @@ function JsonTool({
 
         <button
           type="button"
-          onClick={() => {
-            setValue('')
-            setOutput('')
-            setError('')
-          }}
+          onClick={clear}
         >
-          {localized(
+          {text(
             language,
             'Clear',
             'پاک کردن',
@@ -430,93 +380,91 @@ function JsonTool({
       <pre className="tool-output">
         {output}
       </pre>
-    </Frame>
+    </ToolFrame>
   )
 }
+
+/* =========================================================
+   CSV
+   ========================================================= */
 
 function CsvTool({
   title,
   language,
-  close,
+  onBack,
 }: {
   title: string
   language: Language
-  close: () => void
+  onBack: () => void
 }) {
-  const [
-    value,
-    setValue,
-  ] = useState('')
+  const [input, setInput] =
+    useState('')
 
-  const [
-    rows,
-    setRows,
-  ] = useState<
-    string[][]
-  >([])
+  const [rows, setRows] =
+    useState<string[][]>([])
 
-  const [
-    error,
-    setError,
-  ] = useState('')
+  const [error, setError] =
+    useState('')
 
-  function analyze() {
-    Papa.parse<
-      string[]
-    >(value, {
+  function analyzeCsv() {
+    if (!input.trim()) {
+      setRows([])
+      setError(
+        text(
+          language,
+          'Paste CSV data first.',
+          'ابتدا داده CSV را وارد کنید.',
+        ),
+      )
+      return
+    }
+
+    const result = Papa.parse(input, {
       skipEmptyLines: true,
-
-      complete(result) {
-        if (
-          result.errors.length
-        ) {
-          setError(
-            result.errors[0]
-              ?.message ??
-              localized(
-                language,
-                'CSV parsing failed.',
-                'خواندن CSV ناموفق بود.',
-              ),
-          )
-
-          return
-        }
-
-        setRows(
-          result.data,
-        )
-
-        setError('')
-      },
     })
+
+    if (result.errors.length > 0) {
+      setError(
+        result.errors[0]?.message ??
+          text(
+            language,
+            'Could not parse CSV.',
+            'خواندن CSV ناموفق بود.',
+          ),
+      )
+      return
+    }
+
+    const parsedRows = result.data.map(
+      (row) =>
+        Array.isArray(row)
+          ? row.map((cell) =>
+              String(cell ?? ''),
+            )
+          : [],
+    )
+
+    setRows(parsedRows)
+    setError('')
   }
 
-  const headers =
-    rows[0] ?? []
-
-  const dataRows =
-    rows.slice(1)
+  const headers = rows[0] ?? []
+  const body = rows.slice(1)
 
   return (
-    <Frame
+    <ToolFrame
       title={title}
       language={language}
-      close={close}
+      onBack={onBack}
     >
       <textarea
         className="tool-editor"
-        value={value}
-        onChange={(
-          event,
-        ) =>
-          setValue(
-            event.target
-              .value,
-          )
+        value={input}
+        onChange={(event) =>
+          setInput(event.target.value)
         }
         placeholder={
-          'name,age,role\nAshkan,21,Developer'
+          'name,age,role\nAshkan,21,Developer\nSara,24,Designer'
         }
         spellCheck={false}
       />
@@ -524,24 +472,24 @@ function CsvTool({
       <div className="tool-actions">
         <button
           type="button"
-          onClick={analyze}
+          onClick={analyzeCsv}
         >
-          {localized(
+          {text(
             language,
-            'Analyze CSV',
-            'تحلیل CSV',
+            'Analyze',
+            'تحلیل',
           )}
         </button>
 
         <button
           type="button"
           onClick={() => {
-            setValue('')
+            setInput('')
             setRows([])
             setError('')
           }}
         >
-          {localized(
+          {text(
             language,
             'Clear',
             'پاک کردن',
@@ -560,7 +508,7 @@ function CsvTool({
           <div className="stats-grid">
             <div>
               <small>
-                {localized(
+                {text(
                   language,
                   'Rows',
                   'ردیف',
@@ -568,13 +516,13 @@ function CsvTool({
               </small>
 
               <strong>
-                {dataRows.length}
+                {body.length}
               </strong>
             </div>
 
             <div>
               <small>
-                {localized(
+                {text(
                   language,
                   'Columns',
                   'ستون',
@@ -588,21 +536,17 @@ function CsvTool({
 
             <div>
               <small>
-                {localized(
+                {text(
                   language,
                   'Cells',
-                  'خانه',
+                  'سلول',
                 )}
               </small>
 
               <strong>
-                {dataRows.reduce(
-                  (
-                    total,
-                    row,
-                  ) =>
-                    total +
-                    row.length,
+                {body.reduce(
+                  (sum, row) =>
+                    sum + row.length,
                   0,
                 )}
               </strong>
@@ -621,9 +565,7 @@ function CsvTool({
                       <th
                         key={`${header}-${index}`}
                       >
-                        {
-                          header
-                        }
+                        {header}
                       </th>
                     ),
                   )}
@@ -631,24 +573,19 @@ function CsvTool({
               </thead>
 
               <tbody>
-                {dataRows
-                  .slice(
-                    0,
-                    100,
-                  )
+                {body
+                  .slice(0, 100)
                   .map(
                     (
                       row,
                       rowIndex,
                     ) => (
                       <tr
-                        key={
-                          rowIndex
-                        }
+                        key={rowIndex}
                       >
                         {headers.map(
                           (
-                            _,
+                            _header,
                             columnIndex,
                           ) => (
                             <td
@@ -672,68 +609,57 @@ function CsvTool({
           </div>
         </>
       )}
-    </Frame>
+    </ToolFrame>
   )
 }
+
+/* =========================================================
+   REGEX
+   ========================================================= */
 
 function RegexTool({
   title,
   language,
-  close,
+  onBack,
 }: {
   title: string
   language: Language
-  close: () => void
+  onBack: () => void
 }) {
-  const [
-    pattern,
-    setPattern,
-  ] = useState('')
+  const [pattern, setPattern] =
+    useState('')
 
-  const [
-    flags,
-    setFlags,
-  ] = useState('g')
+  const [flags, setFlags] =
+    useState('g')
 
-  const [
-    text,
-    setText,
-  ] = useState('')
+  const [sample, setSample] =
+    useState('')
 
-  const [
-    result,
-    setResult,
-  ] = useState<
-    string[]
-  >([])
+  const [matches, setMatches] =
+    useState<string[]>([])
 
-  const [
-    error,
-    setError,
-  ] = useState('')
+  const [error, setError] =
+    useState('')
 
-  function test() {
+  function testRegex() {
     try {
-      const regex =
-        new RegExp(
-          pattern,
-          flags,
-        )
+      const regex = new RegExp(
+        pattern,
+        flags,
+      )
 
-      const matches =
-        text.match(regex) ?? []
+      const result =
+        sample.match(regex) ?? []
 
-      setResult(matches)
+      setMatches(result)
       setError('')
-    } catch (
-      error,
-    ) {
-      setResult([])
+    } catch (err) {
+      setMatches([])
 
       setError(
-        error instanceof Error
-          ? error.message
-          : localized(
+        err instanceof Error
+          ? err.message
+          : text(
               language,
               'Invalid regular expression.',
               'عبارت منظم نامعتبر است.',
@@ -743,24 +669,21 @@ function RegexTool({
   }
 
   return (
-    <Frame
+    <ToolFrame
       title={title}
       language={language}
-      close={close}
+      onBack={onBack}
     >
       <div className="regex-grid">
         <input
           className="tool-input"
           value={pattern}
-          onChange={(
-            event,
-          ) =>
+          onChange={(event) =>
             setPattern(
-              event.target
-                .value,
+              event.target.value,
             )
           }
-          placeholder={localized(
+          placeholder={text(
             language,
             'Regular expression',
             'عبارت منظم',
@@ -770,12 +693,9 @@ function RegexTool({
         <input
           className="tool-input regex-flags"
           value={flags}
-          onChange={(
-            event,
-          ) =>
+          onChange={(event) =>
             setFlags(
-              event.target
-                .value,
+              event.target.value,
             )
           }
           placeholder="gim"
@@ -784,16 +704,13 @@ function RegexTool({
 
       <textarea
         className="tool-editor"
-        value={text}
-        onChange={(
-          event,
-        ) =>
-          setText(
-            event.target
-              .value,
+        value={sample}
+        onChange={(event) =>
+          setSample(
+            event.target.value,
           )
         }
-        placeholder={localized(
+        placeholder={text(
           language,
           'Sample text',
           'متن نمونه',
@@ -804,9 +721,9 @@ function RegexTool({
       <div className="tool-actions">
         <button
           type="button"
-          onClick={test}
+          onClick={testRegex}
         >
-          {localized(
+          {text(
             language,
             'Test',
             'آزمایش',
@@ -823,7 +740,7 @@ function RegexTool({
       <div className="stats-grid">
         <div className="wide">
           <small>
-            {localized(
+            {text(
               language,
               'Matches',
               'تطبیق‌ها',
@@ -831,100 +748,99 @@ function RegexTool({
           </small>
 
           <strong>
-            {result.length}
+            {matches.length}
           </strong>
         </div>
       </div>
 
       <pre className="tool-output">
-        {result.join('\n')}
+        {matches.join('\n')}
       </pre>
-    </Frame>
+    </ToolFrame>
   )
 }
+
+/* =========================================================
+   MARKDOWN
+   ========================================================= */
 
 function MarkdownTool({
   title,
   language,
-  close,
+  onBack,
 }: {
   title: string
   language: Language
-  close: () => void
+  onBack: () => void
 }) {
-  const [
-    value,
-    setValue,
-  ] = useState(
-    '# Hello\n\nWrite **Markdown** here.',
-  )
+  const [input, setInput] =
+    useState(
+      '# Hello\n\nWrite **Markdown** here.',
+    )
 
-  const preview =
-    useMemo(() => {
-      let html =
-        value
-          .replace(
-            /&/g,
-            '&amp;',
-          )
-          .replace(
-            /</g,
-            '&lt;',
-          )
-          .replace(
-            />/g,
-            '&gt;',
-          )
-
-      html = html.replace(
-        /^### (.+)$/gm,
-        '<h3>$1</h3>',
+  const preview = useMemo(() => {
+    let html = input
+      .replace(/&/g, '&amp;')
+      .replace(
+        /</g,
+        '&lt;',
+      )
+      .replace(
+        />/g,
+        '&gt;',
       )
 
-      html = html.replace(
-        /^## (.+)$/gm,
-        '<h2>$1</h2>',
-      )
+    html = html.replace(
+      /^### (.+)$/gm,
+      '<h3>$1</h3>',
+    )
 
-      html = html.replace(
-        /^# (.+)$/gm,
-        '<h1>$1</h1>',
-      )
+    html = html.replace(
+      /^## (.+)$/gm,
+      '<h2>$1</h2>',
+    )
 
-      html = html.replace(
-        /\*\*(.+?)\*\*/g,
-        '<strong>$1</strong>',
-      )
+    html = html.replace(
+      /^# (.+)$/gm,
+      '<h1>$1</h1>',
+    )
 
-      html = html.replace(
-        /`([^`]+)`/g,
-        '<code>$1</code>',
-      )
+    html = html.replace(
+      /\*\*(.+?)\*\*/g,
+      '<strong>$1</strong>',
+    )
 
-      html = html.replace(
-        /\n/g,
-        '<br />',
-      )
+    html = html.replace(
+      /`([^`]+)`/g,
+      '<code>$1</code>',
+    )
 
-      return html
-    }, [value])
+    html = html.replace(
+      /^- (.+)$/gm,
+      '<li>$1</li>',
+    )
+
+    html = html.replace(
+      /\n/g,
+      '<br />',
+    )
+
+    return html
+  }, [input])
 
   return (
-    <Frame
+    <ToolFrame
       title={title}
       language={language}
-      close={close}
+      onBack={onBack}
     >
       <div className="markdown-grid">
         <textarea
           className="tool-editor"
-          value={value}
-          onChange={(
-            event,
-          ) =>
-            setValue(
-              event.target
-                .value,
+          value={input}
+          onChange={(event) =>
+            setInput(
+              event.target.value,
             )
           }
           spellCheck={false}
@@ -933,60 +849,66 @@ function MarkdownTool({
         <div
           className="markdown-preview"
           dangerouslySetInnerHTML={{
-            __html:
-              preview,
+            __html: preview,
           }}
         />
       </div>
-    </Frame>
+    </ToolFrame>
   )
 }
+
+/* =========================================================
+   TEXT
+   ========================================================= */
 
 function TextTool({
   title,
   language,
-  close,
+  onBack,
 }: {
   title: string
   language: Language
-  close: () => void
+  onBack: () => void
 }) {
-  const [
-    value,
-    setValue,
-  ] = useState('')
+  const [value, setValue] =
+    useState('')
 
-  const words =
+  const trimmed =
     value.trim()
-      ? value
-          .trim()
-          .split(/\s+/)
-          .length
-      : 0
+
+  const wordCount = trimmed
+    ? trimmed.split(/\s+/).length
+    : 0
+
+  const lineCount = value
+    ? value.split(/\r?\n/).length
+    : 0
 
   return (
-    <Frame
+    <ToolFrame
       title={title}
       language={language}
-      close={close}
+      onBack={onBack}
     >
       <textarea
         className="tool-editor"
         value={value}
-        onChange={(
-          event,
-        ) =>
+        onChange={(event) =>
           setValue(
-            event.target
-              .value,
+            event.target.value,
           )
         }
+        placeholder={text(
+          language,
+          'Type or paste text here…',
+          'متن را اینجا وارد کنید…',
+        )}
       />
 
       <div className="stats-grid">
         <div>
           <small>
-            {localized(
+            {text(
               language,
               'Characters',
               'نویسه',
@@ -1000,7 +922,7 @@ function TextTool({
 
         <div>
           <small>
-            {localized(
+            {text(
               language,
               'Words',
               'کلمه',
@@ -1008,13 +930,13 @@ function TextTool({
           </small>
 
           <strong>
-            {words}
+            {wordCount}
           </strong>
         </div>
 
         <div>
           <small>
-            {localized(
+            {text(
               language,
               'Lines',
               'خط',
@@ -1022,13 +944,7 @@ function TextTool({
           </small>
 
           <strong>
-            {
-              value
-                ? value.split(
-                    '\n',
-                  ).length
-                : 0
-            }
+            {lineCount}
           </strong>
         </div>
       </div>
@@ -1043,7 +959,7 @@ function TextTool({
             )
           }
         >
-          {localized(
+          {text(
             language,
             'UPPERCASE',
             'حروف بزرگ',
@@ -1059,118 +975,118 @@ function TextTool({
             )
           }
         >
-          {localized(
+          {text(
             language,
             'lowercase',
             'حروف کوچک',
           )}
         </button>
+
+        <button
+          type="button"
+          onClick={() =>
+            setValue('')
+          }
+        >
+          {text(
+            language,
+            'Clear',
+            'پاک کردن',
+          )}
+        </button>
       </div>
-    </Frame>
+    </ToolFrame>
   )
 }
+
+/* =========================================================
+   TIMESTAMP
+   ========================================================= */
 
 function TimestampTool({
   title,
   language,
-  close,
+  onBack,
 }: {
   title: string
   language: Language
-  close: () => void
+  onBack: () => void
 }) {
-  const [
-    value,
-    setValue,
-  ] = useState(
-    String(
-      Math.floor(
-        Date.now() /
-          1000,
+  const [value, setValue] =
+    useState(
+      String(
+        Math.floor(
+          Date.now() / 1000,
+        ),
       ),
-    ),
-  )
+    )
 
-  const result =
-    useMemo(() => {
-      const number =
-        Number(value)
+  const result = useMemo(() => {
+    const numeric =
+      Number(value)
 
-      if (
-        !Number.isFinite(
-          number,
-        )
-      ) {
-        return localized(
-          language,
-          'Invalid timestamp.',
-          'زمان واردشده معتبر نیست.',
-        )
-      }
+    if (!Number.isFinite(numeric)) {
+      return text(
+        language,
+        'Invalid timestamp.',
+        'زمان واردشده معتبر نیست.',
+      )
+    }
 
-      const date =
-        new Date(
-          Math.abs(
-            number,
-          ) <
-            1_000_000_000_000
-            ? number *
-                1000
-            : number,
-        )
+    const milliseconds =
+      Math.abs(numeric) <
+      1_000_000_000_000
+        ? numeric * 1000
+        : numeric
 
-      if (
-        Number.isNaN(
-          date.getTime(),
-        )
-      ) {
-        return localized(
-          language,
-          'Invalid date.',
-          'تاریخ معتبر نیست.',
-        )
-      }
+    const date =
+      new Date(milliseconds)
 
-      return [
-        `ISO: ${date.toISOString()}`,
-        `${localized(
-          language,
-          'Local',
-          'محلی',
-        )}: ${date.toLocaleString()}`,
-        `Unix: ${Math.floor(
-          date.getTime() /
-            1000,
-        )}`,
-      ].join('\n')
-    }, [
-      language,
-      value,
-    ])
+    if (
+      Number.isNaN(
+        date.getTime(),
+      )
+    ) {
+      return text(
+        language,
+        'Invalid date.',
+        'تاریخ معتبر نیست.',
+      )
+    }
+
+    return [
+      `ISO: ${date.toISOString()}`,
+      `${text(
+        language,
+        'Local',
+        'محلی',
+      )}: ${date.toLocaleString()}`,
+      `Unix: ${Math.floor(
+        date.getTime() / 1000,
+      )}`,
+    ].join('\n')
+  }, [language, value])
 
   return (
-    <Frame
+    <ToolFrame
       title={title}
       language={language}
-      close={close}
+      onBack={onBack}
     >
       <div className="inline-form">
         <input
           className="tool-input"
           value={value}
-          onChange={(
-            event,
-          ) =>
+          onChange={(event) =>
             setValue(
-              event.target
-                .value,
+              event.target.value,
             )
           }
         />
 
         <button
-          className="primary-button"
           type="button"
+          className="primary-button"
           onClick={() =>
             setValue(
               String(
@@ -1182,7 +1098,7 @@ function TimestampTool({
             )
           }
         >
-          {localized(
+          {text(
             language,
             'Now',
             'اکنون',
@@ -1193,28 +1109,28 @@ function TimestampTool({
       <pre className="tool-output">
         {result}
       </pre>
-    </Frame>
+    </ToolFrame>
   )
 }
+
+/* =========================================================
+   BASE64
+   ========================================================= */
 
 function Base64Tool({
   title,
   language,
-  close,
+  onBack,
 }: {
   title: string
   language: Language
-  close: () => void
+  onBack: () => void
 }) {
-  const [
-    value,
-    setValue,
-  ] = useState('')
+  const [value, setValue] =
+    useState('')
 
-  const [
-    output,
-    setOutput,
-  ] = useState('')
+  const [output, setOutput] =
+    useState('')
 
   function encode() {
     const bytes =
@@ -1224,13 +1140,11 @@ function Base64Tool({
 
     let binary = ''
 
-    bytes.forEach(
-      (byte) => {
-        binary += String.fromCharCode(
-          byte,
-        )
-      },
-    )
+    for (const byte of bytes) {
+      binary += String.fromCharCode(
+        byte,
+      )
+    }
 
     setOutput(
       btoa(binary),
@@ -1258,7 +1172,7 @@ function Base64Tool({
       )
     } catch {
       setOutput(
-        localized(
+        text(
           language,
           'Invalid Base64.',
           'Base64 نامعتبر است.',
@@ -1268,22 +1182,24 @@ function Base64Tool({
   }
 
   return (
-    <Frame
+    <ToolFrame
       title={title}
       language={language}
-      close={close}
+      onBack={onBack}
     >
       <textarea
         className="tool-editor"
         value={value}
-        onChange={(
-          event,
-        ) =>
+        onChange={(event) =>
           setValue(
-            event.target
-              .value,
+            event.target.value,
           )
         }
+        placeholder={text(
+          language,
+          'Text or Base64',
+          'متن یا Base64',
+        )}
       />
 
       <div className="tool-actions">
@@ -1291,7 +1207,7 @@ function Base64Tool({
           type="button"
           onClick={encode}
         >
-          {localized(
+          {text(
             language,
             'Encode',
             'کدگذاری',
@@ -1302,10 +1218,24 @@ function Base64Tool({
           type="button"
           onClick={decode}
         >
-          {localized(
+          {text(
             language,
             'Decode',
             'بازگردانی',
+          )}
+        </button>
+
+        <button
+          type="button"
+          onClick={() => {
+            setValue('')
+            setOutput('')
+          }}
+        >
+          {text(
+            language,
+            'Clear',
+            'پاک کردن',
           )}
         </button>
       </div>
@@ -1313,47 +1243,59 @@ function Base64Tool({
       <pre className="tool-output">
         {output}
       </pre>
-    </Frame>
+    </ToolFrame>
   )
 }
+
+/* =========================================================
+   UUID
+   ========================================================= */
 
 function UuidTool({
   title,
   language,
-  close,
+  onBack,
 }: {
   title: string
   language: Language
-  close: () => void
+  onBack: () => void
 }) {
-  const [
-    value,
-    setValue,
-  ] = useState(
-    crypto.randomUUID(),
-  )
+  const [value, setValue] =
+    useState('')
+
+  function generate() {
+    setValue(
+      crypto.randomUUID(),
+    )
+  }
+
+  async function copy() {
+    if (!value) {
+      return
+    }
+
+    await navigator.clipboard?.writeText(
+      value,
+    )
+  }
 
   return (
-    <Frame
+    <ToolFrame
       title={title}
       language={language}
-      close={close}
+      onBack={onBack}
     >
       <div className="uuid-box">
-        {value}
+        {value || '—'}
       </div>
 
       <div className="tool-actions">
         <button
-          className="primary-button"
           type="button"
-          onClick={() =>
-            setValue(
-              crypto.randomUUID(),
-            )
-          }
+          className="primary-button"
+          onClick={generate}
         >
-          {localized(
+          {text(
             language,
             'Generate',
             'ساخت شناسه',
@@ -1362,19 +1304,16 @@ function UuidTool({
 
         <button
           type="button"
-          onClick={() =>
-            void navigator.clipboard?.writeText(
-              value,
-            )
-          }
+          onClick={copy}
+          disabled={!value}
         >
-          {localized(
+          {text(
             language,
             'Copy',
             'کپی',
           )}
         </button>
       </div>
-    </Frame>
+    </ToolFrame>
   )
 }
