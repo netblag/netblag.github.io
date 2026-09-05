@@ -1221,3 +1221,242 @@ html[data-lang="fa"] .admin-message-meta time {
         gap: 12px;
     }
 }
+
+/* =========================================================
+   LANGUAGE / LAYOUT FIX
+   Keep the global page layout LTR.
+   Persian text gets RTL treatment locally instead.
+   ========================================================= */
+
+html,
+body {
+  direction: ltr !important;
+}
+
+.site {
+  direction: ltr;
+}
+
+.page-language {
+  direction: ltr;
+  min-width: 0;
+}
+
+/* ---------------------------------------------------------
+   Header
+   --------------------------------------------------------- */
+
+.header-ltr {
+  direction: ltr !important;
+}
+
+.header-ltr .brand {
+  direction: ltr;
+  font-family: Inter, sans-serif;
+  font-size: 17px;
+  font-weight: 800;
+  letter-spacing: -0.09em;
+  line-height: 1;
+}
+
+.header-ltr .nav {
+  direction: ltr;
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+.header-ltr .nav > a,
+.header-ltr .nav > button,
+.header-ltr .nav > a:visited {
+  white-space: nowrap;
+}
+
+.header-ltr .nav > a {
+  font-family: Inter, sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  text-transform: none;
+  color: var(--muted);
+  transition:
+    color 0.2s ease,
+    opacity 0.2s ease;
+}
+
+.header-ltr .nav > a:hover,
+.header-ltr .nav > a.active {
+  color: var(--text);
+}
+
+.header-ltr .circle-button {
+  flex: 0 0 auto;
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  font-weight: 500;
+}
+
+.header-ltr .mobile-menu {
+  direction: ltr;
+}
+
+/* ---------------------------------------------------------
+   Persian typography
+   --------------------------------------------------------- */
+
+.lang-fa .hero-intro,
+.lang-fa .hero-side p,
+.lang-fa .about-large,
+.lang-fa .two-columns p,
+.lang-fa .project-content p,
+.lang-fa .app-main p,
+.lang-fa .stack-title,
+.lang-fa .education-row,
+.lang-fa .education-row p,
+.lang-fa .contact-copy,
+.lang-fa .message-form,
+.lang-fa .tool-header p,
+.lang-fa .tool-item small,
+.lang-fa .workspace-top,
+.lang-fa .admin-login,
+.lang-fa .admin-dashboard,
+.lang-fa .message-card,
+.lang-fa .chat-shell {
+  font-family: Vazirmatn, sans-serif;
+}
+
+/*
+ * فقط خود متن فارسی RTL می‌شود.
+ * wrapperهای flex/grid عمداً LTR می‌مانند.
+ */
+
+.lang-fa .hero-intro,
+.lang-fa .hero-side p,
+.lang-fa .about-large,
+.lang-fa .two-columns p,
+.lang-fa .project-content p,
+.lang-fa .app-main p,
+.lang-fa .education-row h2,
+.lang-fa .education-row p,
+.lang-fa .contact-copy,
+.lang-fa .message-form label,
+.lang-fa .message-form input,
+.lang-fa .message-form textarea,
+.lang-fa .tool-header p,
+.lang-fa .tool-item small,
+.lang-fa .tool-editor,
+.lang-fa .tool-output,
+.lang-fa .inline-form input,
+.lang-fa .uuid-box,
+.lang-fa .admin-login input,
+.lang-fa .message-card p {
+  direction: rtl;
+  text-align: right;
+}
+
+/* Headings containing English technical names should remain LTR-ish */
+.lang-fa .project-content h2,
+.lang-fa .app-main h2,
+.lang-fa .tool-item strong,
+.lang-fa .workspace-top h2 {
+  direction: ltr;
+  text-align: left;
+}
+
+/* Section metadata stays visually stable */
+.lang-fa .section-grid,
+.lang-fa .hero-bottom,
+.lang-fa .message-area,
+.lang-fa .apps,
+.lang-fa .project,
+.lang-fa .stack-row,
+.lang-fa .education-row,
+.lang-fa .tool-item,
+.lang-fa .tool-header,
+.lang-fa .workspace-top,
+.lang-fa .message-actions,
+.lang-fa .contact-head,
+.lang-fa .footer {
+  direction: ltr;
+}
+
+/* ---------------------------------------------------------
+   Header mobile
+   --------------------------------------------------------- */
+
+@media (max-width: 600px) {
+  .header-ltr .nav.open {
+    direction: ltr !important;
+  }
+
+  .header-ltr .nav.open > a {
+    text-align: left;
+  }
+
+  .lang-fa .header-ltr .nav.open > a {
+    text-align: left;
+  }
+}
+
+/* ---------------------------------------------------------
+   Remove old global RTL rule
+   --------------------------------------------------------- */
+
+/*
+   The old project had:
+   html[data-lang=fa] body { direction: rtl }
+   Do NOT restore it.
+*/
+
+html[data-lang='fa'] body {
+  direction: ltr !important;
+}
+
+/* ---------------------------------------------------------
+   Better mixed Persian / English rendering
+   --------------------------------------------------------- */
+
+.lang-fa {
+  unicode-bidi: plaintext;
+}
+
+.lang-fa .hero-intro,
+.lang-fa .hero-side,
+.lang-fa .about-large,
+.lang-fa .two-columns,
+.lang-fa .contact,
+.lang-fa .message-form,
+.lang-fa .tool-workspace,
+.lang-fa .admin-dashboard {
+  unicode-bidi: plaintext;
+}
+
+/* Keep numbers / technical labels stable */
+.lang-fa .section-number,
+.lang-fa .project-number,
+.lang-fa .tool-number,
+.lang-fa .app-top,
+.lang-fa .app-stack,
+.lang-fa .stack-title,
+.lang-fa .education-date,
+.lang-fa .footer {
+  direction: ltr;
+}
+
+/* ---------------------------------------------------------
+   Cleaner navigation spacing
+   --------------------------------------------------------- */
+
+@media (min-width: 601px) {
+  .header-ltr {
+    gap: 30px;
+  }
+
+  .header-ltr .brand {
+    min-width: 40px;
+  }
+
+  .header-ltr .nav {
+    gap: 25px;
+  }
+}

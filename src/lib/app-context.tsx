@@ -1,4 +1,11 @@
-import { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from 'react'
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+  type ReactNode,
+} from 'react'
 
 type Language = 'en' | 'fa'
 type Theme = 'light' | 'dark'
@@ -13,13 +20,22 @@ type AppContextValue = {
 const AppContext = createContext<AppContextValue | null>(null)
 
 export function AppProvider({ children }: { children: ReactNode }) {
-  const [language, setLanguage] = useState<Language>(() => (localStorage.getItem('site-language') === 'fa' ? 'fa' : 'en'))
-  const [theme, setTheme] = useState<Theme>(() => (localStorage.getItem('site-theme') === 'dark' ? 'dark' : 'light'))
+  const [language, setLanguage] = useState<Language>(() =>
+    localStorage.getItem('site-language') === 'fa' ? 'fa' : 'en'
+  )
+
+  const [theme, setTheme] = useState<Theme>(() =>
+    localStorage.getItem('site-theme') === 'dark' ? 'dark' : 'light'
+  )
 
   useEffect(() => {
     document.documentElement.dataset.lang = language
+
+    // مهم:
+    // جهت کلی صفحه همیشه LTR می‌ماند تا flex/grid و header جابه‌جا نشوند.
     document.documentElement.lang = language
-    document.documentElement.dir = language === 'fa' ? 'rtl' : 'ltr'
+    document.documentElement.dir = 'ltr'
+
     localStorage.setItem('site-language', language)
   }, [language])
 
@@ -28,18 +44,27 @@ export function AppProvider({ children }: { children: ReactNode }) {
     localStorage.setItem('site-theme', theme)
   }, [theme])
 
-  const value = useMemo<AppContextValue>(() => ({
-    language,
-    theme,
-    toggleLanguage: () => setLanguage((current) => current === 'en' ? 'fa' : 'en'),
-    toggleTheme: () => setTheme((current) => current === 'light' ? 'dark' : 'light'),
-  }), [language, theme])
+  const value = useMemo<AppContextValue>(
+    () => ({
+      language,
+      theme,
+      toggleLanguage: () =>
+        setLanguage((current) => (current === 'en' ? 'fa' : 'en')),
+      toggleTheme: () =>
+        setTheme((current) => (current === 'light' ? 'dark' : 'light')),
+    }),
+    [language, theme],
+  )
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>
 }
 
 export function useApp() {
   const context = useContext(AppContext)
-  if (!context) throw new Error('useApp must be used within AppProvider')
+
+  if (!context) {
+    throw new Error('useApp must be used within AppProvider')
+  }
+
   return context
 }
