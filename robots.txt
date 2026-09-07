@@ -1,0 +1,12 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /admin
+Disallow: /login
+
+# Explicitly allow assets search engines need to render the page
+Allow: /images/
+Allow: /*.css$
+Allow: /*.js$
+
+Sitemap: https://netblag.github.io/sitemap.xml
