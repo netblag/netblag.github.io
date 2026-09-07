@@ -24,7 +24,7 @@
 <meta name="theme-color" content="#F5F6F2" media="(prefers-color-scheme: light)" />
 <meta name="theme-color" content="#0B0D0C" media="(prefers-color-scheme: dark)" />
 
-<!-- Open Graph -->
+
 <meta property="og:type" content="profile" />
 <meta property="og:site_name" content="Ashkan Ahmadi" />
 <meta property="og:title" content="Ashkan Ahmadi — Software Engineering · Data Science" />
@@ -1641,14 +1641,12 @@ textarea.control{ min-height:132px; resize:vertical; line-height:1.6; }
      (columns: id, name, message, read, created_at) — nothing else.
      Paste your Supabase project URL + publishable (anon) key below.
      RLS already allows anon INSERT only, so the key is safe to expose.      */
-  var CONFIG = {
-    supabaseUrl: "https://hwuefybpivkwqnztssfc.supabase.co", // your project URL
-    supabaseAnonKey: "",                                     // <-- PASTE ANON / PUBLISHABLE KEY
-    table: "messages",
-    fallbackEndpoint: "/api/messages", // optional same-origin API (used if Supabase isn't configured)
-    honeypot: "company"
-  };
-
+var CONFIG = {
+  supabaseUrl: "https://hwuefybpivkwqnztssfc.supabase.co",
+  supabaseAnonKey: "sb_publishable_yfa45TH54vBmXcb3Tdr-Jw_BFLYnZ0o",
+  table: "messages",
+  honeypot: "company"
+};
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var finePointer  = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
   var $  = function (s, r) { return (r || document).querySelector(s); };
@@ -2040,20 +2038,7 @@ textarea.control{ min-height:132px; resize:vertical; line-height:1.6; }
         });
       });
     }
-    function sendToApi(payload) {
-      return fetch(CONFIG.fallbackEndpoint, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload)
-      }).then(function (res) {
-        if (res.ok) return { ok: true, via: "api" };
-        return res.text().then(function (t) {
-          var err = new Error("api_" + res.status);
-          err.detail = t;
-          throw err;
-        });
-      });
-    }
+
     function sendLocal(payload) {
       try {
         var box = JSON.parse(localStorage.getItem("aa-outbox") || "[]");
@@ -2082,17 +2067,7 @@ textarea.control{ min-height:132px; resize:vertical; line-height:1.6; }
       var payload = { name: nameEl.value.trim(), message: msgEl.value.trim() };
       setState("sending");
 
-      var chain;
-      if (CONFIG.supabaseUrl && CONFIG.supabaseAnonKey) {
-        chain = sendToSupabase(payload);
-      } else if (CONFIG.fallbackEndpoint && /^https?:$/.test(location.protocol)) {
-        chain = sendToApi(payload).catch(function (err) {
-          console.warn("[contact] API fallback unavailable:", err.message);
-          return sendLocal(payload);
-        });
-      } else {
-        chain = sendLocal(payload);
-      }
+      var chain = sendToSupabase(payload);
 
       chain.then(function (r) {
         setState("success");
