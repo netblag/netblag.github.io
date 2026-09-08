@@ -11,7 +11,7 @@
      ========================================================== -->
 
 <title>Ashkan Ahmadi — Software Engineering · Data Science</title>
-<meta name="description" content="Ashkan Ahmadi is a software engineering student developing toward data science and machine learning through real projects in Python, data analysis, predictive modelling, and Android development with Kotlin." />
+<meta name="description" content="Ashkan Ahmadi is a software engineering student developing toward data science and machine learning through real projects in Python, Android and practical software development." />
 <meta name="author" content="Ashkan Ahmadi" />
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
 <meta name="google" content="notranslate" />
@@ -28,7 +28,7 @@
 <meta property="og:type" content="profile" />
 <meta property="og:site_name" content="Ashkan Ahmadi" />
 <meta property="og:title" content="Ashkan Ahmadi — Software Engineering · Data Science" />
-<meta property="og:description" content="Software engineering student developing toward data science and machine learning through real projects in Python, data analysis, predictive modelling, and Android development with Kotlin." />
+<meta property="og:description" content="Software engineering student developing toward data science and machine learning through practical software projects, Python and Android development." />
 <meta property="og:url" content="https://netblag.github.io/" />
 <meta property="og:image" content="https://netblag.github.io/images/og-cover.jpg" />
 <meta property="og:image:alt" content="Editorial cover with the name Ashkan Ahmadi, a lime data signal line and the words Software Engineering · Data Science." />
@@ -39,7 +39,7 @@
 <!-- Twitter / X -->
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="Ashkan Ahmadi — Software Engineering · Data Science" />
-<meta name="twitter:description" content="Software engineering student developing toward data science and machine learning through real projects in Python, data analysis, predictive modelling, and Android development with Kotlin." />
+<meta name="twitter:description" content="Software engineering student developing toward data science and machine learning through practical software projects, Python and Android development." />
 <meta name="twitter:image" content="https://netblag.github.io/images/og-cover.jpg" />
 
 <!-- Favicon (inline, zero extra requests) -->
@@ -50,6 +50,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
 <link rel="preload" as="image" href="images/hero-visual.jpg" fetchpriority="high" />
 
 <!-- Structured data: Person + WebSite + ProfilePage + software projects -->
@@ -63,7 +64,7 @@
       "name": "Ashkan Ahmadi",
       "alternateName": "Ashkan Ahmadi",
       "jobTitle": "Software Engineering Student",
-      "description": "Ashkan Ahmadi is a software engineering student developing toward data science and machine learning through project-based work in Python, data analysis, predictive modelling, and Android development.",
+      "description": "Ashkan Ahmadi is a software engineering student focused on data science, machine learning, and practical software development.",
       "url": "https://netblag.github.io/",
       "email": "mailto:netblag.dev@gmail.com",
       "knowsLanguage": ["en", "fa"],
@@ -108,7 +109,7 @@
       "applicationCategory": "HealthApplication",
       "operatingSystem": "Android",
       "programmingLanguage": "Kotlin",
-      "description": "An Android application for managing medication schedules, reminders, and daily routines, built with Kotlin and a structured local data layer.",
+      "description": "An Android application built around medication schedules, reminders, and everyday routines, with a structured local data layer and a practical mobile workflow.",
       "author": { "@id": "https://netblag.github.io/#person" }
     },
     {
@@ -117,14 +118,7 @@
       "applicationCategory": "EducationalApplication",
       "operatingSystem": "Android",
       "programmingLanguage": "Kotlin",
-      "description": "A Kotlin Android flashcard application for organizing vocabulary into books and folders and supporting structured review.",
-      "author": { "@id": "https://netblag.github.io/#person" }
-    },
-    {
-      "@type": "CreativeWork",
-      "name": "Alzheimer Predictor",
-      "description": "A machine learning project using the OASIS dataset for predictive modelling, feature analysis, model evaluation, and a FastAPI dashboard.",
-      "programmingLanguage": "Python",
+      "description": "A flashcard learning application for structured vocabulary practice, with books, folders, and review flows designed to make learning more consistent.",
       "author": { "@id": "https://netblag.github.io/#person" }
     }
   ]
@@ -911,6 +905,190 @@ textarea.control{ min-height:132px; resize:vertical; line-height:1.6; }
   color:transparent; -webkit-text-stroke:1px var(--border-strong); white-space:nowrap;
 }
 
+
+/* ===========================================================================
+   17. BILINGUAL UI — typography only, geometry stays unchanged
+   =========================================================================== */
+.lang-toggle{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-width:42px;
+  height:34px;
+  padding:0 11px;
+  border:1px solid var(--border);
+  border-radius:999px;
+  background:transparent;
+  color:var(--muted);
+  cursor:pointer;
+  font-family:"Geist Mono",ui-monospace,monospace;
+  font-size:10.5px;
+  font-weight:500;
+  letter-spacing:.08em;
+  line-height:1;
+  transition:border-color .3s var(--ease),background-color .3s var(--ease),color .3s var(--ease),transform .3s var(--ease);
+}
+.lang-toggle:hover{
+  border-color:var(--border-strong);
+  background:color-mix(in srgb,var(--surface) 55%,transparent);
+  color:var(--text);
+  transform:translateY(-1px);
+}
+.lang-toggle:active{ transform:translateY(0) scale(.98); }
+
+/* Persian changes the typeface of Persian copy only. The site's geometry remains LTR. */
+html[data-lang="fa"] body{ direction:ltr; }
+html[data-lang="fa"] .hero__copy,
+html[data-lang="fa"] .pos__grid > div,
+html[data-lang="fa"] .step__k,
+html[data-lang="fa"] .step__b,
+html[data-lang="fa"] .focus__inner > div,
+html[data-lang="fa"] .card__body,
+html[data-lang="fa"] .edu > div,
+html[data-lang="fa"] .about__grid > div,
+html[data-lang="fa"] .contact > div,
+html[data-lang="fa"] .form,
+html[data-lang="fa"] .footer__grid > div,
+html[data-lang="fa"] .sheet .shell{
+  font-family:"Vazirmatn","Segoe UI",Tahoma,Arial,sans-serif;
+}
+
+html[data-lang="fa"] .hero__copy,
+html[data-lang="fa"] .pos__grid > div,
+html[data-lang="fa"] .step__k,
+html[data-lang="fa"] .step__b,
+html[data-lang="fa"] .focus__inner > div,
+html[data-lang="fa"] .card__body,
+html[data-lang="fa"] .edu > div,
+html[data-lang="fa"] .about__grid > div,
+html[data-lang="fa"] .contact > div,
+html[data-lang="fa"] .form,
+html[data-lang="fa"] .footer__grid > div{
+  direction:rtl;
+  text-align:right;
+}
+
+/* Text alignment without changing flex/grid direction. */
+html[data-lang="fa"] .hero__title,
+html[data-lang="fa"] .hero__lead,
+html[data-lang="fa"] .pos__big,
+html[data-lang="fa"] .pos__quote,
+html[data-lang="fa"] .step__b p,
+html[data-lang="fa"] .focus__inner p,
+html[data-lang="fa"] .about__big,
+html[data-lang="fa"] .about__grid .lead,
+html[data-lang="fa"] .contact__title,
+html[data-lang="fa"] .contact .lead,
+html[data-lang="fa"] .form__foot small,
+html[data-lang="fa"] .footer__grid .lead{
+  font-family:"Vazirmatn","Segoe UI",Tahoma,Arial,sans-serif;
+  direction:rtl;
+  text-align:right;
+}
+
+/* Keep identity, technical labels, code, numbers and wordmark in their original font/style. */
+.brand,
+.wordmark,
+.hv__code,
+.hv__meta,
+.hv__rail,
+.num,
+.sec-num,
+.card__year,
+.card__meta,
+.tl__when,
+.pipe__stage .k,
+.strip__r,
+.app__name,
+.lang-toggle,
+.theme-toggle,
+.menu-btn{
+  font-family:"Geist","Geist Mono",ui-monospace,sans-serif;
+  direction:ltr;
+}
+
+html[data-lang="fa"] .brand,
+html[data-lang="fa"] .wordmark,
+html[data-lang="fa"] .hv__code,
+html[data-lang="fa"] .hv__meta,
+html[data-lang="fa"] .hv__rail,
+html[data-lang="fa"] .num,
+html[data-lang="fa"] .sec-num,
+html[data-lang="fa"] .card__year,
+html[data-lang="fa"] .card__meta,
+html[data-lang="fa"] .tl__when,
+html[data-lang="fa"] .pipe__stage .k,
+html[data-lang="fa"] .strip__r,
+html[data-lang="fa"] .app__name,
+html[data-lang="fa"] .lang-toggle,
+html[data-lang="fa"] .theme-toggle,
+html[data-lang="fa"] .menu-btn{
+  font-family:"Geist","Geist Mono",ui-monospace,sans-serif;
+  direction:ltr;
+}
+
+/* The wordmark is identity, not translatable. */
+html[data-lang="fa"] .wordmark{
+  letter-spacing:-.05em;
+  text-align:left;
+  direction:ltr;
+}
+
+/* Preserve the exact visual order of all structural grids. */
+html[data-lang="fa"] .hero__grid,
+html[data-lang="fa"] .pos__grid,
+html[data-lang="fa"] .path,
+html[data-lang="fa"] .step,
+html[data-lang="fa"] .focus__inner,
+html[data-lang="fa"] .work,
+html[data-lang="fa"] .edu,
+html[data-lang="fa"] .about__grid,
+html[data-lang="fa"] .contact,
+html[data-lang="fa"] .footer__grid,
+html[data-lang="fa"] .card,
+html[data-lang="fa"] .nav__in{
+  direction:ltr;
+}
+
+/* RTL is limited to copy, not the card's left/right composition. */
+html[data-lang="fa"] .card{ direction:ltr; }
+html[data-lang="fa"] .card__body{ direction:rtl; text-align:right; }
+html[data-lang="fa"] .card__top{ direction:ltr; }
+html[data-lang="fa"] .card__top h3{ direction:rtl; text-align:right; }
+html[data-lang="fa"] .card__foot{ direction:ltr; }
+html[data-lang="fa"] .card__meta{ direction:rtl; text-align:right; }
+
+/* Footer and nav keep the same positions as English. */
+html[data-lang="fa"] .footer__grid > div{ direction:rtl; text-align:right; }
+html[data-lang="fa"] .footer__grid .brand{ direction:ltr; text-align:left; }
+html[data-lang="fa"] .nav__in{ direction:ltr; }
+html[data-lang="fa"] .nav__right{ direction:ltr; }
+html[data-lang="fa"] .nav__links{ direction:ltr; }
+
+/* Visual data compositions never mirror. */
+html[data-lang="fa"] .hv,
+html[data-lang="fa"] .hv__svg,
+html[data-lang="fa"] .hv__code,
+html[data-lang="fa"] .hv__chart,
+html[data-lang="fa"] .pipe__viz,
+html[data-lang="fa"] .phone{
+  direction:ltr;
+  text-align:left;
+}
+
+html[data-lang="fa"] .form .field label{ direction:rtl; }
+html[data-lang="fa"] .form .control{ direction:rtl; text-align:right; }
+html[data-lang="fa"] .form__foot{ direction:ltr; }
+
+html[data-lang="fa"] .socials{ direction:ltr; }
+html[data-lang="fa"] .socials a{ direction:ltr; }
+html[data-lang="fa"] .socials a b{ direction:rtl; text-align:right; }
+html[data-lang="fa"] .socials a span{ direction:ltr; }
+
+@media (max-width:640px){
+  .lang-toggle{ min-width:40px; height:32px; padding:0 10px; }
+}
+
 /* ==========================================================================
    17. RESPONSIVE
    ========================================================================== */
@@ -994,13 +1172,14 @@ textarea.control{ min-height:132px; resize:vertical; line-height:1.6; }
     </nav>
 
     <div class="nav__right">
+      <button class="lang-toggle" id="langToggle" type="button" aria-label="Switch to Persian" aria-pressed="false">FA</button>
       <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle dark mode" aria-pressed="false">
         <svg class="tt-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M19.1 4.9l-1.4 1.4M6.3 17.7l-1.4 1.4"/></svg>
         <svg class="tt-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a6.8 6.8 0 0 0 10.5 10.5z"/></svg>
         <span class="tt-track" aria-hidden="true"><span class="tt-knob"></span></span>
       </button>
       <button class="menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="sheet">
-        <span class="bars" aria-hidden="true"><i></i><i></i><i></i></span> Menu
+        <span class="bars" aria-hidden="true"><i></i><i></i><i></i></span><span class="menu-label">Menu</span>
       </button>
     </div>
   </div>
@@ -1034,9 +1213,7 @@ textarea.control{ min-height:132px; resize:vertical; line-height:1.6; }
           <p class="eyebrow rv" data-d="1"><i aria-hidden="true"></i> Ashkan Ahmadi · Software Engineering · Data Science</p>
           <h1 class="hero__title rv" data-d="2">Turning Ideas Into Real Software<span class="dot">.</span></h1>
           <p class="hero__lead rv" data-d="3">
-            I’m a software engineering student building my skills through real projects — from Android applications and
-            software tools to data analysis and machine learning. I learn by working on actual problems,
-            testing ideas, and turning what I learn into something usable.
+            I’m a software engineering student building my skills through real projects — from Android applications and software tools to data analysis and machine learning. I learn by working on actual problems, testing ideas, and turning what I learn into software that can be used.
           </p>
           <p class="hero__tags rv" data-d="4">
             <span class="dash" aria-hidden="true"></span>
@@ -1075,33 +1252,33 @@ textarea.control{ min-height:132px; resize:vertical; line-height:1.6; }
             <path class="trace t2" d="M-10 470 C 90 430, 120 300, 230 330 S 420 210, 530 250" />
             <path class="trace" d="M-10 380 C 80 350, 160 430, 250 380 S 400 300, 530 330" />
             <g id="hvNodes">
-              <circle class="node" cx="98"  cy="352" r="4" tabindex="-1" data-tip="problem|start with a real problem, not a technology" />
-              <circle class="node" cx="228" cy="336" r="4" data-tip="data|prepare, explore and understand the information" />
-              <circle class="node" cx="352" cy="306" r="4" data-tip="experiment|build and evaluate models when they make sense" />
-              <circle class="node" cx="462" cy="330" r="4" data-tip="software|turn the result into something people can use" />
+              <circle class="node" cx="98"  cy="352" r="4" tabindex="-1" data-tip="raw signal|unstructured input collected from real sources" />
+              <circle class="node" cx="228" cy="336" r="4" data-tip="prepare|cleaning, shaping and understanding the data" />
+              <circle class="node" cx="352" cy="306" r="4" data-tip="model|training, evaluating and explaining behaviour" />
+              <circle class="node" cx="462" cy="330" r="4" data-tip="software|the point where analysis becomes a product" />
             </g>
           </svg>
 
           <ul class="hv__layer hv__rail" data-depth="16" aria-hidden="true">
-            <li class="on">Understand</li><li>Experiment</li><li>Build</li>
+            <li class="on">Analyze</li><li>Learn</li><li>Build</li>
           </ul>
 
           <div class="hv__meta" aria-hidden="true">
-            <span>fig. 01 — learning path</span>
+            <span>fig. 01 — signal path</span>
             <span id="hvCoord">x 0.00 · y 0.00</span>
           </div>
 
           <div class="hv__layer glass hv__code" data-depth="20">
             <div class="dots" aria-hidden="true"><i></i><i></i><i></i></div>
-<pre><code><span class="k">def</span> <span class="f">build</span>(problem):
-    data  = <span class="f">analyze</span>(problem)
-    model = <span class="f">experiment</span>(data)
-    <span class="k">return</span> <span class="f">ship</span>(model)</code></pre>
+<pre><code><span class="k">def</span> <span class="f">solve</span>(problem):
+    data  = <span class="f">collect</span>()
+    model = <span class="f">experiment</span>()
+    <span class="k">return</span> <span class="f">build</span>(model, data)</code></pre>
           </div>
 
           <div class="hv__layer glass hv__chart" data-depth="30" id="hvChart">
             <div class="lbl">
-              <b>Learning<br />in Progress</b>
+              <b>Better<br />Solutions</b>
               <span class="go" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
             </div>
             <svg class="plot" viewBox="0 0 120 56" preserveAspectRatio="none" aria-hidden="true">
@@ -1139,23 +1316,20 @@ textarea.control{ min-height:132px; resize:vertical; line-height:1.6; }
       </div>
       <div class="pos__grid">
         <div>
-          <h2 class="pos__big rv" data-d="1" id="pos-title">Software <em>×</em> Data <em>×</em> Learning</h2>
+          <h2 class="pos__big rv" data-d="1" id="pos-title">Software <em>×</em> Data <em>×</em> Intelligence</h2>
           <p class="pos__quote rv" data-d="2">
-            My work sits between building software and learning how data can be used to solve practical problems.
+            I’m interested in the space between understanding a problem and building a practical solution.
           </p>
         </div>
         <div class="rv" data-d="3">
           <p class="lead">
-            My background is in software engineering, while my current direction is increasingly focused on data science and
-            machine learning. I work mainly with Python and its data ecosystem, study statistics and modelling,
-            explore real datasets, and use project work to connect analysis with software. Alongside data work,
-            I build Android applications with Kotlin and care about turning ideas and results into something usable.
+            My background is in software engineering, while my current direction is increasingly focused on data science and machine learning. I work mainly with Python, statistics, and exploratory analysis on real datasets, and I use project work to strengthen those skills. Alongside data work, I build Android applications with Kotlin and care about turning ideas and results into something practical and usable.
           </p>
           <ul class="pillars" style="margin-top:26px">
-            <li><b>Start with the problem</b><span>before choosing the tool</span></li>
+            <li><b>Understand the problem</b><span>before the tooling</span></li>
             <li><b>Work with real data</b><span>Python · Pandas · NumPy</span></li>
-            <li><b>Test ideas honestly</b><span>evaluate, inspect and learn</span></li>
-            <li><b>Build something usable</b><span>Kotlin · Android · Python</span></li>
+            <li><b>Experiment honestly</b><span>evaluate, then explain</span></li>
+            <li><b>Ship working software</b><span>Kotlin · Android</span></li>
           </ul>
         </div>
       </div>
@@ -1186,10 +1360,8 @@ textarea.control{ min-height:132px; resize:vertical; line-height:1.6; }
               <h3>Understand</h3>
             </div>
             <div class="step__b">
-              <p>I start by understanding the problem itself: what needs to be solved, what information is available,
-                what is missing, and what success would actually mean. Then I break the idea into smaller,
-                testable parts before choosing the implementation.</p>
-              <div class="chips"><span class="chip">Problem solving</span><span class="chip">Data preparation</span><span class="chip">Statistics</span></div>
+              <p>I start by understanding the problem itself: what needs to be solved, what information is available, what is missing, and what success would actually mean. I break the idea into smaller, testable parts before choosing the implementation.</p>
+              <div class="chips"><span class="chip">Data preparation</span><span class="chip">Statistics</span><span class="chip">Exploration</span></div>
             </div>
           </li>
           <li class="step" data-step="1">
@@ -1198,10 +1370,8 @@ textarea.control{ min-height:132px; resize:vertical; line-height:1.6; }
               <h3>Experiment</h3>
             </div>
             <div class="step__b">
-              <p>Once the problem is clear, I experiment. That can mean exploratory analysis, feature engineering,
-                training a model, comparing approaches, or testing whether an idea works. I care about
-                understanding the result, not only chasing a metric.</p>
-              <div class="chips"><span class="chip">Python</span><span class="chip">Machine Learning</span><span class="chip">Model evaluation</span></div>
+              <p>Once the problem is clear, I experiment. That can mean exploratory analysis, feature engineering, training a model, comparing approaches, or testing whether an idea works. I care about understanding the result, not only chasing a metric.</p>
+              <div class="chips"><span class="chip">Machine Learning</span><span class="chip">Feature engineering</span><span class="chip">Model evaluation</span></div>
             </div>
           </li>
           <li class="step" data-step="2">
@@ -1210,10 +1380,8 @@ textarea.control{ min-height:132px; resize:vertical; line-height:1.6; }
               <h3>Build</h3>
             </div>
             <div class="step__b">
-              <p>The last step is turning the result into software: an Android application, an API, a dashboard,
-                or a small tool. I’m interested in the point where an idea leaves the notebook and
-                becomes something that can actually be used.</p>
-              <div class="chips"><span class="chip">Kotlin</span><span class="chip">Android</span><span class="chip">APIs</span></div>
+              <p>The last step is turning the result into software: an Android application, an API, a dashboard, or a small tool. I’m interested in the point where an idea leaves the notebook and becomes something that can actually be used.</p>
+              <div class="chips"><span class="chip">Software</span><span class="chip">Android</span><span class="chip">Practical applications</span></div>
             </div>
           </li>
         </ol>
@@ -1242,9 +1410,7 @@ textarea.control{ min-height:132px; resize:vertical; line-height:1.6; }
           <div class="focus__panel" id="fp-1" role="region" aria-labelledby="fh-1">
             <div class="focus__inner">
               <div>
-                <p>I’m developing my data science foundation through Python, Pandas, NumPy, statistics, exploratory analysis
-                  and visualization. My focus is on understanding a dataset before jumping into modelling:
-                  cleaning it, exploring it, finding patterns and asking better questions.</p>
+                <p>I’m building my data science foundation through Python, Pandas, NumPy, statistics, exploratory analysis, and visualization. My focus is on understanding a dataset before jumping into modelling: cleaning it, exploring it, finding patterns, and asking better questions.</p>
                 <div class="chips"><span class="chip">Python</span><span class="chip">Pandas</span><span class="chip">NumPy</span><span class="chip">Matplotlib</span><span class="chip">Jupyter</span></div>
               </div>
               <div class="spark" aria-hidden="true">
@@ -1253,7 +1419,7 @@ textarea.control{ min-height:132px; resize:vertical; line-height:1.6; }
                   <path class="l" d="M2 50 C 22 46, 30 34, 48 38 S 76 20, 96 26 S 132 12, 158 14" />
                   <circle class="p" cx="48" cy="38" r="2.4" /><circle class="p" cx="96" cy="26" r="2.4" />
                 </svg>
-                <small>data → exploration → understanding</small>
+                <small>exploration → distribution → signal</small>
               </div>
             </div>
           </div>
@@ -1268,9 +1434,7 @@ textarea.control{ min-height:132px; resize:vertical; line-height:1.6; }
           <div class="focus__panel" id="fp-2" role="region" aria-labelledby="fh-2">
             <div class="focus__inner">
               <div>
-                <p>I’m learning and applying machine learning through project work: preparing features, training models,
-                  comparing approaches and examining how predictions behave. I’m especially interested in
-                  model performance, limitations and the reasoning behind the result — not just the final score.</p>
+                <p>I’m learning and applying machine learning through project work: preparing features, training models, comparing approaches, and examining how predictions behave. I’m especially interested in model performance, limitations, and the reasoning behind the result — not just the final score.</p>
                 <div class="chips"><span class="chip">Scikit-learn</span><span class="chip">XGBoost</span><span class="chip">SHAP</span><span class="chip">Python</span></div>
               </div>
               <div class="spark" aria-hidden="true">
@@ -1294,10 +1458,8 @@ textarea.control{ min-height:132px; resize:vertical; line-height:1.6; }
           <div class="focus__panel" id="fp-3" role="region" aria-labelledby="fh-3">
             <div class="focus__inner">
               <div>
-                <p>I’m also interested in applied machine learning problems where models are built around a real question.
-                  One example is my Alzheimer’s prediction project, where the work involved preparing a real dataset,
-                  selecting useful features, testing predictive approaches and evaluating model behaviour.</p>
-                <div class="chips"><span class="chip">Python</span><span class="chip">Predictive modelling</span><span class="chip">Feature engineering</span><span class="chip">Explainability</span></div>
+                <p>I’m also interested in applied machine learning problems where models are built around a real question. One example is my Alzheimer’s prediction project, where the work involved preparing a real dataset, selecting useful features, testing predictive approaches, and evaluating model behaviour.</p>
+                <div class="chips"><span class="chip">Python</span><span class="chip">Sensor data</span><span class="chip">RUL</span><span class="chip">XGBoost</span></div>
               </div>
               <div class="spark" aria-hidden="true">
                 <svg viewBox="0 0 160 64" preserveAspectRatio="none">
@@ -1305,7 +1467,7 @@ textarea.control{ min-height:132px; resize:vertical; line-height:1.6; }
                   <path class="l" d="M2 12 C 26 16, 40 24, 62 30 S 100 40, 122 46 S 146 54, 158 56" />
                   <circle class="p" cx="62" cy="30" r="2.4" /><circle class="p" cx="122" cy="46" r="2.4" />
                 </svg>
-                <small>data → features → prediction</small>
+                <small>sensors → degradation → remaining life</small>
               </div>
             </div>
           </div>
@@ -1351,17 +1513,16 @@ textarea.control{ min-height:132px; resize:vertical; line-height:1.6; }
               <circle class="pt" cx="400" cy="40"  r="5" />
               <circle class="pt" cx="620" cy="22"  r="6" />
             </g>
-            <text x="14" y="140">question</text>
-            <text x="196" y="102">understood</text>
-            <text x="378" y="68">tested</text>
-            <text x="566" y="50">usable</text>
+            <text x="14" y="140">collected</text>
+            <text x="196" y="102">explored</text>
+            <text x="378" y="68">trained</text>
+            <text x="566" y="50">shipped</text>
           </svg>
         </div>
 
         <div class="pipe__note" id="pipeNote" role="tabpanel" aria-live="polite" aria-labelledby="st-0">
           <b id="pipeTitle">Data</b>
-          <p id="pipeText">Everything starts here: collecting and preparing the raw material, checking what is missing,
-            and understanding the shape of the dataset before any modelling happens.</p>
+          <p id="pipeText">Every project starts with understanding the problem, the available information, and what a useful result should look like before modelling begins.</p>
         </div>
       </div>
       <p class="num rv" style="margin-top:14px">Conceptual diagram — illustrative stages, not measured values.</p>
@@ -1374,9 +1535,9 @@ textarea.control{ min-height:132px; resize:vertical; line-height:1.6; }
       <div class="section__head">
         <div>
           <p class="eyebrow rv"><i aria-hidden="true"></i> Featured Projects</p>
-          <h2 class="h2 rv" data-d="1" id="work-title" style="margin-top:14px">My Projects</h2>
+          <h2 class="h2 rv" data-d="1" id="work-title" style="margin-top:14px">Projects I’ve Built</h2>
         </div>
-        <a class="link-arrow rv" href="#contact">Start a conversation
+        <a class="link-arrow rv" href="#contact">View All Projects
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
       </div>
 
@@ -1430,15 +1591,13 @@ textarea.control{ min-height:132px; resize:vertical; line-height:1.6; }
           <div class="card__body">
             <div class="card__top"><h3>Lexi Book</h3><span class="n">02</span></div>
             <p class="card__year">Android · 2026</p>
-            <p>A Kotlin Android flashcard application for structured vocabulary practice, with books, folders and persistent local data designed around a consistent review workflow.</p>
+            <p>A flashcard learning application for structured vocabulary practice, with books, folders, and review flows designed to make learning more consistent.</p>
             <div class="card__foot">
               <p class="card__meta"><b>Kotlin</b><span>Android</span><span>Room</span></p>
               <span class="card__go" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
             </div>
           </div>
         </article>
-
-
       </div>
     </div>
   </section>
@@ -1449,7 +1608,7 @@ textarea.control{ min-height:132px; resize:vertical; line-height:1.6; }
       <div class="section__head">
         <div>
           <p class="eyebrow rv"><i aria-hidden="true"></i> Toolkit</p>
-          <h2 class="h2 rv" data-d="1" id="stack-title" style="margin-top:14px">The tools I’m building with.</h2>
+          <h2 class="h2 rv" data-d="1" id="stack-title" style="margin-top:14px">The tools I’m growing with.</h2>
         </div>
         <span class="sec-num rv" aria-hidden="true">05</span>
       </div>
@@ -1489,26 +1648,24 @@ textarea.control{ min-height:132px; resize:vertical; line-height:1.6; }
       <div class="edu">
         <div class="rv" data-d="2">
           <p class="lead">
-            I’m studying software engineering and using project work to turn the academic foundation into practical skills.
-            Alongside university, I’ve been building Android applications, working with Python and data,
-            and gradually moving deeper into machine learning and applied analysis.
+            I’m studying software engineering and using projects to turn the academic foundation into practical skills. Alongside university work, I’ve been building Android applications, working with Python and data, and gradually moving deeper into machine learning and applied analysis.
           </p>
         </div>
         <div class="tl rv" data-d="3">
           <div class="tl__item is-now">
             <p class="tl__when">2023 — Present</p>
             <h3>Software Engineering</h3>
-            <p>Bachelor’s degree · National University of Skills — Zanjan, Iran</p>
+            <p>Bachelor’s degree</p>
             <div class="tl__box">
-              <small>Current direction</small>
+              <small>Current focus</small>
               <p style="color:var(--text); font-size:15.5px">Data Science · Statistics · Python · Data Analysis · Machine Learning</p>
             </div>
           </div>
           <div class="tl__item">
             <p class="tl__when">Parallel · Practice</p>
             <h3>Learning by building</h3>
-            <p>Building software projects while developing stronger foundations in data analysis, machine learning,
-              Android development with Kotlin, and software engineering.</p>
+            <p>Android development with Kotlin, and applied data work on real datasets — the two tracks that shape
+              everything on this page.</p>
           </div>
         </div>
       </div>
@@ -1526,16 +1683,14 @@ textarea.control{ min-height:132px; resize:vertical; line-height:1.6; }
         <div>
           <h2 class="about__big rv" data-d="1" id="about-title">Learning by<br />building.</h2>
           <p class="lead rv" data-d="2">
-            I’m a software engineering student developing toward data science and machine learning while continuing to build
-            real software. I don’t see these as separate paths: understanding a problem, working with data,
-            writing code, and building something usable are all parts of the same process.
+            I’m a software engineering student developing toward data science and machine learning while continuing to build real software. I don’t see these as separate paths: understanding a problem, working with data, writing code, and building something usable are all parts of the same process.
           </p>
         </div>
         <ul class="principles rv" data-d="3">
-          <li><b>Build to learn</b><span>Projects push me beyond tutorials and help me understand how things actually work.</span></li>
-          <li><b>Understand before optimizing</b><span>A better result starts with a clearer problem and cleaner assumptions.</span></li>
-          <li><b>Keep experiments honest</b><span>Metrics matter, but understanding the data, errors and limitations matters too.</span></li>
-          <li><b>Turn results into software</b><span>The most useful learning is the kind that can become something people can use.</span></li>
+          <li><b>Understand first</b><span>A clear problem is worth more than an impressive model.</span></li>
+          <li><b>Experiment, then explain</b><span>If I can’t say why something works, I keep digging.</span></li>
+          <li><b>Build the real thing</b><span>Analysis becomes useful the moment it ships as software.</span></li>
+          <li><b>Keep it simple</b><span>Readable code, honest evaluation, no invented metrics.</span></li>
         </ul>
       </div>
     </div>
@@ -1609,7 +1764,7 @@ textarea.control{ min-height:132px; resize:vertical; line-height:1.6; }
       <div>
         <a class="brand" href="#home"><i aria-hidden="true"></i>Ashkan Ahmadi</a>
         <p class="lead" style="margin-top:16px; max-width:34ch">
-          Software engineering, data science and practical software — built through real projects and continuous learning.
+          Software engineering, data science, and practical software — built through real projects and continuous learning.
         </p>
       </div>
       <div>
@@ -1897,23 +2052,33 @@ var CONFIG = {
 
   /* ------------------------------------------------------- 8. PIPELINE */
   var stageNotes = [
-    ["Problem", "Every project starts with understanding what needs to be solved, what information is available, and what a useful result would look like before modelling begins."],
-    ["Data", "The next step is working with the available information: preparing it, exploring it, checking assumptions, and finding the parts that can actually help answer the question."],
-    ["Model", "When modelling makes sense, I experiment with features, algorithms and evaluation — comparing approaches, reading the errors, and looking at why predictions behave the way they do."],
-    ["Software", "The final goal is something usable: an Android application, API, dashboard, tool, or another piece of software that turns the result into something practical."]
+    ["Data", "Everything starts here: collecting and preparing the raw material, checking what is missing, and understanding the shape of the dataset before any modelling happens."],
+    ["Analysis", "Exploratory analysis and statistics — distributions, correlations, outliers. This is where the problem usually becomes clear, and where bad assumptions get removed."],
+    ["Model", "Feature engineering, training and evaluation. Comparing models honestly, reading the errors, and using explanation tools to understand which features drive the predictions."],
+    ["Output", "The part that makes it real: a report, an API, or an Android application that puts the result in front of someone who can actually use it."]
   ];
+  function getStageNotesForCurrentLanguage(){
+    if(window.__aaTranslations && window.__aaLang==='fa') return window.__aaTranslations.fa.pipeline.notes;
+    return stageNotes;
+  }
+  function getStageLabelsForCurrentLanguage(){
+    if(window.__aaTranslations && window.__aaLang==='fa') return window.__aaTranslations.fa.pipeline.stages;
+    return stageNotes.map(function(n){return n[0];});
+  }
   var flow = $("#pipeFlow"), stageBtns = $$(".pipe__stage");
   var pTitle = $("#pipeTitle"), pText = $("#pipeText"), pipeNote = $("#pipeNote");
   var flowLen = flow ? flow.getTotalLength() : 0;
 
   function setStage(i) {
     stageBtns.forEach(function (b) { b.setAttribute("aria-selected", b.getAttribute("data-stage") === String(i) ? "true" : "false"); });
-    if (pTitle) pTitle.textContent = stageNotes[i][0];
-    if (pText) pText.textContent = stageNotes[i][1];
+    var currentNotes = getStageNotesForCurrentLanguage();
+    var currentLabels = getStageLabelsForCurrentLanguage();
+    if (pTitle) pTitle.textContent = currentNotes[i][0];
+    if (pText) pText.textContent = currentNotes[i][1];
     if (pipeNote) pipeNote.setAttribute("aria-labelledby", "st-" + i);
     if (flow && flowLen) {
       flow.style.strokeDasharray = String(flowLen);
-      flow.style.strokeDashoffset = String(flowLen * (1 - (i + 1) / stageNotes.length));
+      flow.style.strokeDashoffset = String(flowLen * (1 - (i + 1) / 4));
     }
   }
   stageBtns.forEach(function (b) {
@@ -2007,10 +2172,11 @@ var CONFIG = {
     function validate() {
       var ok = true, focusFirst = null;
       var n = nameEl.value.trim(), m = msgEl.value.trim();
-      if (!n) { show("name", "Please enter your name."); ok = false; focusFirst = focusFirst || nameEl; }
-      else if (n.length > LABEL_MAX) { show("name", "Name must be 80 characters or fewer."); ok = false; focusFirst = focusFirst || nameEl; }
-      if (!m) { show("message", "Please write a short message."); ok = false; focusFirst = focusFirst || msgEl; }
-      else if (m.length > MSG_MAX) { show("message", "Message must be 2000 characters or fewer."); ok = false; focusFirst = focusFirst || msgEl; }
+      var ft = window.__aaGetFormText ? window.__aaGetFormText() : {errors:{nameRequired:"Please enter your name.",nameLong:"Name must be 80 characters or fewer.",messageRequired:"Please write a short message.",messageLong:"Message must be 2000 characters or fewer."}};
+      if (!n) { show("name", ft.errors.nameRequired); ok = false; focusFirst = focusFirst || nameEl; }
+      else if (n.length > LABEL_MAX) { show("name", ft.errors.nameLong); ok = false; focusFirst = focusFirst || nameEl; }
+      if (!m) { show("message", ft.errors.messageRequired); ok = false; focusFirst = focusFirst || msgEl; }
+      else if (m.length > MSG_MAX) { show("message", ft.errors.messageLong); ok = false; focusFirst = focusFirst || msgEl; }
       if (focusFirst) focusFirst.focus();
       return ok;
     }
@@ -2019,12 +2185,14 @@ var CONFIG = {
       if (state === "sending") {
         sending = true;
         btn.disabled = true;
-        btnLabel.textContent = "Sending…";
+        var ft = window.__aaGetFormText ? window.__aaGetFormText() : {sending:"Sending…",sent:"Message Sent",send:"Send Message"};
+        btnLabel.textContent = ft.sending;
         btnIcon.outerHTML = SPIN;
       } else {
         sending = false;
         btn.disabled = false;
-        btnLabel.textContent = state === "success" ? "Message Sent" : "Send Message";
+        var ft = window.__aaGetFormText ? window.__aaGetFormText() : {sending:"Sending…",sent:"Message Sent",send:"Send Message"};
+        btnLabel.textContent = state === "success" ? ft.sent : ft.send;
         var spin = $(".spin", btn);
         if (spin) spin.outerHTML = ICON;
       }
@@ -2071,7 +2239,8 @@ var CONFIG = {
       // honeypot — silently accept, never store
       if (hpEl && hpEl.value.trim() !== "") {
         setState("success");
-        showAlert("ok", "Message sent successfully.", "Thank you — I’ll get back to you soon.");
+        var ft = window.__aaGetFormText ? window.__aaGetFormText() : {success:"Message sent successfully.",successText:"Thank you — I’ll get back to you soon."};
+        showAlert("ok", ft.success, ft.successText);
         form.reset(); counters();
         return;
       }
@@ -2084,17 +2253,15 @@ var CONFIG = {
 
       chain.then(function (r) {
         setState("success");
-        showAlert("ok", "Message sent successfully.",
-          r.via === "local"
-            ? "Recorded locally for now — connect your Supabase anon key in the CONFIG block to store it in the database."
-            : "Thank you for reaching out — I’ll get back to you soon.");
+        var ft = window.__aaGetFormText ? window.__aaGetFormText() : {success:"Message sent successfully.",successText:"Thank you for reaching out — I’ll get back to you soon."};
+        showAlert("ok", ft.success, ft.successText);
         form.reset(); counters();
         window.setTimeout(function () { setState("idle"); }, 2600);
       }).catch(function (err) {
         if (window.console && console.warn) console.warn("[contact]", err && err.message, err && err.detail);
         setState("idle");
-        showAlert("bad", "Something went wrong. Please try again.",
-          "The message couldn’t be delivered right now. You can also email netblag.dev@gmail.com directly.");
+        var ft = window.__aaGetFormText ? window.__aaGetFormText() : {fail:"Something went wrong. Please try again.",failText:"The message couldn’t be delivered right now. You can also email netblag.dev@gmail.com directly."};
+        showAlert("bad", ft.fail, ft.failText);
       });
     });
   }
@@ -2109,5 +2276,356 @@ var CONFIG = {
   });
 })();
 </script>
+<script>
+/* ==========================================================================
+   BILINGUAL CONTENT — English / Persian
+   Typography and copy switch only; page geometry stays unchanged.
+   ========================================================================== */
+(function(){
+  "use strict";
+
+  var root=document.documentElement;
+  var langButton=document.getElementById("langToggle");
+
+  var T={
+    en:{
+      title:"Ashkan Ahmadi — Software Engineering · Data Science",
+      description:"Ashkan Ahmadi is a software engineering student developing toward data science and machine learning through real projects in Python, Android and practical software development.",
+      nav:["Home","Path","Projects","About","Contact"],
+      menu:"Menu",
+      hero:{
+        status:"Building & learning — 2026",
+        eyebrow:"Ashkan Ahmadi · Software Engineering · Data Science",
+        title:'Turning Ideas Into Real Software<span class="dot">.</span>',
+        lead:"I’m a software engineering student building my skills through real projects — from Android applications and software tools to data analysis and machine learning. I learn by working on actual problems, testing ideas, and turning what I learn into software that can be used.",
+        tags:["Software Engineering","Data Science","Machine Learning","Android Development"],
+        project:"Explore My Projects",
+        talk:"Let’s Talk",
+        strip:"Always learning. Always building.",
+        scroll:"Scroll"
+      },
+      position:{
+        eyebrow:"Positioning",
+        title:'Software <em>×</em> Data <em>×</em> Learning',
+        quote:"My work sits between building software and learning how data can be used to solve practical problems.",
+        lead:"My background is in software engineering, while my current direction is increasingly focused on data science and machine learning. I work mainly with Python, statistics, and exploratory analysis on real datasets, and I use project work to strengthen those skills. Alongside data work, I build Android applications with Kotlin and care about turning ideas and results into something practical and usable.",
+        pillars:[["Start with the problem","before choosing the tool"],["Work with real data","Python · Pandas · NumPy"],["Test ideas honestly","evaluate, inspect and learn"],["Build something usable","Kotlin · Android · Python"]]
+      },
+      path:{
+        eyebrow:"The Path",
+        title:"How I turn learning into projects.",
+        steps:[
+          ["01 — STAGE ONE","Understand","I start by understanding the problem itself: what needs to be solved, what information is available, what is missing, and what success would actually mean. I break the idea into smaller, testable parts before choosing the implementation.",["Problem solving","Data preparation","Statistics"]],
+          ["02 — STAGE TWO","Experiment","Once the problem is clear, I experiment. That can mean exploratory analysis, feature engineering, training a model, comparing approaches, or testing whether an idea works. I care about understanding the result, not only chasing a metric.",["Python","Machine Learning","Model evaluation"]],
+          ["03 — STAGE THREE","Build","The last step is turning the result into software: an Android application, an API, a dashboard, or a small tool. I’m interested in the point where an idea leaves the notebook and becomes something that can actually be used.",["Kotlin","Android","APIs"]]
+        ]
+      },
+      focus:{
+        eyebrow:"Core Focus",
+        title:"Where I’m building depth.",
+        rows:[
+          ["Data Science","I’m building my data science foundation through Python, Pandas, NumPy, statistics, exploratory analysis, and visualization. My focus is on understanding a dataset before jumping into modelling: cleaning it, exploring it, finding patterns, and asking better questions.","data → exploration → understanding"],
+          ["Machine Learning","I’m learning and applying machine learning through project work: preparing features, training models, comparing approaches, and examining how predictions behave. I’m especially interested in model performance, limitations, and the reasoning behind the result — not just the final score.","features → training → evaluation"],
+          ["Applied Machine Learning","I’m also interested in applied machine learning problems where models are built around a real question. One example is my Alzheimer’s prediction project, where the work involved preparing a real dataset, selecting useful features, testing predictive approaches, and evaluating model behaviour.","data → features → prediction"]
+        ]
+      },
+      pipeline:{
+        eyebrow:"Interactive Data",
+        title:"From question to working result.",
+        stages:["Data","Analysis","Model","Output"],
+        notes:[
+          ["Data","Every project starts with understanding the problem, the available information, and what a useful result should look like before modelling begins."],
+          ["Analysis","The next step is exploring the data: distributions, relationships, missing values, outliers, and patterns. This is where assumptions can be checked before a model is trusted."],
+          ["Model","When modelling makes sense, I prepare features, train models, compare approaches, and inspect their errors. The goal is to understand what the model learned and where its predictions are reliable or limited."],
+          ["Output","The final step is making the result usable — through an application, API, dashboard, report, or another piece of software built around the original problem."]
+        ],
+        labels:["question","explored","tested","usable"]
+      },
+      work:{
+        eyebrow:"Featured Projects",
+        title:"Projects I’ve Built",
+        all:"Start a conversation",
+        desc:[
+          "An Android application built around medication schedules, reminders, and everyday routines, with a structured local data layer and a practical mobile workflow.",
+          "A flashcard learning application for structured vocabulary practice, with books, folders, and review flows designed to make learning more consistent."
+        ],
+        years:["Android · 2026","Android · 2026"]
+      },
+      toolkit:{eyebrow:"Toolkit",title:"The tools I’m growing with.",groups:["Data","Machine Learning","Development","Engineering Tools"]},
+      education:{eyebrow:"Education",title:"Where the foundation comes from.",lead:"I’m studying software engineering and using projects to turn the academic foundation into practical skills. Alongside university work, I’ve been building Android applications, working with Python and data, and gradually moving deeper into machine learning and applied analysis.",now:"Current focus",practice:"Parallel · Practice",learning:"Learning by building",practiceText:"Building software projects while developing stronger foundations in data analysis, machine learning, Android development, and software engineering."},
+      about:{eyebrow:"About / Philosophy",title:"Learning by<br />building.",lead:"I’m a software engineering student developing toward data science and machine learning while continuing to build real software. I don’t see these as separate paths: understanding a problem, working with data, writing code, and building something usable are all parts of the same process.",principles:[["Build to learn","Projects give me a reason to go beyond tutorials and understand how things actually work."],["Understand before optimizing","A better result starts with a clearer problem and cleaner assumptions."],["Keep experiments honest","Metrics matter, but understanding the data, errors and limitations matters too."],["Turn results into software","The most useful learning is the kind that can eventually become something people can use."]]},
+      contact:{eyebrow:"Get in touch",title:"Let’s<br />Talk.",lead:"I’m open to technical conversations, project ideas, collaboration, and opportunities where software and data meet.",name:"Name",namePlaceholder:"Your name",message:"Message",messagePlaceholder:"What would you like to talk about?",send:"Send Message",sending:"Sending…",sent:"Message Sent",privacy:"Your message goes straight to Ashkan’s inbox — nothing is published on this site.",errors:{nameRequired:"Please enter your name.",nameLong:"Name must be 80 characters or fewer.",messageRequired:"Please write a short message.",messageLong:"Message must be 2000 characters or fewer."},success:"Message sent successfully.",successText:"Thank you for reaching out — I’ll get back to you soon.",fail:"Something went wrong. Please try again.",failText:"The message couldn’t be delivered right now. You can also email netblag.dev@gmail.com directly."},
+      footer:{lead:"Software engineering, data science, and practical software — built through real projects and continuous learning.",navigate:"Navigate",elsewhere:"Elsewhere",bottom:"Always learning. Always building.",rights:"All rights reserved."}
+    },
+    fa:{
+      title:"اشکان احمدی — مهندسی نرم‌افزار · علم داده",
+      description:"اشکان احمدی دانشجوی مهندسی نرم‌افزار است و مسیر خود را با پروژه‌های واقعی در Python، اندروید، علم داده و یادگیری ماشین پیش می‌برد.",
+      nav:["خانه","مسیر","پروژه‌ها","درباره من","ارتباط"],
+      menu:"منو",
+      hero:{
+        status:"در حال یادگیری و ساخت — ۱۴۰۵",
+        eyebrow:"اشکان احمدی · مهندسی نرم‌افزار · علم داده",
+        title:'تبدیل ایده‌ها به نرم‌افزار واقعی<span class="dot">.</span>',
+        lead:"دانشجوی مهندسی نرم‌افزار هستم و مسیر یادگیری‌ام را با ساخت پروژه‌های واقعی پیش می‌برم؛ از اپلیکیشن‌های اندرویدی و ابزارهای نرم‌افزاری تا تحلیل داده و یادگیری ماشین. سعی می‌کنم با مسئله واقعی کار کنم، ایده‌ها را آزمایش کنم و نتیجه یادگیری را به نرم‌افزاری قابل استفاده تبدیل کنم.",
+        tags:["مهندسی نرم‌افزار","علم داده","یادگیری ماشین","توسعه اندروید"],
+        project:"مشاهده پروژه‌ها",talk:"ارتباط با من",strip:"همیشه در حال یادگیری. همیشه در حال ساختن.",scroll:"پیمایش"
+      },
+      position:{
+        eyebrow:"رویکرد",
+        title:'نرم‌افزار <em>×</em> داده <em>×</em> یادگیری',
+        quote:"مسیر کاری من جایی میان ساختن نرم‌افزار و یادگرفتن استفاده درست از داده برای حل مسئله قرار می‌گیرد.",
+        lead:"پایه اصلی مسیر من مهندسی نرم‌افزار است و در حال حاضر تمرکز بیشتری روی علم داده و یادگیری ماشین گذاشته‌ام. با Python، آمار و ابزارهای تحلیل داده روی مجموعه‌داده‌های واقعی کار می‌کنم و از پروژه‌ها برای عمیق‌تر کردن این مهارت‌ها استفاده می‌کنم. در کنار آن، اپلیکیشن‌های اندرویدی را با Kotlin می‌سازم و برایم مهم است که یک ایده یا نتیجه تحلیل، در نهایت به چیزی عملی و قابل استفاده تبدیل شود.",
+        pillars:[["از خود مسئله شروع کن","قبل از انتخاب ابزار"],["با داده واقعی کار کن","Python · Pandas · NumPy"],["ایده را صادقانه آزمایش کن","ارزیابی، بررسی و یادگیری"],["چیزی قابل استفاده بساز","Kotlin · Android · Python"]]
+      },
+      path:{
+        eyebrow:"مسیر کار",title:"چطور یادگیری را به پروژه تبدیل می‌کنم؟",
+        steps:[
+          ["۰۱ — مرحله اول","فهم مسئله","اول خود مسئله را می‌فهمم: قرار است چه چیزی حل شود، چه اطلاعاتی در اختیار داریم، چه چیزهایی کم است و یک نتیجه خوب واقعاً چه معنایی دارد. بعد ایده را به بخش‌های کوچک‌تر و قابل آزمایش تقسیم می‌کنم.",["حل مسئله","آماده‌سازی داده","آمار"]],
+          ["۰۲ — مرحله دوم","آزمایش","وقتی مسئله روشن شد، نوبت آزمایش است؛ از تحلیل اکتشافی و مهندسی ویژگی گرفته تا آموزش مدل، مقایسه رویکردها و بررسی اینکه یک ایده واقعاً جواب می‌دهد یا نه. برایم فهمیدن نتیجه مهم‌تر از دنبال‌کردن یک عدد است.",["Python","یادگیری ماشین","ارزیابی مدل"]],
+          ["۰۳ — مرحله سوم","ساختن","در نهایت نتیجه باید به نرم‌افزار تبدیل شود؛ یک اپلیکیشن اندرویدی، API، داشبورد یا ابزار کوچک. بخش جذاب کار برای من جایی است که ایده از نوت‌بوک بیرون می‌آید و تبدیل به چیزی می‌شود که می‌توان واقعاً از آن استفاده کرد.",["Kotlin","Android","API"]]
+        ]
+      },
+      focus:{
+        eyebrow:"تمرکز اصلی",title:"در چه زمینه‌هایی دارم عمیق‌تر می‌شوم؟",
+        rows:[
+          ["علم داده","دارم پایه علم داده را با Python، Pandas، NumPy، آمار، تحلیل اکتشافی و مصورسازی تقویت می‌کنم. برای من قبل از رفتن سراغ مدل‌سازی، شناخت درست داده مهم است؛ تمیزکردن داده، بررسی الگوها و پیدا کردن سؤال‌های بهتر.","داده → بررسی → درک"],
+          ["یادگیری ماشین","یادگیری ماشین را بیشتر از مسیر پروژه تمرین می‌کنم: آماده‌سازی ویژگی‌ها، آموزش مدل، مقایسه رویکردها و بررسی رفتار پیش‌بینی‌ها. علاوه بر نتیجه، به عملکرد مدل، محدودیت‌ها و دلیل پشت نتیجه هم اهمیت می‌دهم.","ویژگی → آموزش → ارزیابی"],
+          ["یادگیری ماشین کاربردی","به مسئله‌هایی علاقه دارم که مدل در خدمت یک سؤال واقعی قرار می‌گیرد. یکی از نمونه‌ها پروژه پیش‌بینی آلزایمر من است که در آن روی آماده‌سازی داده واقعی، انتخاب ویژگی‌ها، آزمایش مدل‌های پیش‌بینی و ارزیابی رفتار مدل کار کردم.","داده → ویژگی → پیش‌بینی"]
+        ]
+      },
+      pipeline:{
+        eyebrow:"فرآیند داده",title:"از سؤال تا نتیجه قابل استفاده.",stages:["داده","تحلیل","مدل","خروجی"],
+        notes:[
+          ["داده","هر پروژه با فهمیدن مسئله، اطلاعات موجود و تعریف یک نتیجه مفید شروع می‌شود؛ بعد سراغ آماده‌سازی داده و شناخت ساختار آن می‌روم."],
+          ["تحلیل","در قدم بعد داده را بررسی می‌کنم: توزیع‌ها، ارتباط‌ها، داده‌های ناقص، نقاط پرت و الگوها. اینجا جایی است که می‌توان فرضیات را قبل از اعتماد به مدل بررسی کرد."],
+          ["مدل","وقتی مدل‌سازی منطقی باشد، ویژگی‌ها را آماده می‌کنم، مدل‌ها را آموزش می‌دهم، رویکردها را مقایسه می‌کنم و خطاها را بررسی می‌کنم تا مشخص شود مدل چه چیزی یاد گرفته و کجا محدودیت دارد."],
+          ["خروجی","در پایان نتیجه باید قابل استفاده باشد؛ از طریق یک اپلیکیشن، API، داشبورد، گزارش یا هر نرم‌افزاری که حول مسئله اصلی ساخته شده باشد."]
+        ],labels:["مسئله","بررسی","آزمایش","استفاده"]
+      },
+      work:{
+        eyebrow:"پروژه‌های منتخب",title:"پروژه‌هایی که ساخته‌ام",all:"شروع یک گفت‌وگو",
+        desc:[
+          "یک اپلیکیشن اندرویدی برای مدیریت زمان مصرف دارو، یادآوری‌ها و برنامه‌های روزمره که با یک لایه داده محلی ساختاریافته و یک جریان کاری ساده و کاربردی طراحی شده است.",
+          "یک اپلیکیشن فلش‌کارت برای تمرین ساختاری واژگان، با کتاب‌ها، پوشه‌ها و جریان‌های مرور که هدفش منظم‌تر و قابل‌تداوم‌تر کردن یادگیری است."
+        ],years:["اندروید · ۱۴۰۵","اندروید · ۱۴۰۵"]
+      },
+      toolkit:{eyebrow:"ابزارها",title:"ابزارهایی که با آن‌ها مسیرم را می‌سازم.",groups:["داده","یادگیری ماشین","توسعه","ابزارهای مهندسی"]},
+      education:{eyebrow:"تحصیلات",title:"پایه این مسیر از کجا می‌آید؟",lead:"دانشجوی مهندسی نرم‌افزار هستم و تلاش می‌کنم پایه دانشگاهی را به مهارت عملی تبدیل کنم. در کنار دانشگاه، روی اپلیکیشن‌های اندرویدی، Python و داده کار کرده‌ام و به‌تدریج تمرکز بیشتری روی یادگیری ماشین و تحلیل کاربردی گذاشته‌ام.",now:"تمرکز فعلی",practice:"هم‌زمان · تمرین عملی",learning:"یادگیری با ساختن",practiceText:"ساخت پروژه‌های نرم‌افزاری در کنار تقویت پایه‌ها در تحلیل داده، یادگیری ماشین، توسعه اندروید و مهندسی نرم‌افزار."},
+      about:{eyebrow:"درباره من / فلسفه کاری",title:"یادگیری با<br />ساختن.",lead:"دانشجوی مهندسی نرم‌افزار هستم و در مسیر تخصصی‌تر شدن در علم داده و یادگیری ماشین، ساخت نرم‌افزار واقعی را هم ادامه می‌دهم. برای من این‌ها مسیرهای جدا نیستند؛ فهم مسئله، کار با داده، نوشتن کد و ساختن چیزی قابل استفاده، بخش‌های مختلف یک فرآیند واحد هستند.",principles:[["برای یادگیری بساز","پروژه باعث می‌شود از آموزش صرف عبور کنم و واقعاً بفهمم یک چیز چطور کار می‌کند."],["قبل از بهینه‌سازی، مسئله را بفهم","نتیجه بهتر از مسئله واضح‌تر و فرضیات تمیزتر شروع می‌شود."],["در آزمایش صادق بمان","عدد و معیار مهم‌اند، اما فهم داده، خطاها و محدودیت‌ها هم به همان اندازه مهم است."],["نتیجه را به نرم‌افزار تبدیل کن","یادگیری زمانی ارزش بیشتری پیدا می‌کند که در نهایت به چیزی قابل استفاده تبدیل شود."]]},
+      contact:{eyebrow:"ارتباط با من",title:"بیایید<br />گفت‌وگو کنیم.",lead:"برای گفت‌وگوهای فنی، ایده‌های پروژه، همکاری و فرصت‌هایی که در نقطه اتصال نرم‌افزار و داده قرار می‌گیرند، آماده‌ام.",name:"نام",namePlaceholder:"نام شما",message:"پیام",messagePlaceholder:"درباره چه چیزی می‌خواهید صحبت کنیم؟",send:"ارسال پیام",sending:"در حال ارسال…",sent:"پیام ارسال شد",privacy:"پیام شما مستقیماً به صندوق ورودی اشکان می‌رود و در سایت منتشر نمی‌شود.",errors:{nameRequired:"لطفاً نام خود را وارد کنید.",nameLong:"نام باید حداکثر ۸۰ کاراکتر باشد.",messageRequired:"لطفاً یک پیام کوتاه بنویسید.",messageLong:"پیام باید حداکثر ۲۰۰۰ کاراکتر باشد."},success:"پیام با موفقیت ارسال شد.",successText:"ممنون که پیام دادید؛ در اولین فرصت پاسخ خواهم داد.",fail:"خطایی رخ داد. دوباره تلاش کنید.",failText:"در حال حاضر پیام ارسال نشد. می‌توانید مستقیماً به netblag.dev@gmail.com ایمیل بزنید."},
+      footer:{lead:"مهندسی نرم‌افزار، علم داده و نرم‌افزار کاربردی — ساخته‌شده با پروژه‌های واقعی و یادگیری مداوم.",navigate:"دسترسی",elsewhere:"لینک‌ها",bottom:"همیشه در حال یادگیری. همیشه در حال ساختن.",rights:"تمامی حقوق محفوظ است."}
+    }
+  };
+
+  function setText(el,value,asHTML){
+    if(!el)return;
+    if(asHTML) el.innerHTML=value;
+    else el.textContent=value;
+  }
+
+  function setLanguage(lang){
+    var t=T[lang]||T.en;
+    root.setAttribute("data-lang",lang);
+    root.setAttribute("lang",lang);
+    root.setAttribute("dir","ltr");
+    document.title=t.title;
+    var desc=document.querySelector('meta[name="description"]');
+    if(desc) desc.setAttribute("content",t.description);
+    if(langButton){
+      langButton.textContent=lang==="fa"?"EN":"FA";
+      langButton.setAttribute("aria-pressed",lang==="fa"?"true":"false");
+      langButton.setAttribute("aria-label",lang==="fa"?"Switch to English":"Switch to Persian");
+      langButton.title=lang==="fa"?"English":"فارسی";
+    }
+
+    var nav=document.querySelectorAll('.nav__links a');
+    nav.forEach(function(el,i){if(t.nav[i])setText(el,t.nav[i]);});
+    var sheet=document.querySelectorAll('.sheet ul li a');
+    sheet.forEach(function(el,i){
+      var span=el.querySelector('span');
+      if(!span)return;
+      el.firstChild.nodeValue=t.nav[i]+' ';
+    });
+    var menu=document.getElementById('menuBtn');
+    if(menu){
+      var label=menu.querySelector('.menu-label');
+      if(label)label.textContent=t.menu;
+    }
+
+    setText(document.querySelector('.hero .status'),'<i aria-hidden="true"></i> '+t.hero.status,true);
+    setText(document.querySelector('.hero .eyebrow'),'<i aria-hidden="true"></i> '+t.hero.eyebrow,true);
+    setText(document.querySelector('.hero__title'),t.hero.title,true);
+    setText(document.querySelector('.hero__lead'),t.hero.lead);
+    var tags=document.querySelectorAll('.hero__tags .t');
+    tags.forEach(function(el,i){if(t.hero.tags[i])setText(el,t.hero.tags[i]);});
+    setText(document.querySelector('.hero__cta .btn--primary'),t.hero.project+' <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7l10 10M17 9v8H9"/></svg>',true);
+    setText(document.querySelector('.hero__cta .link-arrow'),t.hero.talk+' <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>',true);
+    setText(document.querySelector('.strip__l span'),t.hero.strip);
+    setText(document.querySelector('.strip__r > span:first-child'),t.hero.scroll);
+
+    var pos=document.getElementById('positioning');
+    setText(pos.querySelector('.section__head .eyebrow'),'<i aria-hidden="true"></i> '+t.position.eyebrow,true);
+    setText(pos.querySelector('.pos__big'),t.position.title,true);
+    setText(pos.querySelector('.pos__quote'),t.position.quote);
+    setText(pos.querySelector('.pos__grid .lead'),t.position.lead);
+    pos.querySelectorAll('.pillars li').forEach(function(li,i){
+      if(!t.position.pillars[i])return;
+      setText(li.querySelector('b'),t.position.pillars[i][0]);
+      setText(li.querySelector('span'),t.position.pillars[i][1]);
+    });
+
+    var path=document.getElementById('path');
+    setText(path.querySelector('.section__head .eyebrow'),'<i aria-hidden="true"></i> '+t.path.eyebrow,true);
+    setText(path.querySelector('.h2'),t.path.title);
+    path.querySelectorAll('.step').forEach(function(step,i){
+      var d=t.path.steps[i];if(!d)return;
+      setText(step.querySelector('.step__k .n'),d[0]);
+      setText(step.querySelector('.step__k h3'),d[1]);
+      setText(step.querySelector('.step__b p'),d[2]);
+      step.querySelectorAll('.chip').forEach(function(c,j){if(d[3][j])setText(c,d[3][j]);});
+    });
+
+    var focus=document.getElementById('focus');
+    setText(focus.querySelector('.section__head .eyebrow'),'<i aria-hidden="true"></i> '+t.focus.eyebrow,true);
+    setText(focus.querySelector('.h2'),t.focus.title);
+    focus.querySelectorAll('.focus__row').forEach(function(row,i){
+      var d=t.focus.rows[i];if(!d)return;
+      setText(row.querySelector('.focus__btn span:nth-child(2)'),d[0]);
+      setText(row.querySelector('.focus__inner p'),d[1]);
+      setText(row.querySelector('.spark small'),d[2]);
+    });
+
+    var pipe=document.getElementById('pipeline');
+    setText(pipe.querySelector('.section__head .eyebrow'),'<i aria-hidden="true"></i> '+t.pipeline.eyebrow,true);
+    setText(pipe.querySelector('.h2'),t.pipeline.title);
+    pipe.querySelectorAll('.pipe__stage').forEach(function(btn,i){
+      setText(btn.querySelector('b'),t.pipeline.stages[i]);
+    });
+    pipe.querySelectorAll('.pipe__viz text').forEach(function(el,i){if(t.pipeline.labels[i])setText(el,t.pipeline.labels[i]);});
+
+    var work=document.getElementById('work');
+    setText(work.querySelector('.section__head .eyebrow'),'<i aria-hidden="true"></i> '+t.work.eyebrow,true);
+    setText(work.querySelector('.h2'),t.work.title);
+    setText(work.querySelector('.section__head .link-arrow'),t.work.all+' <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>',true);
+    work.querySelectorAll('.card').forEach(function(card,i){
+      if(t.work.years[i])setText(card.querySelector('.card__year'),t.work.years[i]);
+      if(t.work.desc[i])setText(card.querySelector('.card__body > p'),t.work.desc[i]);
+    });
+
+    var stack=document.getElementById('stack');
+    setText(stack.querySelector('.section__head .eyebrow'),'<i aria-hidden="true"></i> '+t.toolkit.eyebrow,true);
+    setText(stack.querySelector('.h2'),t.toolkit.title);
+    stack.querySelectorAll('.tools__col h3').forEach(function(el,i){if(t.toolkit.groups[i])setText(el,t.toolkit.groups[i]);});
+
+    var edu=document.getElementById('education');
+    setText(edu.querySelector('.section__head .eyebrow'),'<i aria-hidden="true"></i> '+t.education.eyebrow,true);
+    setText(edu.querySelector('.h2'),t.education.title);
+    setText(edu.querySelector('.edu > div:first-child .lead'),t.education.lead);
+    setText(edu.querySelector('.tl__box small'),t.education.now);
+    setText(edu.querySelector('.tl__item:nth-child(2) .tl__when'),t.education.practice);
+    setText(edu.querySelector('.tl__item:nth-child(2) h3'),t.education.learning);
+    setText(edu.querySelector('.tl__item:nth-child(2) > p:last-child'),t.education.practiceText);
+    if(lang==='fa') setText(edu.querySelector('.tl__item.is-now h3'),'مهندسی نرم‌افزار');
+    else setText(edu.querySelector('.tl__item.is-now h3'),'Software Engineering');
+    if(lang==='fa') setText(edu.querySelector('.tl__item.is-now > p:not(.tl__when)'),'مقطع کارشناسی');
+    else setText(edu.querySelector('.tl__item.is-now > p:not(.tl__when)'),'Bachelor’s degree');
+
+    var about=document.getElementById('about');
+    setText(about.querySelector('.section__head .eyebrow'),'<i aria-hidden="true"></i> '+t.about.eyebrow,true);
+    setText(about.querySelector('.about__big'),t.about.title,true);
+    setText(about.querySelector('.about__grid .lead'),t.about.lead);
+    about.querySelectorAll('.principles li').forEach(function(li,i){
+      var d=t.about.principles[i];if(!d)return;
+      setText(li.querySelector('b'),d[0]);setText(li.querySelector('span'),d[1]);
+    });
+
+    var contact=document.getElementById('contact');
+    setText(contact.querySelector('.section__head .eyebrow'),'<i aria-hidden="true"></i> '+t.contact.eyebrow,true);
+    setText(contact.querySelector('.contact__title'),t.contact.title,true);
+    setText(contact.querySelector('.contact > div > .lead'),t.contact.lead);
+    var nl=document.querySelector('label[for="name"]');
+    var ml=document.querySelector('label[for="message"]');
+    if(nl)nl.firstChild.nodeValue=t.contact.name+' ';
+    if(ml)ml.firstChild.nodeValue=t.contact.message+' ';
+    var ni=document.getElementById('name');var mi=document.getElementById('message');
+    if(ni)ni.placeholder=t.contact.namePlaceholder;
+    if(mi)mi.placeholder=t.contact.messagePlaceholder;
+    setText(document.getElementById('btnLabel'),t.contact.send);
+    var privacy=contact.querySelector('.form__foot small');if(privacy)setText(privacy,t.contact.privacy);
+
+    var footer=document.querySelector('.footer');
+    setText(footer.querySelector('.footer__grid > div:first-child .lead'),t.footer.lead);
+    var fh=footer.querySelectorAll('.footer__grid h4');
+    if(fh[0])setText(fh[0],t.footer.navigate);
+    if(fh[1])setText(fh[1],t.footer.elsewhere);
+    var bottom=footer.querySelector('.footer__bottom');
+    if(bottom){
+      setText(bottom.querySelector('span:first-child'),'© '+new Date().getFullYear()+' Ashkan Ahmadi. '+t.footer.rights);
+      setText(bottom.querySelector('span:last-child'),t.footer.bottom);
+    }
+
+    /* Hero interactive labels */
+    var nodeTips=lang==='fa'?[
+      'مسئله|کار از یک مسئله واقعی شروع می‌شود، نه از یک تکنولوژی.',
+      'داده|داده را آماده می‌کنم، بررسی می‌کنم و ساختارش را می‌فهمم.',
+      'آزمایش|وقتی لازم باشد، مدل‌ها را می‌سازم و رفتارشان را ارزیابی می‌کنم.',
+      'نرم‌افزار|نتیجه را به چیزی تبدیل می‌کنم که بتوان از آن استفاده کرد.'
+    ]:[
+      'problem|start with a real problem, not a technology',
+      'data|prepare, explore and understand the information',
+      'experiment|build and evaluate models when they make sense',
+      'software|turn the result into something people can use'
+    ];
+    document.querySelectorAll('#hvNodes .node').forEach(function(n,i){
+      if(nodeTips[i]){
+        n.setAttribute('data-tip',nodeTips[i]);
+        var parts=nodeTips[i].split('|');
+        n.setAttribute('aria-label',parts[0]+': '+parts[1]);
+      }
+    });
+
+    window.__aaLang=lang;
+    window.__aaTranslations=T;
+    var activePipeIndex=0;
+    try{
+      var selectedPipe=document.querySelector('.pipe__stage[aria-selected="true"]');
+      if(selectedPipe) activePipeIndex=parseInt(selectedPipe.getAttribute('data-stage')||'0',10);
+    }catch(e){}
+    var currentPipeNotes=t.pipeline.notes;
+    if(document.getElementById('pipeTitle')) document.getElementById('pipeTitle').textContent=currentPipeNotes[activePipeIndex][0];
+    if(document.getElementById('pipeText')) document.getElementById('pipeText').textContent=currentPipeNotes[activePipeIndex][1];
+    try{localStorage.setItem('aa-lang',lang);}catch(e){}
+  }
+
+  var lang='en';
+  try{
+    var saved=localStorage.getItem('aa-lang');
+    if(saved==='fa'||saved==='en')lang=saved;
+  }catch(e){}
+  setLanguage(lang);
+
+  if(langButton){
+    langButton.addEventListener('click',function(){
+      setLanguage((root.getAttribute('data-lang')||'en')==='fa'?'en':'fa');
+    });
+  }
+
+  /* Keep form messages synchronized with the selected language. */
+  var form=document.getElementById('contactForm');
+  if(form){
+    var nameEl=document.getElementById('name'),msgEl=document.getElementById('message');
+    var nameErr=document.getElementById('nameErr'),msgErr=document.getElementById('msgErr');
+    var btn=document.getElementById('submitBtn'),btnLabel=document.getElementById('btnLabel');
+    var sendingObserver=new MutationObserver(function(){
+      var t=(window.__aaTranslations||T).fa && window.__aaLang==='fa'?T.fa.contact:T.en.contact;
+      if(!btnLabel||!btn)return;
+      if(btn.disabled && document.querySelector('.spin')) btnLabel.textContent=t.sending;
+    });
+    if(btn)sendingObserver.observe(btn,{subtree:true,childList:true,characterData:true});
+    window.__aaGetFormText=function(){return window.__aaTranslations[window.__aaLang||'en'].contact;};
+  }
+})();
+</script>
+
 </body>
 </html>
