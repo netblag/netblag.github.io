@@ -2133,7 +2133,7 @@ var CONFIG = {
     var nameEl = $("#name"), msgEl = $("#message"), hpEl = $("#company");
     var nameErr = $("#nameErr"), msgErr = $("#msgErr");
     var nameCnt = $("#nameCnt"), msgCnt = $("#msgCnt");
-    var btn = $("#submitBtn"), btnLabel = $("#btnLabel"), btnIcon = $("#btnIcon");
+    var btn = $("#submitBtn"), btnLabel = $("#btnLabel");
     var alertBox = $("#formAlert");
     var sending = false;
 
@@ -2141,24 +2141,52 @@ var CONFIG = {
     var ICON = '<svg viewBox="0 0 24 24" aria-hidden="true" style="width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.8"><path d="M7 17 17 7M9 7h8v8"/></svg>';
     var SPIN = '<span class="spin" aria-hidden="true"></span>';
 
+    function formText() {
+      return window.__aaGetFormText
+        ? window.__aaGetFormText()
+        : {
+            sending: "Sending…",
+            send: "Send Message",
+            success: "Message sent successfully.",
+            successText: "Thank you for reaching out — I’ll get back to you soon.",
+            fail: "Something went wrong. Please try again.",
+            failText: "The message couldn’t be delivered right now. You can also email netblag.dev@gmail.com directly.",
+            errors: {
+              nameRequired: "Please enter your name.",
+              nameLong: "Name must be 80 characters or fewer.",
+              messageRequired: "Please write a short message.",
+              messageLong: "Message must be 2000 characters or fewer."
+            }
+          };
+    }
+
     function counters() {
       if (nameCnt) nameCnt.textContent = nameEl.value.trim().length + " / " + LABEL_MAX;
       if (msgCnt) msgCnt.textContent = msgEl.value.trim().length + " / " + MSG_MAX;
       if (nameCnt) nameCnt.classList.toggle("over", nameEl.value.trim().length > LABEL_MAX);
       if (msgCnt) msgCnt.classList.toggle("over", msgEl.value.trim().length > MSG_MAX);
     }
-    nameEl.addEventListener("input", function () { counters(); clearErr("name"); });
-    msgEl.addEventListener("input", function () { counters(); clearErr("message"); });
-    counters();
 
     function clearErr(which) {
-      if (which === "name") { nameErr.textContent = ""; nameEl.removeAttribute("aria-invalid"); }
-      else { msgErr.textContent = ""; msgEl.removeAttribute("aria-invalid"); }
+      if (which === "name") {
+        if (nameErr) nameErr.textContent = "";
+        if (nameEl) nameEl.removeAttribute("aria-invalid");
+      } else {
+        if (msgErr) msgErr.textContent = "";
+        if (msgEl) msgEl.removeAttribute("aria-invalid");
+      }
     }
-    function show(which, text) {
-      if (which === "name") { nameErr.textContent = text; nameEl.setAttribute("aria-invalid", "true"); }
-      else { msgErr.textContent = text; msgEl.setAttribute("aria-invalid", "true"); }
+
+    function showFieldError(which, text) {
+      if (which === "name") {
+        if (nameErr) nameErr.textContent = text;
+        if (nameEl) nameEl.setAttribute("aria-invalid", "true");
+      } else {
+        if (msgErr) msgErr.textContent = text;
+        if (msgEl) msgEl.setAttribute("aria-invalid", "true");
+      }
     }
+
     function showAlert(kind, title, text) {
       if (!alertBox) return;
       var icon = kind === "ok"
@@ -2167,48 +2195,68 @@ var CONFIG = {
       alertBox.className = "alert on " + (kind === "ok" ? "alert--ok" : "alert--bad");
       alertBox.innerHTML = icon + "<div><b>" + title + "</b><p>" + text + "</p></div>";
     }
-    function hideAlert() { if (alertBox) { alertBox.className = "alert"; alertBox.innerHTML = ""; } }
 
-    function validate() {
-      var ok = true, focusFirst = null;
-      var n = nameEl.value.trim(), m = msgEl.value.trim();
-      var ft = window.__aaGetFormText ? window.__aaGetFormText() : {errors:{nameRequired:"Please enter your name.",nameLong:"Name must be 80 characters or fewer.",messageRequired:"Please write a short message.",messageLong:"Message must be 2000 characters or fewer."}};
-      if (!n) { show("name", ft.errors.nameRequired); ok = false; focusFirst = focusFirst || nameEl; }
-      else if (n.length > LABEL_MAX) { show("name", ft.errors.nameLong); ok = false; focusFirst = focusFirst || nameEl; }
-      if (!m) { show("message", ft.errors.messageRequired); ok = false; focusFirst = focusFirst || msgEl; }
-      else if (m.length > MSG_MAX) { show("message", ft.errors.messageLong); ok = false; focusFirst = focusFirst || msgEl; }
-      if (focusFirst) focusFirst.focus();
-      return ok;
+    function hideAlert() {
+      if (alertBox) {
+        alertBox.className = "alert";
+        alertBox.innerHTML = "";
+      }
     }
 
-    function setState(state) {
-      var ft = window.__aaGetFormText ? window.__aaGetFormText() : {sending:"Sending…",sent:"Message Sent",send:"Send Message"};
+    function setButtonBusy(isBusy) {
+      if (!btn) return;
+      var ft = formText();
 
-      if (state === "sending") {
-        sending = true;
-        if (btn) {
-          btn.disabled = true;
+      // Do NOT disable the button. The internal `sending` flag prevents
+      // duplicate requests while keeping the UI clickable and recoverable.
+      btn.setAttribute("aria-busy", isBusy ? "true" : "false");
+      btn.classList.toggle("is-sending", isBusy);
+
+      if (btnLabel) btnLabel.textContent = isBusy ? ft.sending : ft.send;
+
+      if (isBusy) {
+        if (!btn.querySelector(".spin")) {
           var icon = btn.querySelector("svg");
           if (icon) icon.outerHTML = SPIN;
-          else if (!btn.querySelector(".spin")) btn.insertAdjacentHTML("beforeend", SPIN);
+          else btn.insertAdjacentHTML("beforeend", SPIN);
         }
-        if (btnLabel) btnLabel.textContent = ft.sending;
-        return;
-      }
-
-      // Every non-sending state must release the form immediately.
-      sending = false;
-      if (btn) btn.disabled = false;
-      if (btnLabel) btnLabel.textContent = ft.send;
-
-      if (btn) {
+      } else {
         var spin = btn.querySelector(".spin");
         if (spin) spin.outerHTML = ICON;
       }
     }
 
-    // ---- delivery: Supabase REST (RLS-protected anon insert) ----
-    // Never leave the form locked if the network request hangs.
+    function validate() {
+      var ok = true;
+      var focusFirst = null;
+      var n = nameEl.value.trim();
+      var m = msgEl.value.trim();
+      var ft = formText();
+
+      if (!n) {
+        showFieldError("name", ft.errors.nameRequired);
+        ok = false;
+        focusFirst = focusFirst || nameEl;
+      } else if (n.length > LABEL_MAX) {
+        showFieldError("name", ft.errors.nameLong);
+        ok = false;
+        focusFirst = focusFirst || nameEl;
+      }
+
+      if (!m) {
+        showFieldError("message", ft.errors.messageRequired);
+        ok = false;
+        focusFirst = focusFirst || msgEl;
+      } else if (m.length > MSG_MAX) {
+        showFieldError("message", ft.errors.messageLong);
+        ok = false;
+        focusFirst = focusFirst || msgEl;
+      }
+
+      if (focusFirst) focusFirst.focus();
+      return ok;
+    }
+
     function sendToSupabase(payload) {
       var url = CONFIG.supabaseUrl.replace(/\/+$/, "") + "/rest/v1/" + CONFIG.table;
       var controller = typeof AbortController !== "undefined" ? new AbortController() : null;
@@ -2251,29 +2299,35 @@ var CONFIG = {
         });
     }
 
-    function sendLocal(payload) {
-      try {
-        var box = JSON.parse(localStorage.getItem("aa-outbox") || "[]");
-        box.push({ payload: payload, at: new Date().toISOString() });
-        localStorage.setItem("aa-outbox", JSON.stringify(box.slice(-20)));
-      } catch (e) {}
-      return new Promise(function (res) {
-        window.setTimeout(function () { res({ ok: true, via: "local" }); }, 700);
-      });
-    }
+    nameEl.addEventListener("input", function () {
+      counters();
+      clearErr("name");
+    });
+
+    msgEl.addEventListener("input", function () {
+      counters();
+      clearErr("message");
+    });
+
+    counters();
+    setButtonBusy(false);
 
     form.addEventListener("submit", function (e) {
       e.preventDefault();
+
+      // Prevent only overlapping network requests.
       if (sending) return;
+
       hideAlert();
 
       // Honeypot: silently accept bots without writing anything.
       if (hpEl && hpEl.value.trim() !== "") {
-        var honeyText = window.__aaGetFormText ? window.__aaGetFormText() : {success:"Message sent successfully.",successText:"Thank you — I’ll get back to you soon."};
+        var honeyText = formText();
         showAlert("ok", honeyText.success, honeyText.successText);
         form.reset();
         counters();
-        setState("idle");
+        sending = false;
+        setButtonBusy(false);
         return;
       }
 
@@ -2284,17 +2338,18 @@ var CONFIG = {
         message: msgEl.value.trim()
       };
 
-      setState("sending");
+      sending = true;
+      setButtonBusy(true);
 
       sendToSupabase(payload)
         .then(function () {
-          var ft = window.__aaGetFormText ? window.__aaGetFormText() : {
-            success:"Message sent successfully.",
-            successText:"Thank you for reaching out — I’ll get back to you soon."
-          };
+          var ft = formText();
 
+          // Reset the form and unlock the UI BEFORE showing success.
           form.reset();
           counters();
+          sending = false;
+          setButtonBusy(false);
           showAlert("ok", ft.success, ft.successText);
         })
         .catch(function (err) {
@@ -2302,20 +2357,14 @@ var CONFIG = {
             console.warn("[contact]", err && err.message, err && err.detail);
           }
 
-          var ft = window.__aaGetFormText ? window.__aaGetFormText() : {
-            fail:"Something went wrong. Please try again.",
-            failText:"The message couldn’t be delivered right now. You can also email netblag.dev@gmail.com directly."
-          };
-
+          var ft = formText();
           var text = err && err.message === "supabase_timeout"
             ? "The request took too long. Please try again."
             : ft.failText;
 
+          sending = false;
+          setButtonBusy(false);
           showAlert("bad", ft.fail, text);
-        })
-        .finally(function () {
-          // Always unlock the form immediately after the request settles.
-          setState("idle");
         });
     });
   }
