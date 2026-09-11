@@ -2182,26 +2182,41 @@ var CONFIG = {
     }
 
     function setState(state) {
+      var ft = window.__aaGetFormText ? window.__aaGetFormText() : {sending:"Sending…",sent:"Message Sent",send:"Send Message"};
+
       if (state === "sending") {
         sending = true;
-        btn.disabled = true;
-        var ft = window.__aaGetFormText ? window.__aaGetFormText() : {sending:"Sending…",sent:"Message Sent",send:"Send Message"};
-        btnLabel.textContent = ft.sending;
-        btnIcon.outerHTML = SPIN;
-      } else {
-        sending = false;
-        btn.disabled = false;
-        var ft = window.__aaGetFormText ? window.__aaGetFormText() : {sending:"Sending…",sent:"Message Sent",send:"Send Message"};
-        btnLabel.textContent = state === "success" ? ft.sent : ft.send;
-        var spin = $(".spin", btn);
+        if (btn) {
+          btn.disabled = true;
+          var icon = btn.querySelector("svg");
+          if (icon) icon.outerHTML = SPIN;
+          else if (!btn.querySelector(".spin")) btn.insertAdjacentHTML("beforeend", SPIN);
+        }
+        if (btnLabel) btnLabel.textContent = ft.sending;
+        return;
+      }
+
+      // Every non-sending state must release the form immediately.
+      sending = false;
+      if (btn) btn.disabled = false;
+      if (btnLabel) btnLabel.textContent = ft.send;
+
+      if (btn) {
+        var spin = btn.querySelector(".spin");
         if (spin) spin.outerHTML = ICON;
       }
     }
 
     // ---- delivery: Supabase REST (RLS-protected anon insert) ----
+    // Never leave the form locked if the network request hangs.
     function sendToSupabase(payload) {
       var url = CONFIG.supabaseUrl.replace(/\/+$/, "") + "/rest/v1/" + CONFIG.table;
-      return fetch(url, {
+      var controller = typeof AbortController !== "undefined" ? new AbortController() : null;
+      var timer = window.setTimeout(function () {
+        if (controller) controller.abort();
+      }, 10000);
+
+      var options = {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -2210,14 +2225,30 @@ var CONFIG = {
           "Prefer": "return=minimal"
         },
         body: JSON.stringify([payload])
-      }).then(function (res) {
-        if (res.ok) return { ok: true, via: "supabase" };
-        return res.text().then(function (t) {
-          var err = new Error("supabase_" + res.status);
-          err.detail = t;
+      };
+
+      if (controller) options.signal = controller.signal;
+
+      return fetch(url, options)
+        .then(function (res) {
+          if (res.ok) return { ok: true, via: "supabase" };
+          return res.text().then(function (t) {
+            var err = new Error("supabase_" + res.status);
+            err.detail = t;
+            throw err;
+          });
+        })
+        .catch(function (err) {
+          if (err && err.name === "AbortError") {
+            var timeoutErr = new Error("supabase_timeout");
+            timeoutErr.detail = "The request timed out after 10 seconds.";
+            throw timeoutErr;
+          }
           throw err;
+        })
+        .finally(function () {
+          window.clearTimeout(timer);
         });
-      });
     }
 
     function sendLocal(payload) {
@@ -2236,33 +2267,56 @@ var CONFIG = {
       if (sending) return;
       hideAlert();
 
-      // honeypot — silently accept, never store
+      // Honeypot: silently accept bots without writing anything.
       if (hpEl && hpEl.value.trim() !== "") {
-        setState("success");
-        var ft = window.__aaGetFormText ? window.__aaGetFormText() : {success:"Message sent successfully.",successText:"Thank you — I’ll get back to you soon."};
-        showAlert("ok", ft.success, ft.successText);
-        form.reset(); counters();
+        var honeyText = window.__aaGetFormText ? window.__aaGetFormText() : {success:"Message sent successfully.",successText:"Thank you — I’ll get back to you soon."};
+        showAlert("ok", honeyText.success, honeyText.successText);
+        form.reset();
+        counters();
+        setState("idle");
         return;
       }
+
       if (!validate()) return;
 
-      var payload = { name: nameEl.value.trim(), message: msgEl.value.trim() };
+      var payload = {
+        name: nameEl.value.trim(),
+        message: msgEl.value.trim()
+      };
+
       setState("sending");
 
-      var chain = sendToSupabase(payload);
+      sendToSupabase(payload)
+        .then(function () {
+          var ft = window.__aaGetFormText ? window.__aaGetFormText() : {
+            success:"Message sent successfully.",
+            successText:"Thank you for reaching out — I’ll get back to you soon."
+          };
 
-      chain.then(function (r) {
-        setState("success");
-        var ft = window.__aaGetFormText ? window.__aaGetFormText() : {success:"Message sent successfully.",successText:"Thank you for reaching out — I’ll get back to you soon."};
-        showAlert("ok", ft.success, ft.successText);
-        form.reset(); counters();
-        window.setTimeout(function () { setState("idle"); }, 2600);
-      }).catch(function (err) {
-        if (window.console && console.warn) console.warn("[contact]", err && err.message, err && err.detail);
-        setState("idle");
-        var ft = window.__aaGetFormText ? window.__aaGetFormText() : {fail:"Something went wrong. Please try again.",failText:"The message couldn’t be delivered right now. You can also email netblag.dev@gmail.com directly."};
-        showAlert("bad", ft.fail, ft.failText);
-      });
+          form.reset();
+          counters();
+          showAlert("ok", ft.success, ft.successText);
+        })
+        .catch(function (err) {
+          if (window.console && console.warn) {
+            console.warn("[contact]", err && err.message, err && err.detail);
+          }
+
+          var ft = window.__aaGetFormText ? window.__aaGetFormText() : {
+            fail:"Something went wrong. Please try again.",
+            failText:"The message couldn’t be delivered right now. You can also email netblag.dev@gmail.com directly."
+          };
+
+          var text = err && err.message === "supabase_timeout"
+            ? "The request took too long. Please try again."
+            : ft.failText;
+
+          showAlert("bad", ft.fail, text);
+        })
+        .finally(function () {
+          // Always unlock the form immediately after the request settles.
+          setState("idle");
+        });
     });
   }
 
