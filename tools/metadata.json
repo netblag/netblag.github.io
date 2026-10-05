@@ -1,0 +1,6 @@
+{
+  "name": "Lexi Book Web",
+  "description": "سامانه سبک و کاربردی مدیریت فلش‌کارت‌ها و یادداشت‌های کتاب با قابلیت وارد کردن و خروجی گرفتن JSON و حالت مطالعه سه‌بعدی",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
